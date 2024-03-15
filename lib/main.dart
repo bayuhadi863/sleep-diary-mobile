@@ -40,6 +40,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(224, 238, 225, 1),
       body: pages[index],
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(20.0),
@@ -56,6 +57,7 @@ class _MainPageState extends State<MainPage> {
           ),
           child: NavigationBar(
             height: 60,
+            
             backgroundColor: Colors.transparent,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             selectedIndex: index,
