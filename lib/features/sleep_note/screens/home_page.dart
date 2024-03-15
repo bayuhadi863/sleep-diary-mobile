@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
       today = day;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +42,9 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: [
           Text(today.toString().split(" ")[0]),
-          const SizedBox(height: 20,),
+          const SizedBox(
+              // height: 20,     // Iki nggarai error
+              ),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
@@ -50,8 +53,8 @@ class _HomePageState extends State<HomePage> {
             child: TableCalendar(
               locale: "en_US",
               rowHeight: 43,
-              headerStyle:
-                  const HeaderStyle(formatButtonVisible: false, titleCentered: true),
+              headerStyle: const HeaderStyle(
+                  formatButtonVisible: false, titleCentered: true),
               availableGestures: AvailableGestures.all,
               selectedDayPredicate: (day) => isSameDay(day, today),
               focusedDay: today,
@@ -64,6 +67,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
   AspectRatio _header() {
     return AspectRatio(
       aspectRatio: 336 / 135,
