@@ -39,18 +39,46 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    // return Scaffold(
+    //     body: pages[index],
+    //     bottomNavigationBar: NavigationBarTheme(
+    //       data: NavigationBarThemeData(
+    //         indicatorColor: Colors.green,
+    //         labelTextStyle: MaterialStateProperty.all(
+    //           const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    //         ),
+    //       ),
+    //       child: NavigationBar(
+    //         height: 60,
+    //         backgroundColor: Colors.greenAccent,
+    //         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+    //         selectedIndex: index,
+    //         onDestinationSelected: (index) =>
+    //             setState(() => this.index = index),
+    //         destinations: const [
+    //           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+    //           NavigationDestination(icon: Icon(Icons.add), label: 'Home'),
+    //         ],
+    //       ),
+    //     ));
     return Scaffold(
-        body: pages[index],
-        bottomNavigationBar: NavigationBarTheme(
+      body: pages[index],
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.all(20.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.0),
+          color: const Color.fromARGB(255, 56, 239, 184),
+        ),
+        child: NavigationBarTheme(
           data: NavigationBarThemeData(
-            indicatorColor: Colors.green,
+            indicatorColor: const Color.fromARGB(255, 24, 85, 86),
             labelTextStyle: MaterialStateProperty.all(
               const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
           ),
           child: NavigationBar(
             height: 60,
-            backgroundColor: Colors.greenAccent,
+            backgroundColor: Colors.transparent,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             selectedIndex: index,
             onDestinationSelected: (index) =>
@@ -60,6 +88,8 @@ class _MainPageState extends State<MainPage> {
               NavigationDestination(icon: Icon(Icons.add), label: 'Home'),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
