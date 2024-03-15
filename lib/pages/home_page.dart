@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/widgets.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,6 +13,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  DateTime today = DateTime.now();
+  void _onDaySelected(DateTime day, DateTime focusedDay) {
+    setState(() {
+      today = day;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
@@ -23,9 +32,40 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(
           height: 17,
         ),
-        _header()
+        _header(),
+        content()
       ],
     )));
+  }
+
+  Widget content() {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          Text(today.toString().split(" ")[0]),
+          SizedBox(height: 20,),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              border: Border.all(),
+            ),
+            child: TableCalendar(
+              locale: "en_US",
+              rowHeight: 43,
+              headerStyle:
+                  HeaderStyle(formatButtonVisible: false, titleCentered: true),
+              availableGestures: AvailableGestures.all,
+              selectedDayPredicate: (day) => isSameDay(day, today),
+              focusedDay: today,
+              firstDay: DateTime.utc(2010, 10, 16),
+              lastDay: DateTime.utc(20230, 3, 14),
+              onDaySelected: _onDaySelected,
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   AspectRatio _header() {
@@ -41,14 +81,16 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: const Text("Halo", style: TextStyle(),)),
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: const Text(
+                  "Halo",
+                  style: TextStyle(),
+                )),
             Image.asset('assets/images/bulan.png'),
-            
           ],
         ),
       ),
-    );  
+    );
   }
 
   Padding _greetings() {
