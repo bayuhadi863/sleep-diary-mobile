@@ -16,26 +16,23 @@ class _HomePageState extends State<HomePage> {
       today = day;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(224, 238, 225, 1),
         body: SafeArea(
             child: Column(
-          children: [
-            const SizedBox(
-              height: 22,
-            ),
-            _greetings(),
-            const SizedBox(
-              height: 17,
-            ),
-            _header(),
-            content(),
-            _card()
-          ],
-        )));
+      children: [
+        const SizedBox(
+          height: 22,
+        ),
+        _greetings(),
+        const SizedBox(
+          height: 17,
+        ),
+        _header(),
+        content(),
+      ],
+    )));
   }
 
   Widget content() {
@@ -44,9 +41,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: [
           Text(today.toString().split(" ")[0]),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20,),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
@@ -55,8 +50,8 @@ class _HomePageState extends State<HomePage> {
             child: TableCalendar(
               locale: "en_US",
               rowHeight: 43,
-              headerStyle: const HeaderStyle(
-                  formatButtonVisible: false, titleCentered: true),
+              headerStyle:
+                  const HeaderStyle(formatButtonVisible: false, titleCentered: true),
               availableGestures: AvailableGestures.all,
               selectedDayPredicate: (day) => isSameDay(day, today),
               focusedDay: today,
@@ -69,15 +64,14 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
   AspectRatio _header() {
     return AspectRatio(
-      aspectRatio: 336 / 100,
+      aspectRatio: 336 / 135,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: const Color.fromRGBO(224, 238, 225, 1),
+          color: const Color.fromARGB(255, 121, 60, 60),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,35 +79,10 @@ class _HomePageState extends State<HomePage> {
             Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: const Text(
-                  "Unlock Better Sleep",
+                  "Halo",
                   style: TextStyle(),
                 )),
             Image.asset('assets/images/bulan.png'),
-          ],
-        ),
-      ),
-    );
-  }
-
-  AspectRatio _card() {
-    return AspectRatio(
-      aspectRatio: 336 / 70,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: const Color.fromRGBO(81, 180, 88, 1),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                alignment: Alignment.topLeft,
-                child: const Text(
-                  "Jumat 15-03-2024",
-                  style: TextStyle(fontSize: 16),
-                )),       
           ],
         ),
       ),

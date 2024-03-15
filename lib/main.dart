@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sleep_diary_mobile/pages/add_sleep_page.dart';
-import 'package:sleep_diary_mobile/pages/home_page.dart';
+import 'package:sleep_diary_mobile/features/sleep_note/screens/add_sleep_page.dart';
+import 'package:sleep_diary_mobile/features/sleep_note/screens/home_page.dart';
 
 void main() {
   runApp(const MyApp());
