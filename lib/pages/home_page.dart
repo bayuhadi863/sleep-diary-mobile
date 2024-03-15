@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
             ),
             _header(),
             content(),
-            _card()
+            _card(),
           ],
         )));
   }
