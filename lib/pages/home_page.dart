@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:feather_icons/feather_icons.dart';
-import 'package:flutter/widgets.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,14 +10,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
   DateTime today = DateTime.now();
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       today = day;
     });
   }
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
@@ -44,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: [
           Text(today.toString().split(" ")[0]),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
@@ -54,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               locale: "en_US",
               rowHeight: 43,
               headerStyle:
-                  HeaderStyle(formatButtonVisible: false, titleCentered: true),
+                  const HeaderStyle(formatButtonVisible: false, titleCentered: true),
               availableGestures: AvailableGestures.all,
               selectedDayPredicate: (day) => isSameDay(day, today),
               focusedDay: today,
@@ -67,7 +64,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
   AspectRatio _header() {
     return AspectRatio(
       aspectRatio: 336 / 135,
@@ -81,7 +77,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: const Text(
                   "Halo",
                   style: TextStyle(),

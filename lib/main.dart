@@ -39,28 +39,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //     body: pages[index],
-    //     bottomNavigationBar: NavigationBarTheme(
-    //       data: NavigationBarThemeData(
-    //         indicatorColor: Colors.green,
-    //         labelTextStyle: MaterialStateProperty.all(
-    //           const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-    //         ),
-    //       ),
-    //       child: NavigationBar(
-    //         height: 60,
-    //         backgroundColor: Colors.greenAccent,
-    //         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-    //         selectedIndex: index,
-    //         onDestinationSelected: (index) =>
-    //             setState(() => this.index = index),
-    //         destinations: const [
-    //           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-    //           NavigationDestination(icon: Icon(Icons.add), label: 'Home'),
-    //         ],
-    //       ),
-    //     ));
     return Scaffold(
       body: pages[index],
       bottomNavigationBar: Container(
