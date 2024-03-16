@@ -11,7 +11,7 @@ import 'package:sleep_diary_mobile/firebase_options.dart';
 Future<void> main() async {
   final WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized();
-      
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then(
     (FirebaseApp value) => Get.put(AuthenticationRepository()),
@@ -82,7 +82,6 @@ class _MainPageState extends State<MainPage> {
           ),
           child: NavigationBar(
             height: 60,
-            
             backgroundColor: Colors.transparent,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             selectedIndex: index,
