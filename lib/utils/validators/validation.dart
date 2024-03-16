@@ -17,7 +17,7 @@ class TValidator {
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Password is required.';
-    } 
+    }
 
     // Check for minimum password length
     if (value.length < 8) {
@@ -52,6 +52,14 @@ class TValidator {
 
     if (!nameRegExp.hasMatch(value)) {
       return 'Invalid name.';
+    }
+
+    return null;
+  }
+
+  static String? validateEmptyText(String? fieldName, String? value) {
+    if (value == null || value.isEmpty) {
+      return '$fieldName is required';
     }
 
     return null;

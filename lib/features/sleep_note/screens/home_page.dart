@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:feather_icons/feather_icons.dart';
+import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HomePage extends StatefulWidget {
@@ -108,12 +109,13 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                 alignment: Alignment.topLeft,
                 child: const Text(
                   "Jumat 15-03-2024",
                   style: TextStyle(fontSize: 16),
-                )),       
+                )),
           ],
         ),
       ),
@@ -128,6 +130,10 @@ class _HomePageState extends State<HomePage> {
         children: [
           const Text('Hello, Argya!',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
+          TextButton(
+            onPressed: () => AuthenticationRepository.instance.logout(),
+            child: const Text('Logout'),
+          ),
           IconButton(onPressed: () {}, icon: const Icon(FeatherIcons.user)),
         ],
       ),

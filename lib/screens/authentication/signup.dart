@@ -48,13 +48,15 @@ class SignupScreen extends StatelessWidget {
                             TValidator.validatePassword(value),
                         obscureText: controller.hidePassword.value,
                         decoration: InputDecoration(
-                            labelText: 'Masukkan password',
-                            suffixIcon: IconButton(
-                                onPressed: () => controller.hidePassword.value =
-                                    !controller.hidePassword.value,
-                                icon: Icon(controller.hidePassword.value
-                                    ? FeatherIcons.eyeOff
-                                    : FeatherIcons.eye))),
+                          labelText: 'Masukkan password',
+                          suffixIcon: IconButton(
+                            onPressed: () => controller.hidePassword.value =
+                                !controller.hidePassword.value,
+                            icon: Icon(controller.hidePassword.value
+                                ? FeatherIcons.eyeOff
+                                : FeatherIcons.eye),
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(
