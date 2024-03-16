@@ -20,20 +20,22 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: Column(
-      children: [
-        const SizedBox(
-          height: 22,
-        ),
-        _greetings(),
-        const SizedBox(
-          height: 17,
-        ),
-        _header(),
-        content()
-      ],
-    )));
+        body: SingleChildScrollView(
+      child: SafeArea(
+          child: Column(
+        children: [
+          const SizedBox(
+            height: 22,
+          ),
+          _greetings(),
+          const SizedBox(
+            height: 17,
+          ),
+          _header(),
+          content()
+        ],
+      )),
+    ));
   }
 
   Widget content() {
@@ -41,10 +43,10 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          Text(today.toString().split(" ")[0]),
-          const SizedBox(
-              // height: 20,     // Iki nggarai error
-              ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(today.toString().split(" ")[0]),
+          ),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
