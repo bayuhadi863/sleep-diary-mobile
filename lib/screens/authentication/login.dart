@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sleep_diary_mobile/features/authentication/screens/signup/signup.dart';
+import 'package:sleep_diary_mobile/screens/authentication/signup.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

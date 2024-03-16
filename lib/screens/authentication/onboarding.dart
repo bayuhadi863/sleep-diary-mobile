@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sleep_diary_mobile/features/authentication/controllers/onboarding/onboarding_controller.dart';
+import 'package:sleep_diary_mobile/controllers/authentication/onboarding_controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatelessWidget {

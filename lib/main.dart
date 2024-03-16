@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:sleep_diary_mobile/data/repositories/authentication/authentication_repository.dart';
+import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/features/sleep_note/screens/add_sleep_page.dart';
 import 'package:sleep_diary_mobile/features/sleep_note/screens/home_page.dart';
 import 'package:sleep_diary_mobile/firebase_options.dart';
@@ -11,6 +11,7 @@ import 'package:sleep_diary_mobile/firebase_options.dart';
 Future<void> main() async {
   final WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized();
+      
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then(
     (FirebaseApp value) => Get.put(AuthenticationRepository()),
