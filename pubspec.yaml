@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: ^0.19.0
+  numberpicker: ^2.1.2
 
   feather_icons: ^1.2.0
 

@@ -73,7 +73,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
 
   Widget _addTime() {
     return AspectRatio(
-      aspectRatio: 336 / 250,
+      aspectRatio: 336 / 300,
       child: Column(
         children: [
           const Text("Pilih jam tidurmu"),
