@@ -21,8 +21,11 @@ class LoginController extends GetxController {
       }
 
       // Login user using email & password
-      final userCredentials = await AuthenticationRepository.instance
+      final userCredential = await AuthenticationRepository.instance
           .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+
+      TLoaders.successSnackBar(
+          title: "Login success", message: 'Mari catat tidurmu!');
 
       // redirect
       AuthenticationRepository.instance.screenRedirect();
