@@ -23,7 +23,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
         child: Column(
           children: [
             const SizedBox(
-              height: 20,
+              height: 52,
             ),
             _date(),
             const SizedBox(
