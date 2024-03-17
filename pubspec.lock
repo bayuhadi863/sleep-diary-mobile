@@ -227,9 +227,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-  infinite_listview:
-=======
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -275,8 +272,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.7"
-  intl:
->>>>>>> 1d014c10481925205a1da35ae9d2a1a118693907
+  infinite_listview:
     dependency: transitive
     description:
       name: infinite_listview

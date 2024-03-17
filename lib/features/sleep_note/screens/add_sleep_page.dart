@@ -19,7 +19,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(224, 238, 225, 1),
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(
@@ -267,7 +267,6 @@ class _AddSleepPageState extends State<AddSleepPage> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15), color: Colors.white24),
           child: Column(children: [
-            
             const Text(
               "Faktor",
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
@@ -283,7 +282,6 @@ class _AddSleepPageState extends State<AddSleepPage> {
                     height: 50,
                     width: 50,
                   ),
-                  
                 ),
                 InkWell(
                   splashColor: Colors.black26,
