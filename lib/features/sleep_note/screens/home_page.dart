@@ -20,6 +20,23 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<void> _selectDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: today,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2030),
+      cancelText: 'Cancel',
+      confirmText: 'OK',
+      helpText: 'Select date',
+    );
+    if (picked != null && picked != today) {
+      setState(() {
+        today = picked;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,15 +76,26 @@ class _HomePageState extends State<HomePage> {
               locale: "en_US",
               rowHeight: 43,
               headerStyle: const HeaderStyle(
-                  formatButtonVisible: false, titleCentered: true),
+                formatButtonVisible: false,
+                titleCentered: true,
+              ),
               availableGestures: AvailableGestures.all,
               selectedDayPredicate: (day) => isSameDay(day, today),
               focusedDay: today,
               firstDay: DateTime.utc(2010, 10, 16),
-              lastDay: DateTime.utc(20230, 3, 14),
+              lastDay: DateTime.utc(2030, 3, 14),
               onDaySelected: _onDaySelected,
             ),
-          )
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          MaterialButton(
+            onPressed: _selectDate,
+            color: Colors.blue,
+            textColor: Colors.white,
+            child: const Text('Milih manual bos'),
+          ),
         ],
       ),
     );
@@ -132,46 +160,8 @@ class _HomePageState extends State<HomePage> {
         children: [
           const Text('Hello, Argya!',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
-//           IconButton(
-//             onPressed:
-//                 () {}, 
-//             icon: PopUpMenu(
-//               menuList: [
-//                 PopupMenuItem(
-//                   child: ListTile(
-//                     leading: Icon(
-//                       CupertinoIcons.person,
-//                     ),
-//                     title: Text("My Profile"),
-//                   ),
-//                 ),
-//                  onPressed: () {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(builder: (context) => MyProfilePage()),
-//     );
-//   },
-// ),
-//                 PopupMenuDivider(),
-//                 PopupMenuItem(
-//                   child: ListTile(
-//                     leading: Icon(Icons.logout),
-//                     title: TextButton(
-//                       onPressed: () =>
-//                           AuthenticationRepository.instance.logout(),
-//                       child: const Text(
-//                         'Logout',
-//                         style: TextStyle(color: Colors.black),
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
           IconButton(
-            onPressed:
-                () {},
+            onPressed: () {},
             icon: PopUpMenu(
               menuList: [
                 PopupMenuItem(
