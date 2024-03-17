@@ -122,7 +122,10 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   ],
                 ),
               ),
-              Text("-"),
+              const Text(
+                "-",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+              ),
               Container(
                 child: Row(
                   children: [
@@ -204,7 +207,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/18.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -214,7 +217,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/19.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -224,7 +227,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/20.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -234,7 +237,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/2.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -244,7 +247,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/1.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -270,6 +273,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
             const Text(
               "Faktor",
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+              textAlign: TextAlign.start,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -278,7 +282,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/lingkungan.png'),
                     height: 50,
                     width: 50,
                   ),
@@ -287,7 +291,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/stress.png'),
                     height: 50,
                     width: 50,
                   ),
@@ -296,7 +300,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/sakit.png'),
                     height: 50,
                     width: 50,
                   ),
@@ -305,7 +309,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/gelisah.png'),
                     height: 50,
                     width: 50,
                   ),
@@ -314,11 +318,12 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/terbangun.png'),
                     height: 50,
                     width: 50,
                   ),
                 ),
+                
               ],
             ),
           ])),
