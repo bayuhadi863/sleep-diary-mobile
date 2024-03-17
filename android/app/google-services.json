@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "560416287307",
+    "project_id": "sleepdiary-c7e7f",
+    "storage_bucket": "sleepdiary-c7e7f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560416287307:android:2720a4445af8a18999fbce",
+        "android_client_info": {
+          "package_name": "com.example.sleep_diary_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2TyCxLrvu9zeeCJ07h-wDfG_s9hLvVPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
