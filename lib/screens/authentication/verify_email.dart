@@ -12,32 +12,64 @@ class VerifyEmailScreen extends StatelessWidget {
     final controller = Get.put(VerifyEmailController());
 
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Verify your email address'),
-          Text(email != null ? "We've send email verification to $email" : ''),
-          const SizedBox(
-            height: 20.0,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () => controller.checkEmailVerificationStatus(),
-              child: const Text('Continue'),
+      body: Padding(
+        padding: const EdgeInsets.all(40.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/verification_email.png',
+              width: 150, // You can adjust this as needed
+              height: 150, // You can adjust this as needed
             ),
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton(
+            const SizedBox(
+              height: 80.0,
+            ),
+            const Text(
+              'Verifikasi email Anda!',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(email ?? ''),
+            const SizedBox(
+              height: 40.0,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: ElevatedButton(
+                onPressed: () => controller.checkEmailVerificationStatus(),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                      Colors.black), // Set the background color to black
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        30,
+                      ), // Set the border radius to 0 to remove the border
+                    ),
+                  ),
+                ),
+                child: const Text(
+                  'Continue',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            TextButton(
               onPressed: () => controller.sendEmailVerification(),
-              child: const Text('Resend email'),
+              child: const Text(
+                'Resend email',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
