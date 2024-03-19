@@ -18,7 +18,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(224, 238, 225, 1),
+      backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -59,11 +59,16 @@ class _AddSleepPageState extends State<AddSleepPage> {
                 Text(
                   DateFormat.yMMMMEEEEd().format(DateTime.now()),
                   style: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.w800),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white),
                 ),
                 const Text(
                   "SleepDiary",
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w300),
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.white),
                 ),
               ],
             )
@@ -76,7 +81,10 @@ class _AddSleepPageState extends State<AddSleepPage> {
       aspectRatio: 336 / 250,
       child: Column(
         children: [
-          const Text("Pilih jam tidurmu"),
+          const Text(
+            "Pilih jam tidurmu",
+            style: TextStyle(color: Colors.white),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -99,7 +107,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
                     ),
                     NumberPicker(
                       minValue: 0,
@@ -117,14 +127,19 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
                     ),
                   ],
                 ),
               ),
               const Text(
                 "-",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
               ),
               Container(
                 child: Row(
@@ -145,7 +160,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
                     ),
                     NumberPicker(
                       minValue: 0,
@@ -163,7 +180,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
                     ),
                   ],
                 ),
@@ -191,7 +210,10 @@ class _AddSleepPageState extends State<AddSleepPage> {
               children: [
                 Text(
                   "Bagaimana kualitas tidurmu?",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
                 ),
                 Icon(
                   Icons.info,
@@ -272,7 +294,10 @@ class _AddSleepPageState extends State<AddSleepPage> {
           child: Column(children: [
             const Text(
               "Faktor",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white),
               textAlign: TextAlign.start,
             ),
             Row(
@@ -323,7 +348,6 @@ class _AddSleepPageState extends State<AddSleepPage> {
                     width: 50,
                   ),
                 ),
-                
               ],
             ),
           ])),
@@ -345,6 +369,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w500,
+            color: Colors.white,
           ),
         ),
       ),

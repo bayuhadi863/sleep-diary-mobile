@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(224, 238, 225, 1),
+        backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
         body: SingleChildScrollView(
             child: Column(
           children: [
@@ -63,7 +63,10 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          Text(today.toString().split(" ")[0]),
+          Text(
+            today.toString().split(" ")[0],
+            style: const TextStyle(color: Colors.white),
+          ),
           const SizedBox(
             height: 20,
           ),
@@ -71,6 +74,7 @@ class _HomePageState extends State<HomePage> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
               border: Border.all(),
+              color: Colors.white,
             ),
             child: TableCalendar(
               locale: "en_US",
@@ -92,9 +96,9 @@ class _HomePageState extends State<HomePage> {
           ),
           MaterialButton(
             onPressed: _selectDate,
-            color: Colors.blue,
-            textColor: Colors.white,
-            child: const Text('Milih manual bos'),
+            color: Colors.white,
+            textColor: Colors.black,
+            child: const Text('Pilih'),
           ),
         ],
       ),
@@ -108,18 +112,19 @@ class _HomePageState extends State<HomePage> {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: const Color.fromRGBO(224, 238, 225, 1),
+          color: const Color.fromRGBO(8, 10, 35, 1),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Image.asset('assets/images/app_logo.png'),
             Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: const Text(
-                  "Unlock Better Sleep",
-                  style: TextStyle(),
-                )),
-            Image.asset('assets/images/bulan.png'),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: const Text(
+                "Unlock Better Sleep",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),
@@ -133,19 +138,28 @@ class _HomePageState extends State<HomePage> {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: const Color.fromRGBO(81, 180, 88, 1),
+          color: const Color.fromRGBO(38, 38, 66, 1),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                alignment: Alignment.topLeft,
-                child: const Text(
-                  "Jumat 15-03-2024",
-                  style: TextStyle(fontSize: 16),
-                )),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              alignment: Alignment.topLeft,
+              child: const Row(
+                children: [
+                  Icon(
+                    CupertinoIcons.calendar,
+                    color: Colors.white,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    "Jumat 15-03-2024",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -159,13 +173,16 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text('Hello, Argya!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800)),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white)),
           IconButton(
             onPressed: () {},
             icon: PopUpMenu(
               menuList: [
                 PopupMenuItem(
-                  child: ListTile(
+                  child: const ListTile(
                     leading: Icon(
                       CupertinoIcons.person,
                     ),
@@ -174,14 +191,15 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                      MaterialPageRoute(
+                          builder: (context) => const ProfilePage()),
                     );
                   },
                 ),
-                PopupMenuDivider(),
+                const PopupMenuDivider(),
                 PopupMenuItem(
                   child: ListTile(
-                    leading: Icon(Icons.logout),
+                    leading: const Icon(Icons.logout),
                     title: TextButton(
                       onPressed: () =>
                           AuthenticationRepository.instance.logout(),
@@ -204,8 +222,7 @@ class _HomePageState extends State<HomePage> {
 class PopUpMenu extends StatelessWidget {
   final List<PopupMenuEntry<dynamic>> menuList;
   final Widget? icon;
-  const PopUpMenu({Key? key, required this.menuList, this.icon})
-      : super(key: key);
+  const PopUpMenu({super.key, required this.menuList, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -214,8 +231,9 @@ class PopUpMenu extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
       ),
       itemBuilder: ((context) => menuList),
-      icon: Icon(
+      icon: const Icon(
         CupertinoIcons.person,
+        color: Colors.white,
       ),
     );
   }
