@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -177,7 +178,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
 
   AspectRatio _scale() {
     return AspectRatio(
-      aspectRatio: 336 / 100,
+      aspectRatio: 336 / 150,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
         padding: const EdgeInsets.all(10),
@@ -186,18 +187,20 @@ class _AddSleepPageState extends State<AddSleepPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Bagaimana kualitas tidurmu?",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
-                Icon(
-                  Icons.info,
-                  color: Colors.black,
-                  size: 30,
-                ),
+                OutlinedButton(
+                    onPressed: () => _info(context),
+                    child: const Icon(
+                      Icons.info,
+                      color: Colors.black,
+                      size: 30,
+                    ))
               ],
             ),
             Row(
@@ -272,58 +275,89 @@ class _AddSleepPageState extends State<AddSleepPage> {
           child: Column(children: [
             const Text(
               "Faktor",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               textAlign: TextAlign.start,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {},
-                  child: Ink.image(
-                    image: const AssetImage('assets/images/lingkungan.png'),
-                    height: 50,
-                    width: 50,
-                  ),
-                ),
+                    splashColor: Colors.black26,
+                    onTap: () {},
+                    child: Container(
+                        child: Column(
+                      children: [
+                        Ink.image(
+                          image:
+                              const AssetImage('assets/images/lingkungan.png'),
+                          height: 50,
+                          width: 50,
+                        ),
+                        const Text("Lingkungan")
+                      ],
+                    ))),
                 InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {},
-                  child: Ink.image(
-                    image: const AssetImage('assets/images/stress.png'),
-                    height: 50,
-                    width: 50,
-                  ),
-                ),
+                    splashColor: Colors.black26,
+                    onTap: () {},
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Ink.image(
+                            image: const AssetImage('assets/images/stress.png'),
+                            height: 50,
+                            width: 50,
+                          ),
+                          Text("Stress")
+                        ],
+                      ),
+                    )),
                 InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {},
-                  child: Ink.image(
-                    image: const AssetImage('assets/images/sakit.png'),
-                    height: 50,
-                    width: 50,
-                  ),
-                ),
+                    splashColor: Colors.black26,
+                    onTap: () {},
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Ink.image(
+                            image: const AssetImage('assets/images/sakit.png'),
+                            height: 50,
+                            width: 50,
+                          ),
+                          Text("Sakit")
+                        ],
+                      ),
+                    )),
                 InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {},
-                  child: Ink.image(
-                    image: const AssetImage('assets/images/gelisah.png'),
-                    height: 50,
-                    width: 50,
-                  ),
-                ),
+                    splashColor: Colors.black26,
+                    onTap: () {},
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Ink.image(
+                            image:
+                                const AssetImage('assets/images/gelisah.png'),
+                            height: 50,
+                            width: 50,
+                          ),
+                          Text("Gelisah")
+                        ],
+                      ),
+                    )),
                 InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {},
-                  child: Ink.image(
-                    image: const AssetImage('assets/images/terbangun.png'),
-                    height: 50,
-                    width: 50,
-                  ),
-                ),
-                
+                    splashColor: Colors.black26,
+                    onTap: () {},
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Ink.image(
+                            image:
+                                const AssetImage('assets/images/terbangun.png'),
+                            height: 50,
+                            width: 50,
+                          ),
+                          Text("Terbangun")
+                        ],
+                      ),
+                    )),
               ],
             ),
           ])),
@@ -350,4 +384,159 @@ class _AddSleepPageState extends State<AddSleepPage> {
       ),
     );
   }
+
+  Future<void> _info(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Information'),
+            content: Container(
+              child: Column(
+                children: [
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image(
+                          image: AssetImage('assets/images/18.png'),
+                          height: 50,
+                          width: 50,
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                              child: Title(
+                                  color: Colors.black,
+                                  child: Text(
+                                    "Sangat Buruk",
+                                    textAlign: TextAlign.left,
+                                  )),
+                            ),
+                            Flexible(
+                              child: Text(
+                                "Tidur sangat buruk dan tidak memuaskan",
+                                style: TextStyle(fontSize: 2),
+                                textAlign: TextAlign.left,
+                                maxLines: 3,
+                              ),
+                            ),
+                            Flexible(
+                              child: Text(
+                                "Merasa sangat lelah dan tidak segar saat bangun pagi",
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  // Container(
+                  //   child: Row(
+                  //     children: [
+                  //       Image(
+                  //         image: AssetImage('assets/images/19.png'),
+                  //         height: 50,
+                  //         width: 50,
+                  //       ),
+                  //       Column(
+                  //         children: [
+                  //           Container(
+
+                  //           ),
+                            
+
+                  //           Text(
+                  //               "Tidur kurang baik, tetapi tidak seburuk skala 1."),
+                  //           Text(
+                  //               "Merasa lelah atau kurang segar saat bangun pagi")
+                  //         ],
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  // Container(
+                  //   child: Row(
+                  //     children: [
+                  //       Image(
+                  //         image: AssetImage('assets/images/20.png'),
+                  //         height: 50,
+                  //         width: 50,
+                  //       ),
+                  //       Column(
+                  //         children: [
+                  //           Title(color: Colors.black, child: Text("Cukup")),
+                  //           Text(
+                  //               "Tidur relatif stabil tanpa terlalu banyak gangguan."),
+                  //           Text(
+                  //               "Bangun pagi dengan segar, tetapi masih ada kelelahan")
+                  //         ],
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  // Container(
+                  //   child: Row(
+                  //     children: [
+                  //       Image(
+                  //         image: AssetImage('assets/images/2.png'),
+                  //         height: 50,
+                  //         width: 50,
+                  //       ),
+                  //       Column(
+                  //         children: [
+                  //           Title(color: Colors.black, child: Text("Baik")),
+                  //           Text(
+                  //               "Tidur sangat baik dan nyenyak sepanjang malam"),
+                  //           Text(
+                  //               "Bangun pagi dengan perasaan segar dan bertenaga")
+                  //         ],
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  // Container(
+                  //   child: Row(
+                  //     children: [
+                  //       Image(
+                  //         image: AssetImage('assets/images/1.png'),
+                  //         height: 50,
+                  //         width: 50,
+                  //       ),
+                  //       Column(
+                  //         children: [
+                  //           Title(
+                  //               color: Colors.black,
+                  //               child: Text("Sangat Baik")),
+                  //           Text(
+                  //               "Tidur sangat luar biasa, sangat nyenyak dan puas"),
+                  //           Text(
+                  //               "Bangun pagi dengan perasaan segar bersemangat dan penuh energi")
+                  //         ],
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Close"))
+            ],
+          );
+        });
+  }
 }
+
+// Row(
+//               children: [
+//                 Flexible(
+//                     child: Text(
+//                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"))
+//               ],
+//             )
