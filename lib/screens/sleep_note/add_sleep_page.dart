@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -18,12 +19,12 @@ class _AddSleepPageState extends State<AddSleepPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(224, 238, 225, 1),
-      body: SafeArea(
+      backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(
-              height: 20,
+              height: 52,
             ),
             _date(),
             const SizedBox(
@@ -59,11 +60,16 @@ class _AddSleepPageState extends State<AddSleepPage> {
                 Text(
                   DateFormat.yMMMMEEEEd().format(DateTime.now()),
                   style: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.w800),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white),
                 ),
                 const Text(
                   "SleepDiary",
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w300),
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.white),
                 ),
               ],
             )
@@ -73,10 +79,13 @@ class _AddSleepPageState extends State<AddSleepPage> {
 
   Widget _addTime() {
     return AspectRatio(
-      aspectRatio: 336 / 300,
+      aspectRatio: 336 / 250,
       child: Column(
         children: [
-          const Text("Pilih jam tidurmu"),
+          const Text(
+            "Pilih jam tidurmu",
+            style: TextStyle(color: Colors.white),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -99,7 +108,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
                     ),
                     NumberPicker(
                       minValue: 0,
@@ -117,12 +128,20 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
                     ),
                   ],
                 ),
               ),
-              Text("-"),
+              const Text(
+                "-",
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white),
+              ),
               Container(
                 child: Row(
                   children: [
@@ -142,7 +161,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
                     ),
                     NumberPicker(
                       minValue: 0,
@@ -160,7 +181,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
                     ),
                   ],
                 ),
@@ -188,7 +211,10 @@ class _AddSleepPageState extends State<AddSleepPage> {
               children: [
                 Text(
                   "Bagaimana kualitas tidurmu?",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
                 ),
                 Icon(
                   Icons.info,
@@ -204,7 +230,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/18.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -214,7 +240,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/19.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -224,7 +250,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/20.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -234,7 +260,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/2.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -244,7 +270,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/1.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -267,10 +293,13 @@ class _AddSleepPageState extends State<AddSleepPage> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15), color: Colors.white24),
           child: Column(children: [
-            
             const Text(
               "Faktor",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white),
+              textAlign: TextAlign.start,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -279,17 +308,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
-                    height: 50,
-                    width: 50,
-                  ),
-                  
-                ),
-                InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {},
-                  child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/lingkungan.png'),
                     height: 50,
                     width: 50,
                   ),
@@ -298,7 +317,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/stress.png'),
                     height: 50,
                     width: 50,
                   ),
@@ -307,7 +326,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/sakit.png'),
                     height: 50,
                     width: 50,
                   ),
@@ -316,7 +335,16 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/exampleassets.png'),
+                    image: const AssetImage('assets/images/gelisah.png'),
+                    height: 50,
+                    width: 50,
+                  ),
+                ),
+                InkWell(
+                  splashColor: Colors.black26,
+                  onTap: () {},
+                  child: Ink.image(
+                    image: const AssetImage('assets/images/terbangun.png'),
                     height: 50,
                     width: 50,
                   ),
@@ -327,6 +355,28 @@ class _AddSleepPageState extends State<AddSleepPage> {
     );
   }
 
+//   AspectRatio _desc() {
+//     return AspectRatio(
+//       aspectRatio: 336 / 150,
+//       child: Container(
+//         margin: const EdgeInsets.symmetric(horizontal: 20),
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(10),
+//           color: Colors.white24,
+//         ),
+//         padding: const EdgeInsets.all(10),
+//         child: const Text(
+//           "Ceritakan tidurmu",
+//           style: TextStyle(
+//             fontSize: 15,
+//             fontWeight: FontWeight.w500,
+//             color: Colors.white,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
   AspectRatio _desc() {
     return AspectRatio(
       aspectRatio: 336 / 150,
@@ -337,12 +387,30 @@ class _AddSleepPageState extends State<AddSleepPage> {
           color: Colors.white24,
         ),
         padding: const EdgeInsets.all(10),
-        child: const Text(
-          "Ceritakan tidurmu",
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
+        child: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Ceritakan tidurmu",
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(height: 1),
+            Expanded(
+              child: TextField(
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.transparent,
+                ),
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+              ),
+            ),
+          ],
         ),
       ),
     );

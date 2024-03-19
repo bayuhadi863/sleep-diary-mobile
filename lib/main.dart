@@ -4,8 +4,8 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
-import 'package:sleep_diary_mobile/features/sleep_note/screens/add_sleep_page.dart';
-import 'package:sleep_diary_mobile/features/sleep_note/screens/home_page.dart';
+import 'package:sleep_diary_mobile/screens/sleep_note/add_sleep_page.dart';
+import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
 import 'package:sleep_diary_mobile/firebase_options.dart';
 
 Future<void> main() async {
@@ -65,17 +65,17 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(224, 238, 225, 1),
+      backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
       body: pages[index],
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0),
-          color: const Color.fromARGB(255, 56, 239, 184),
+          color: const Color.fromRGBO(38, 38, 66, 1),
         ),
         child: NavigationBarTheme(
           data: NavigationBarThemeData(
-            indicatorColor: const Color.fromARGB(255, 24, 85, 86),
+            indicatorColor: const Color.fromARGB(255, 255, 255, 255),
             labelTextStyle: MaterialStateProperty.all(
               const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
