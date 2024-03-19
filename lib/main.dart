@@ -65,13 +65,13 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(224, 238, 225, 1),
+      backgroundColor: const Color(0xFF080A23),
       body: pages[index],
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0),
-          color: const Color.fromARGB(255, 56, 239, 184),
+          color: const Color(0xFF262642), // Change this line
         ),
         child: NavigationBarTheme(
           data: NavigationBarThemeData(
@@ -81,6 +81,7 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           child: NavigationBar(
+            elevation: 0,
             height: 60,
             backgroundColor: Colors.transparent,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
