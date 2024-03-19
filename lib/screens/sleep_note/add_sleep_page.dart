@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -354,6 +355,28 @@ class _AddSleepPageState extends State<AddSleepPage> {
     );
   }
 
+//   AspectRatio _desc() {
+//     return AspectRatio(
+//       aspectRatio: 336 / 150,
+//       child: Container(
+//         margin: const EdgeInsets.symmetric(horizontal: 20),
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(10),
+//           color: Colors.white24,
+//         ),
+//         padding: const EdgeInsets.all(10),
+//         child: const Text(
+//           "Ceritakan tidurmu",
+//           style: TextStyle(
+//             fontSize: 15,
+//             fontWeight: FontWeight.w500,
+//             color: Colors.white,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
   AspectRatio _desc() {
     return AspectRatio(
       aspectRatio: 336 / 150,
@@ -364,13 +387,30 @@ class _AddSleepPageState extends State<AddSleepPage> {
           color: Colors.white24,
         ),
         padding: const EdgeInsets.all(10),
-        child: const Text(
-          "Ceritakan tidurmu",
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
+        child: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Ceritakan tidurmu",
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(height: 1),
+            Expanded(
+              child: TextField(
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.transparent,
+                ),
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+              ),
+            ),
+          ],
         ),
       ),
     );
