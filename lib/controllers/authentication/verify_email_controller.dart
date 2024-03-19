@@ -55,7 +55,8 @@ class VerifyEmailController extends GetxController {
     if (currentUser != null && currentUser.emailVerified) {
       Get.off(
         () => SuccessScreen(
-        onPressed: () => AuthenticationRepository.instance.screenRedirect(),
+          email: currentUser.email,
+          onPressed: () => AuthenticationRepository.instance.screenRedirect(),
         ),
       );
     }

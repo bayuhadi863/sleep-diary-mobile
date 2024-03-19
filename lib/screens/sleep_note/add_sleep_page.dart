@@ -19,7 +19,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(224, 238, 225, 1),
+      backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
       body: SingleChildScrollView(
         child: Column(
           children: [

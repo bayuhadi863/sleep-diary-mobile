@@ -50,7 +50,7 @@ class OnBoardingPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 40),
           height: headerHeight,
           decoration: const BoxDecoration(
-            color: Color(0xFF0E2431),
+            color: Color(0xFF080A23),
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(40),
               bottomRight: Radius.circular(40),
@@ -171,7 +171,7 @@ class OnBoardingPage extends StatelessWidget {
                                 BorderRadius.circular(10), // Border radius 5
                           ),
                           backgroundColor:
-                              const Color(0xFF0E2431), // Warna teks
+                              const Color(0xFF080A23), // Warna teks
                           shadowColor: Colors.transparent, // Tanpa shadow
                         ),
                         child: const Text('Selanjutnya'),
