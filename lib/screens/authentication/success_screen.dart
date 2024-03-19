@@ -39,8 +39,8 @@ class SuccessScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onPressed,
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      Colors.black), // Set the background color to black
+                  backgroundColor: MaterialStateProperty.all(const Color(
+                      0xFF080A23)), // Set the background color to black
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(

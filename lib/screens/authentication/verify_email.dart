@@ -19,8 +19,8 @@ class VerifyEmailScreen extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/verification_email.png',
-              width: 150, // You can adjust this as needed
-              height: 150, // You can adjust this as needed
+              width: 150,
+              height: 150,
             ),
             const SizedBox(
               height: 80.0,
@@ -42,13 +42,13 @@ class VerifyEmailScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () => controller.checkEmailVerificationStatus(),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      Colors.black), // Set the background color to black
+                  backgroundColor:
+                      MaterialStateProperty.all(const Color(0xFF080A23)),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                         30,
-                      ), // Set the border radius to 0 to remove the border
+                      ),
                     ),
                   ),
                 ),
@@ -65,7 +65,7 @@ class VerifyEmailScreen extends StatelessWidget {
               onPressed: () => controller.sendEmailVerification(),
               child: const Text(
                 'Resend email',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Color(0xFF080A23)),
               ),
             ),
           ],
