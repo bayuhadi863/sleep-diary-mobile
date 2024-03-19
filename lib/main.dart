@@ -75,7 +75,7 @@ class _MainPageState extends State<MainPage> {
         ),
         child: NavigationBarTheme(
           data: NavigationBarThemeData(
-            indicatorColor: Color.fromARGB(255, 255, 255, 255),
+            indicatorColor: const Color.fromARGB(255, 255, 255, 255),
             labelTextStyle: MaterialStateProperty.all(
               const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
