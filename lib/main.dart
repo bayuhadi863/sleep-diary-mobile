@@ -4,8 +4,8 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
-import 'package:sleep_diary_mobile/features/sleep_note/screens/add_sleep_page.dart';
-import 'package:sleep_diary_mobile/features/sleep_note/screens/home_page.dart';
+import 'package:sleep_diary_mobile/screens/sleep_note/add_sleep_page.dart';
+import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
 import 'package:sleep_diary_mobile/firebase_options.dart';
 
 Future<void> main() async {
