@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:feather_icons/feather_icons.dart';
+import 'package:get/get.dart';
+import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -167,13 +169,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   Padding _greetings() {
+    final controller = Get.put(UserController());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('Hello, Argya!',
-              style: TextStyle(
+          Text("Halo, ${controller.user.value.name.split(' ')[0]}!",
+              style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w800,
                   color: Colors.white)),
