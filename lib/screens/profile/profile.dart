@@ -42,9 +42,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   "Nama Lengkap",
                   style: TextStyle(color: Colors.white),
                 ),
-                subtitle: Text(
-                  controller.user.value.name,
-                  style: const TextStyle(color: Colors.white),
+                subtitle: Obx(
+                  () => Text(controller.user.value.name,
+                      style: const TextStyle(color: Colors.white)),
                 ),
                 leading: const Icon(CupertinoIcons.person, color: Colors.white),
                 tileColor: Colors.transparent,
@@ -76,22 +76,12 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             GestureDetector(
               onTap: () async {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const MainPage()),
-                // );
-                // Melakukan logout pengguna
                 await AuthenticationRepository.instance.logout();
-
-                // Setelah logout, pindahkan pengguna ke halaman login atau halaman lainnya yang sesuai
-                // Misalnya, jika ingin memindahkan pengguna ke halaman login
-                Navigator.pushReplacementNamed(context,
-                    '/login'); // Ganti '/login' dengan rute halaman yang sesuai
               },
               child: Container(
                 height: 60,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 167, 21, 21),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Center(
