@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/main.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,7 +14,10 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
+
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -27,19 +32,19 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 30),
             Container(
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 5),
-                        color: Colors.purple.withOpacity(.2),
-                        spreadRadius: 2,
-                        blurRadius: 10)
-                  ]),
-              child: const ListTile(
-                title: Text("Nama Lengkap"),
-                subtitle: Text("Argya Dwi Ferdinand Putra"),
-                leading: Icon(CupertinoIcons.person),
+                color: const Color(0xFF262642),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ListTile(
+                title: const Text(
+                  "Nama Lengkap",
+                  style: TextStyle(color: Colors.white),
+                ),
+                subtitle: Text(
+                  controller.user.value.name,
+                  style: const TextStyle(color: Colors.white),
+                ),
+                leading: const Icon(CupertinoIcons.person, color: Colors.white),
                 tileColor: Colors.transparent,
               ),
             ),
@@ -48,19 +53,19 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 5),
-                        color: Colors.purple.withOpacity(.2),
-                        spreadRadius: 2,
-                        blurRadius: 10)
-                  ]),
-              child: const ListTile(
-                title: Text("Email"),
-                subtitle: Text("argyawoles@gmail.com"),
-                leading: Icon(CupertinoIcons.mail),
+                color: const Color(0xFF262642),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ListTile(
+                title: const Text(
+                  "Email",
+                  style: TextStyle(color: Colors.white),
+                ),
+                subtitle: Obx(
+                  () => Text(controller.user.value.email,
+                      style: const TextStyle(color: Colors.white)),
+                ),
+                leading: const Icon(CupertinoIcons.mail, color: Colors.white),
                 tileColor: Colors.transparent,
               ),
             ),
@@ -77,21 +82,13 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Container(
                 height: 60,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 128, 123, 215),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(0, 5),
-                      color: Colors.purple.withOpacity(.2),
-                      spreadRadius: 2,
-                      blurRadius: 10,
-                    ),
-                  ],
                 ),
                 child: const Center(
                   child: Text(
                     "Beranda",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Color(0xFF080A23)),
                   ),
                 ),
               ),
