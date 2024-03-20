@@ -4,6 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
+import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/add_sleep_page.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
 import 'package:sleep_diary_mobile/firebase_options.dart';
@@ -60,6 +61,7 @@ class _MainPageState extends State<MainPage> {
   final pages = [
     const HomePage(),
     const AddSleepPage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -87,9 +89,20 @@ class _MainPageState extends State<MainPage> {
             selectedIndex: index,
             onDestinationSelected: (index) =>
                 setState(() => this.index = index),
+            // onDestinationSelected: (index) {
+            //   if (index == 2) {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => ProfilePage()),
+            //     );
+            //   } else {
+            //     setState(() => this.index = index);
+            //   }
+            // },
             destinations: const [
               NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
               NavigationDestination(icon: Icon(Icons.add), label: 'Home'),
+              NavigationDestination(icon: Icon(Icons.person), label: 'Home'),
             ],
           ),
         ),

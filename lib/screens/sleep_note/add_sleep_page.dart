@@ -354,29 +354,6 @@ class _AddSleepPageState extends State<AddSleepPage> {
           ])),
     );
   }
-
-//   AspectRatio _desc() {
-//     return AspectRatio(
-//       aspectRatio: 336 / 150,
-//       child: Container(
-//         margin: const EdgeInsets.symmetric(horizontal: 20),
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(10),
-//           color: Colors.white24,
-//         ),
-//         padding: const EdgeInsets.all(10),
-//         child: const Text(
-//           "Ceritakan tidurmu",
-//           style: TextStyle(
-//             fontSize: 15,
-//             fontWeight: FontWeight.w500,
-//             color: Colors.white,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
   AspectRatio _desc() {
     return AspectRatio(
       aspectRatio: 336 / 150,
