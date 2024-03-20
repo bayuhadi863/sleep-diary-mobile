@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 
@@ -13,6 +15,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
+
     return Scaffold(
       backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
       body: SingleChildScrollView(
@@ -30,26 +34,19 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 30),
             Container(
               decoration: BoxDecoration(
-                  color: const Color.fromRGBO(38, 38, 66, 1),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 5),
-                        color: Colors.purple.withOpacity(.2),
-                        spreadRadius: 2,
-                        blurRadius: 10)
-                  ]),
-              child: const ListTile(
-                title: Text(
+                color: const Color(0xFF262642),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ListTile(
+                title: const Text(
                   "Nama Lengkap",
                   style: TextStyle(color: Colors.white),
                 ),
-                subtitle: Text("Argya Dwi Ferdinand Putra",
-                    style: TextStyle(color: Colors.white)),
-                leading: Icon(
-                  CupertinoIcons.person,
-                  color: Colors.white,
+                subtitle: Text(
+                  controller.user.value.name,
+                  style: const TextStyle(color: Colors.white),
                 ),
+                leading: const Icon(CupertinoIcons.person, color: Colors.white),
                 tileColor: Colors.transparent,
               ),
             ),
@@ -58,24 +55,19 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: const Color.fromRGBO(38, 38, 66, 1),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 5),
-                        color: const Color.fromARGB(255, 44, 23, 48)
-                            .withOpacity(.2),
-                        spreadRadius: 2,
-                        blurRadius: 10)
-                  ]),
-              child: const ListTile(
-                title: Text("Email", style: TextStyle(color: Colors.white)),
-                subtitle: Text("argyawoles@gmail.com",
-                    style: TextStyle(color: Colors.white)),
-                leading: Icon(
-                  CupertinoIcons.mail,
-                  color: Colors.white,
+                color: const Color(0xFF262642),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: ListTile(
+                title: const Text(
+                  "Email",
+                  style: TextStyle(color: Colors.white),
                 ),
+                subtitle: Obx(
+                  () => Text(controller.user.value.email,
+                      style: const TextStyle(color: Colors.white)),
+                ),
+                leading: const Icon(CupertinoIcons.mail, color: Colors.white),
                 tileColor: Colors.transparent,
               ),
             ),
@@ -99,16 +91,8 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Container(
                 height: 60,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 162, 18, 18),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(0, 5),
-                      color: Colors.purple.withOpacity(.2),
-                      spreadRadius: 2,
-                      blurRadius: 10,
-                    ),
-                  ],
                 ),
                 child: const Center(
                   child: Text(
