@@ -60,11 +60,16 @@ class _AddSleepPageState extends State<AddSleepPage> {
                 Text(
                   DateFormat.yMMMMEEEEd().format(DateTime.now()),
                   style: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.w800),
+                      fontSize: 25,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white),
                 ),
                 const Text(
                   "SleepDiary",
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w300),
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.white),
                 ),
               ],
             )
@@ -77,7 +82,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
       aspectRatio: 336 / 250,
       child: Column(
         children: [
-          const Text("Pilih jam tidurmu"),
+          const Text("Pilih jam tidurmu", style: TextStyle(color: Colors.white)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -100,7 +105,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30, fontWeight: FontWeight.w700, color: Colors.white),
                     ),
                     NumberPicker(
                       minValue: 0,
@@ -118,14 +123,17 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30, fontWeight: FontWeight.w700, color: Colors.white),
                     ),
                   ],
                 ),
+                // decoration: BoxDecoration(
+                  
+                // ),
               ),
               const Text(
                 "-",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500, color: Colors.white),
               ),
               Container(
                 child: Row(
@@ -146,7 +154,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30, fontWeight: FontWeight.w700, color: Colors.white),
                     ),
                     NumberPicker(
                       minValue: 0,
@@ -164,7 +172,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         );
                       },
                       selectedTextStyle: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.w700),
+                          fontSize: 30, fontWeight: FontWeight.w700, color: Colors.white),
                     ),
                   ],
                 ),
@@ -192,7 +200,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
               children: [
                 const Text(
                   "Bagaimana kualitas tidurmu?",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
                 ),
                 OutlinedButton(
                     onPressed: () => _info(context),
@@ -275,7 +283,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
           child: Column(children: [
             const Text(
               "Faktor",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
               textAlign: TextAlign.start,
             ),
             Row(
@@ -293,7 +301,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           height: 50,
                           width: 50,
                         ),
-                        const Text("Lingkungan")
+                        const Text("Lingkungan", style: TextStyle(color: Colors.white))
                       ],
                     ))),
                 InkWell(
@@ -307,7 +315,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                             height: 50,
                             width: 50,
                           ),
-                          Text("Stress")
+                          const Text("Stress", style: TextStyle(color: Colors.white))
                         ],
                       ),
                     )),
@@ -322,7 +330,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                             height: 50,
                             width: 50,
                           ),
-                          Text("Sakit")
+                          const Text("Sakit", style: TextStyle(color: Colors.white))
                         ],
                       ),
                     )),
@@ -338,7 +346,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                             height: 50,
                             width: 50,
                           ),
-                          Text("Gelisah")
+                          const Text("Gelisah", style: TextStyle(color: Colors.white))
                         ],
                       ),
                     )),
@@ -354,7 +362,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                             height: 50,
                             width: 50,
                           ),
-                          Text("Terbangun")
+                          const Text("Terbangun", style: TextStyle(color: Colors.white))
                         ],
                       ),
                     )),
