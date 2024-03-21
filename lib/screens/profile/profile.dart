@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
-import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 
 class ProfilePage extends StatefulWidget {
