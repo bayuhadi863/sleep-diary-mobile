@@ -90,7 +90,7 @@ class _MainPageState extends State<MainPage> {
             selectedIndex: index,
             onDestinationSelected: (index) =>
                 setState(() => this.index = index),
-           destinations: [
+            destinations: [
               NavigationDestination(
                 icon: Icon(Icons.home,
                     color: index == 0
