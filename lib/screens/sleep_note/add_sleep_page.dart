@@ -52,7 +52,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
               // },
               child: Container(
                 height: 50,
-                width: 320,
+                width: 370,
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(20),

@@ -95,7 +95,11 @@ class _MainPageState extends State<MainPage> {
                     Icons.home,
                   ),
                   label: 'Home'),
-              NavigationDestination(icon: Icon(Icons.add), label: 'Home'),
+              NavigationDestination(
+                  icon: Icon(
+                    Icons.add,
+                  ),
+                  label: 'Home'),
               NavigationDestination(icon: Icon(Icons.person), label: 'Home'),
             ],
           ),
