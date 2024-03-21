@@ -83,24 +83,35 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           child: NavigationBar(
+            elevation: 0.0,
             height: 60,
             backgroundColor: Colors.transparent,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             selectedIndex: index,
             onDestinationSelected: (index) =>
                 setState(() => this.index = index),
-            destinations: const [
+           destinations: [
               NavigationDestination(
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                  label: 'Home'),
+                icon: Icon(Icons.home,
+                    color: index == 0
+                        ? const Color.fromRGBO(38, 38, 66, 1)
+                        : Colors.white),
+                label: 'Home',
+              ),
               NavigationDestination(
-                  icon: Icon(
-                    Icons.add,
-                  ),
-                  label: 'Home'),
-              NavigationDestination(icon: Icon(Icons.person), label: 'Home'),
+                icon: Icon(Icons.add,
+                    color: index == 1
+                        ? const Color.fromRGBO(38, 38, 66, 1)
+                        : Colors.white),
+                label: 'Add',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.person,
+                    color: index == 2
+                        ? const Color.fromRGBO(38, 38, 66, 1)
+                        : Colors.white),
+                label: 'Profile',
+              ),
             ],
           ),
         ),
