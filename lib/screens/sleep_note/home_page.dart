@@ -124,6 +124,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _header() {
+    final controller = Get.put(UserController());
     return Container(
       // aspectRatio: 336 / 100,
       child: Container(
@@ -152,18 +153,18 @@ class _HomePageState extends State<HomePage> {
             // ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Hallo Argya!",
-                    style: TextStyle(
+                    "Halo, ${controller.user.value.name.split(' ')[0]}!",
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     "Tentukan Prioritas Tidurmu",
                     style: TextStyle(
                       color: Colors.white,
@@ -180,41 +181,124 @@ class _HomePageState extends State<HomePage> {
 
   AspectRatio _card() {
     return AspectRatio(
-      aspectRatio: 336 / 110,
+      aspectRatio: 336 / 140,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: const Color.fromRGBO(38, 38, 66, 1),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-              alignment: Alignment.topLeft,
-              child: const Row(
-                children: [
-                  Icon(
-                    CupertinoIcons.calendar,
-                    color: Colors.white,
-                    size: 16,
+            Row(
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                  alignment: Alignment.topLeft,
+                  child: const Row(
+                    children: [
+                      Icon(
+                        CupertinoIcons.calendar,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Jumat 15-03-2024",
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: 10,
-                    height: 30,
-                  ),
-                  Text(
-                    "15 Maret 2024",
-                    style: TextStyle(fontSize: 12, color: Colors.white),
-                  ),
-                  // Text(
-                  //   today.toString().split(" ")[0],
-                  //   style: const TextStyle(color: Colors.white),
-                  // ),
-                ],
-              ),
+                ),
+              ],
             ),
+            // Additional Row 1
+            Row(
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                  alignment: Alignment.topLeft,
+                  margin: const EdgeInsets.only(
+                      top: 1), // Add margin to bring the clock row closer
+                  child: const Row(
+                    children: [
+                      Icon(
+                        CupertinoIcons.clock,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "21.00 - 06.00 (9 Jam)",
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                  alignment: Alignment.topLeft,
+                  margin: const EdgeInsets.only(
+                      top: 1), // Add margin to bring the clock row closer
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/skala2.png',
+                        width: 24, // Set width and height as needed
+                        height: 24, // You can specify the color of the icon
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Tidurmu sangat nyenyak, Pertahankan!",
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/lingkungan.png', // Adjust the path to your image asset
+                  width: 30, // Adjust the width as needed
+                  height: 30, // Adjust the height as needed
+                ),
+                SizedBox(width: 9),
+                Image.asset(
+                  'assets/images/sakit.png', // Adjust the path to your image asset
+                  width: 30, // Adjust the width as needed
+                  height: 30, // Adjust the height as needed
+                ),
+                SizedBox(width: 9),
+                Image.asset(
+                  'assets/images/gelisah.png', // Adjust the path to your image asset
+                  width: 30, // Adjust the width as needed
+                  height: 30, // Adjust the height as needed
+                ),
+                SizedBox(width: 9),
+                Image.asset(
+                  'assets/images/terbangun.png', // Adjust the path to your image asset
+                  width: 30, // Adjust the width as needed
+                  height: 30, // Adjust the height as needed
+                ),
+                SizedBox(width: 9),
+                Image.asset(
+                  'assets/images/stress.png', // Adjust the path to your image asset
+                  width: 30, // Adjust the width as needed
+                  height: 30, // Adjust the height as needed
+                ),
+                SizedBox(width: 9),
+              ],
+            )
+
+            // Additional Rows can be added here if needed
           ],
         ),
       ),
