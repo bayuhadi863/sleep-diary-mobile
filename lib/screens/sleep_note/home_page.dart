@@ -289,12 +289,12 @@ class _HomePageState extends State<HomePage> {
                   height: 30, // Adjust the height as needed
                 ),
                 SizedBox(width: 9),
-                Image.asset(
-                  'assets/images/stress.png', // Adjust the path to your image asset
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
-                ),
-                SizedBox(width: 9),
+                // Image.asset(
+                //   'assets/images/stress.png', // Adjust the path to your image asset
+                //   width: 30, // Adjust the width as needed
+                //   height: 30, // Adjust the height as needed
+                // ),
+                // SizedBox(width: 9),
               ],
             )
 
