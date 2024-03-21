@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
-import 'package:sleep_diary_mobile/main.dart';
+import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -27,6 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const CircleAvatar(
               radius: 70,
+              backgroundColor: Colors.transparent,
               backgroundImage: AssetImage('assets/images/bulan.png'),
             ),
             const SizedBox(height: 30),
@@ -40,9 +41,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   "Nama Lengkap",
                   style: TextStyle(color: Colors.white),
                 ),
-                subtitle: Text(
-                  controller.user.value.name,
-                  style: const TextStyle(color: Colors.white),
+                subtitle: Obx(
+                  () => Text(controller.user.value.name,
+                      style: const TextStyle(color: Colors.white)),
                 ),
                 leading: const Icon(CupertinoIcons.person, color: Colors.white),
                 tileColor: Colors.transparent,
@@ -70,25 +71,22 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             const SizedBox(
-              height: 350,
+              height: 200,
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MainPage()),
-                );
+              onTap: () async {
+                await AuthenticationRepository.instance.logout();
               },
               child: Container(
                 height: 60,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 167, 21, 21),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Center(
                   child: Text(
-                    "Beranda",
-                    style: TextStyle(color: Color(0xFF080A23)),
+                    "Logout",
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),

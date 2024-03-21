@@ -43,6 +43,28 @@ class _AddSleepPageState extends State<AddSleepPage> {
               height: 20,
             ),
             _desc(),
+            const SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              // onTap: () async {
+              //   await AuthenticationRepository.instance.logout();
+              // },
+              child: Container(
+                height: 50,
+                width: 370,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Simpan",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -395,28 +417,6 @@ class _AddSleepPageState extends State<AddSleepPage> {
     );
   }
 
-//   AspectRatio _desc() {
-//     return AspectRatio(
-//       aspectRatio: 336 / 150,
-//       child: Container(
-//         margin: const EdgeInsets.symmetric(horizontal: 20),
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(10),
-//           color: Colors.white24,
-//         ),
-//         padding: const EdgeInsets.all(10),
-//         child: const Text(
-//           "Ceritakan tidurmu",
-//           style: TextStyle(
-//             fontSize: 15,
-//             fontWeight: FontWeight.w500,
-//             color: Colors.white,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
   AspectRatio _desc() {
     return AspectRatio(
       aspectRatio: 336 / 150,
@@ -528,6 +528,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       )
                     ],
                   ),
+<<<<<<< HEAD
                 ),
                 Container(
                   child: Row(
@@ -626,6 +627,95 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   ),
                 ),
               ]),
+=======
+                  // Container(
+                  //   child: Row(
+                  //     children: [
+                  //       Image(
+                  //         image: AssetImage('assets/images/19.png'),
+                  //         height: 50,
+                  //         width: 50,
+                  //       ),
+                  //       Column(
+                  //         children: [
+                  //           Container(
+
+                  //           ),
+
+                  //           Text(
+                  //               "Tidur kurang baik, tetapi tidak seburuk skala 1."),
+                  //           Text(
+                  //               "Merasa lelah atau kurang segar saat bangun pagi")
+                  //         ],
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  // Container(
+                  //   child: Row(
+                  //     children: [
+                  //       Image(
+                  //         image: AssetImage('assets/images/20.png'),
+                  //         height: 50,
+                  //         width: 50,
+                  //       ),
+                  //       Column(
+                  //         children: [
+                  //           Title(color: Colors.black, child: Text("Cukup")),
+                  //           Text(
+                  //               "Tidur relatif stabil tanpa terlalu banyak gangguan."),
+                  //           Text(
+                  //               "Bangun pagi dengan segar, tetapi masih ada kelelahan")
+                  //         ],
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  // Container(
+                  //   child: Row(
+                  //     children: [
+                  //       Image(
+                  //         image: AssetImage('assets/images/2.png'),
+                  //         height: 50,
+                  //         width: 50,
+                  //       ),
+                  //       Column(
+                  //         children: [
+                  //           Title(color: Colors.black, child: Text("Baik")),
+                  //           Text(
+                  //               "Tidur sangat baik dan nyenyak sepanjang malam"),
+                  //           Text(
+                  //               "Bangun pagi dengan perasaan segar dan bertenaga")
+                  //         ],
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  // Container(
+                  //   child: Row(
+                  //     children: [
+                  //       Image(
+                  //         image: AssetImage('assets/images/1.png'),
+                  //         height: 50,
+                  //         width: 50,
+                  //       ),
+                  //       Column(
+                  //         children: [
+                  //           Title(
+                  //               color: Colors.black,
+                  //               child: Text("Sangat Baik")),
+                  //           Text(
+                  //               "Tidur sangat luar biasa, sangat nyenyak dan puas"),
+                  //           Text(
+                  //               "Bangun pagi dengan perasaan segar bersemangat dan penuh energi")
+                  //         ],
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                ],
+              ),
+>>>>>>> 5d6e0a623c59f5ea8026836a4f43953dd6dd3282
             ),
             actions: <Widget>[
               TextButton(

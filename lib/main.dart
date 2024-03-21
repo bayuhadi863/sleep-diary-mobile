@@ -4,6 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
+import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/add_sleep_page.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
 import 'package:sleep_diary_mobile/firebase_options.dart';
@@ -60,6 +61,7 @@ class _MainPageState extends State<MainPage> {
   final pages = [
     const HomePage(),
     const AddSleepPage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -81,15 +83,35 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           child: NavigationBar(
+            elevation: 0.0,
             height: 60,
             backgroundColor: Colors.transparent,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             selectedIndex: index,
             onDestinationSelected: (index) =>
                 setState(() => this.index = index),
-            destinations: const [
-              NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-              NavigationDestination(icon: Icon(Icons.add), label: 'Home'),
+            destinations: [
+              NavigationDestination(
+                icon: Icon(Icons.home,
+                    color: index == 0
+                        ? const Color.fromRGBO(38, 38, 66, 1)
+                        : Colors.white),
+                label: 'Home',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.add,
+                    color: index == 1
+                        ? const Color.fromRGBO(38, 38, 66, 1)
+                        : Colors.white),
+                label: 'Add',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.person,
+                    color: index == 2
+                        ? const Color.fromRGBO(38, 38, 66, 1)
+                        : Colors.white),
+                label: 'Profile',
+              ),
             ],
           ),
         ),
