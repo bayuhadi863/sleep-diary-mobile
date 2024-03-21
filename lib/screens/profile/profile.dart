@@ -72,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             const SizedBox(
-              height: 350,
+              height: 200,
             ),
             GestureDetector(
               onTap: () async {

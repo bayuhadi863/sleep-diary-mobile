@@ -89,18 +89,12 @@ class _MainPageState extends State<MainPage> {
             selectedIndex: index,
             onDestinationSelected: (index) =>
                 setState(() => this.index = index),
-            // onDestinationSelected: (index) {
-            //   if (index == 2) {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => ProfilePage()),
-            //     );
-            //   } else {
-            //     setState(() => this.index = index);
-            //   }
-            // },
             destinations: const [
-              NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+              NavigationDestination(
+                  icon: Icon(
+                    Icons.home,
+                  ),
+                  label: 'Home'),
               NavigationDestination(icon: Icon(Icons.add), label: 'Home'),
               NavigationDestination(icon: Icon(Icons.person), label: 'Home'),
             ],
