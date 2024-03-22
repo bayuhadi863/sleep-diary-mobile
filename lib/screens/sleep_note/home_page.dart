@@ -183,6 +183,7 @@ class _HomePageState extends State<HomePage> {
     return AspectRatio(
       aspectRatio: 336 / 140,
       child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -193,55 +194,47 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                   alignment: Alignment.topLeft,
                   child: const Row(
                     children: [
-                      Icon(
-                        CupertinoIcons.calendar,
-                        color: Colors.white,
-                      ),
-                      SizedBox(width: 10),
                       Text(
                         "Jumat 15-03-2024",
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 10),
             // Additional Row 1
             Row(
               children: [
                 Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                  alignment: Alignment.topLeft,
-                  margin: const EdgeInsets.only(
-                      top: 1), // Add margin to bring the clock row closer
-                  child: const Row(
-                    children: [
-                      Icon(
-                        CupertinoIcons.clock,
-                        color: Colors.white,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "21.00 - 06.00 (9 Jam)",
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                    ],
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(
+                        255, 255, 255, 0.13), // Warna putih dengan opasitas 13%
+                    borderRadius: BorderRadius.circular(25),
                   ),
-                ),
+                  child: const Text(
+                    '9 Jam',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                )
               ],
             ),
             Row(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                   alignment: Alignment.topLeft,
                   margin: const EdgeInsets.only(
                       top: 1), // Add margin to bring the clock row closer
@@ -252,10 +245,13 @@ class _HomePageState extends State<HomePage> {
                         width: 24, // Set width and height as needed
                         height: 24, // You can specify the color of the icon
                       ),
-                      SizedBox(width: 10),
-                      Text(
+                      const SizedBox(width: 10),
+                      const Text(
                         "Tidurmu sangat nyenyak, Pertahankan!",
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -270,31 +266,31 @@ class _HomePageState extends State<HomePage> {
                   width: 30, // Adjust the width as needed
                   height: 30, // Adjust the height as needed
                 ),
-                SizedBox(width: 9),
+                const SizedBox(width: 9),
                 Image.asset(
                   'assets/images/sakit.png', // Adjust the path to your image asset
                   width: 30, // Adjust the width as needed
                   height: 30, // Adjust the height as needed
                 ),
-                SizedBox(width: 9),
+                const SizedBox(width: 9),
                 Image.asset(
                   'assets/images/gelisah.png', // Adjust the path to your image asset
                   width: 30, // Adjust the width as needed
                   height: 30, // Adjust the height as needed
                 ),
-                SizedBox(width: 9),
+                const SizedBox(width: 9),
                 Image.asset(
                   'assets/images/terbangun.png', // Adjust the path to your image asset
                   width: 30, // Adjust the width as needed
                   height: 30, // Adjust the height as needed
                 ),
-                SizedBox(width: 9),
+                const SizedBox(width: 9),
                 Image.asset(
                   'assets/images/stress.png', // Adjust the path to your image asset
                   width: 30, // Adjust the width as needed
                   height: 30, // Adjust the height as needed
                 ),
-                SizedBox(width: 9),
+                const SizedBox(width: 9),
               ],
             )
 
