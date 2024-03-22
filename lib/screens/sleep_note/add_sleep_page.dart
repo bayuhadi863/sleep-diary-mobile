@@ -12,6 +12,7 @@ class AddSleepPage extends StatefulWidget {
 }
 
 class _AddSleepPageState extends State<AddSleepPage> {
+  TimeOfDay? time = const TimeOfDay(hour: 00, minute: 00);
   var hour1 = 0;
   var minutes1 = 0;
   var hour2 = 0;
@@ -110,54 +111,63 @@ class _AddSleepPageState extends State<AddSleepPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                child: Row(
-                  children: [
-                    NumberPicker(
-                      minValue: 0,
-                      maxValue: 24,
-                      value: hour1,
-                      zeroPad: true,
-                      infiniteLoop: true,
-                      itemHeight: 80,
-                      itemWidth: 60,
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            hour1 = value;
-                          },
-                        );
-                      },
-                      selectedTextStyle: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white),
-                    ),
-                    NumberPicker(
-                      minValue: 0,
-                      maxValue: 59,
-                      value: minutes1,
-                      zeroPad: true,
-                      infiniteLoop: true,
-                      itemHeight: 80,
-                      itemWidth: 60,
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            minutes1 = value;
-                          },
-                        );
-                      },
-                      selectedTextStyle: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white),
-                    ),
-                  ],
+                child: Text(
+                  '${time!.hour.toString()}:${time!.minute.toString()}',
+                  style: TextStyle(fontSize: 60),
                 ),
-                // decoration: BoxDecoration(
 
+                // child: Row(
+                //   children: [
+                //     NumberPicker(
+                //       minValue: 0,
+                //       maxValue: 24,
+                //       value: hour1,
+                //       zeroPad: true,
+                //       infiniteLoop: true,
+                //       itemHeight: 80,
+                //       itemWidth: 60,
+                //       onChanged: (value) {
+                //         setState(
+                //           () {
+                //             hour1 = value;
+                //           },
+                //         );
+                //       },
+                //       selectedTextStyle: const TextStyle(
+                //           fontSize: 30,
+                //           fontWeight: FontWeight.w700,
+                //           color: Colors.white),
+                //     ),
+                //     NumberPicker(
+                //       minValue: 0,
+                //       maxValue: 59,
+                //       value: minutes1,
+                //       zeroPad: true,
+                //       infiniteLoop: true,
+                //       itemHeight: 80,
+                //       itemWidth: 60,
+                //       onChanged: (value) {
+                //         setState(
+                //           () {
+                //             minutes1 = value;
+                //           },
+                //         );
+                //       },
+                //       selectedTextStyle: const TextStyle(
+                //           fontSize: 30,
+                //           fontWeight: FontWeight.w700,
+                //           color: Colors.white),
+                //     ),
+                //   ],
                 // ),
+                // // decoration: BoxDecoration(
+
+                // // ),
               ),
+              FloatingActionButton(onPressed: () async {
+                TimeOfDay? newTime =
+                    await showTimePicker(context: context, initialTime: time!);
+              }),
               const Text(
                 "-",
                 style: TextStyle(
@@ -255,7 +265,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/18.png'),
+                    image: const AssetImage('assets/images/skalabulan1.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -265,7 +275,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/19.png'),
+                    image: const AssetImage('assets/images/skalabulan2.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -275,7 +285,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/20.png'),
+                    image: const AssetImage('assets/images/skalabulan3.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -285,7 +295,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/2.png'),
+                    image: const AssetImage('assets/images/skalabulan4.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -295,7 +305,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   splashColor: Colors.black26,
                   onTap: () {},
                   child: Ink.image(
-                    image: const AssetImage('assets/images/1.png'),
+                    image: const AssetImage('assets/images/skalabulan5.png'),
                     height: 50,
                     width: 50,
                     fit: BoxFit.cover,
@@ -325,6 +335,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   fontWeight: FontWeight.w500,
                   color: Colors.white),
               textAlign: TextAlign.start,
+            ),
+            SizedBox(
+              height: 12,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
