@@ -179,124 +179,142 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  AspectRatio _card() {
-    return AspectRatio(
-      aspectRatio: 336 / 140,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: const Color.fromRGBO(38, 38, 66, 1),
-        ),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  child: const Row(
-                    children: [
-                      Text(
-                        "Jumat 15-03-2024",
-                        style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            // Additional Row 1
-            Row(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(
-                        255, 255, 255, 0.13), // Warna putih dengan opasitas 13%
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: const Text(
-                    '9 Jam',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
+  Container _card() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: const Color.fromRGBO(38, 38, 66, 1),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                child: const Row(
+                  children: [
+                    Text(
+                      "Jumat 15-03-2024",
+                      style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
                     ),
-                  ),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  margin: const EdgeInsets.only(
-                      top: 1), // Add margin to bring the clock row closer
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/skala2.png',
-                        width: 24, // Set width and height as needed
-                        height: 24, // You can specify the color of the icon
-                      ),
-                      const SizedBox(width: 10),
-                      const Text(
-                        "Tidurmu sangat nyenyak, Pertahankan!",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-              ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          // Additional Row 1
+          Row(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(255, 255, 255, 0.13),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: const Text(
+                        '9 Jam',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    const Text(
+                      '21.00 - 06.00',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                // Menggunakan Expanded di sini
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/lingkungan-fiks.png',
+                      width: 25,
+                      height: 25,
+                    ),
+                    const SizedBox(width: 6),
+                    Image.asset(
+                      'assets/images/sakit.png',
+                      width: 25,
+                      height: 25,
+                    ),
+                    const SizedBox(width: 6),
+                    Image.asset(
+                      'assets/images/gelisah.png',
+                      width: 25,
+                      height: 25,
+                    ),
+                    const SizedBox(width: 6),
+                    Image.asset(
+                      'assets/images/terbangun.png',
+                      width: 25,
+                      height: 25,
+                    ),
+                    const SizedBox(width: 6),
+                    Image.asset(
+                      'assets/images/stress.png',
+                      width: 25,
+                      height: 25,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Container(
+            // margin: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(255, 255, 255, 0.13),
+              borderRadius: BorderRadius.circular(11),
             ),
-            Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/images/lingkungan.png', // Adjust the path to your image asset
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
+                  'assets/images/skala2.png',
+                  width: 40,
+                  height: 40,
                 ),
-                const SizedBox(width: 9),
-                Image.asset(
-                  'assets/images/sakit.png', // Adjust the path to your image asset
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
+                const SizedBox(width: 10),
+                const Expanded(
+                  child: Text(
+                    'Tidurmu sangat nyenyak, Pertahankan!',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    // softWrap: true,
+                  ),
                 ),
-                const SizedBox(width: 9),
-                Image.asset(
-                  'assets/images/gelisah.png', // Adjust the path to your image asset
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
-                ),
-                const SizedBox(width: 9),
-                Image.asset(
-                  'assets/images/terbangun.png', // Adjust the path to your image asset
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
-                ),
-                const SizedBox(width: 9),
-                Image.asset(
-                  'assets/images/stress.png', // Adjust the path to your image asset
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
-                ),
-                const SizedBox(width: 9),
               ],
-            )
+            ),
+          ),
 
-            // Additional Rows can be added here if needed
-          ],
-        ),
+          // Additional Rows can be added here if needed
+        ],
       ),
     );
   }
