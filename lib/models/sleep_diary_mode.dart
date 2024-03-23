@@ -4,6 +4,7 @@ class SleepDiaryModel{
   String sleepTime;
   String wakeupTime;
   int scale;
+  List<String> factors;
   String description; 
 
   SleepDiaryModel({
@@ -12,6 +13,7 @@ class SleepDiaryModel{
     required this.sleepTime,
     required this.wakeupTime,
     required this.scale,
+    required this.factors,
     required this.description
   });
 
@@ -21,6 +23,7 @@ class SleepDiaryModel{
     sleepTime: '',
     wakeupTime: '',
     scale: 0,
+    factors: [],
     description: ''
   );
 
@@ -31,6 +34,7 @@ class SleepDiaryModel{
       'sleepTime': sleepTime,
       'wakeupTime': wakeupTime,
       'scale': scale,
+      'factors': factors,
       'description': description
     };
   }
