@@ -11,6 +11,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
+  static DateTime today = DateTime.now();
   const HomePage({super.key});
 
   @override
@@ -21,26 +22,25 @@ class _HomePageState extends State<HomePage> {
   // final String formattedDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
   DateTime selectedDate = DateTime.now();
 
-  DateTime today = DateTime.now();
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
-      today = day;
+      HomePage.today= day;
     });
   }
 
   Future<void> _selectDate() async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: today,
+      initialDate: HomePage.today,
       firstDate: DateTime(2010),
       lastDate: DateTime(2030),
       cancelText: 'Cancel',
       confirmText: 'OK',
       helpText: 'Select date',
     );
-    if (picked != null && picked != today) {
+    if (picked != null && picked != HomePage.today) {
       setState(() {
-        today = picked;
+        HomePage.today = picked;
       });
     }
   }
@@ -108,8 +108,8 @@ class _HomePageState extends State<HomePage> {
                 titleCentered: true,
               ),
               availableGestures: AvailableGestures.all,
-              selectedDayPredicate: (day) => isSameDay(day, today),
-              focusedDay: today,
+              selectedDayPredicate: (day) => isSameDay(day, HomePage.today),
+              focusedDay: HomePage.today,
               firstDay: DateTime.utc(2010, 10, 16),
               lastDay: DateTime.utc(2030, 3, 14),
               onDaySelected: _onDaySelected,
