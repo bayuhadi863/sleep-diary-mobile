@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/models/user_model.dart';
 import 'package:sleep_diary_mobile/repositories/user/user_repository.dart';
