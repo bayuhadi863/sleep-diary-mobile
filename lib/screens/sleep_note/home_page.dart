@@ -4,12 +4,16 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
+import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
+  static DateTime today = DateTime.now();
+  static GetSleepDiaryController sleepDiaryController =
+      Get.put(GetSleepDiaryController());
   const HomePage({super.key});
 
   @override
@@ -20,26 +24,27 @@ class _HomePageState extends State<HomePage> {
   // final String formattedDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
   DateTime selectedDate = DateTime.now();
 
-  DateTime today = DateTime.now();
+  // final sleepDiaryController = Get.put(GetSleepDiaryController());
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
-      today = day;
+      HomePage.today = day;
+      HomePage.sleepDiaryController.fetchSleepDiaryData(day);
     });
   }
 
   Future<void> _selectDate() async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: today,
+      initialDate: HomePage.today,
       firstDate: DateTime(2010),
       lastDate: DateTime(2030),
       cancelText: 'Cancel',
       confirmText: 'OK',
       helpText: 'Select date',
     );
-    if (picked != null && picked != today) {
+    if (picked != null && picked != HomePage.today) {
       setState(() {
-        today = picked;
+        HomePage.today = picked;
       });
     }
   }
@@ -83,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 26,
                           fontWeight: FontWeight.bold)),
                   TextSpan(
-                      text: "Tanggal : ${today.toString().split(" ")[0]}",
+                      text: DateFormat.yMMMMEEEEd().format(HomePage.today),
                       style:
                           const TextStyle(color: Colors.white, fontSize: 14)),
                 ],
@@ -107,8 +112,8 @@ class _HomePageState extends State<HomePage> {
                 titleCentered: true,
               ),
               availableGestures: AvailableGestures.all,
-              selectedDayPredicate: (day) => isSameDay(day, today),
-              focusedDay: today,
+              selectedDayPredicate: (day) => isSameDay(day, HomePage.today),
+              focusedDay: HomePage.today,
               firstDay: DateTime.utc(2010, 10, 16),
               lastDay: DateTime.utc(2030, 3, 14),
               onDaySelected: _onDaySelected,
@@ -126,179 +131,156 @@ class _HomePageState extends State<HomePage> {
   Widget _header() {
     final controller = Get.put(UserController());
     return Container(
-      // aspectRatio: 336 / 100,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: const Color.fromRGBO(8, 10, 35, 1),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Image.asset(
-                'assets/images/ikon.png',
-                // width: 300,
-                // height: 300,
-                fit: BoxFit.cover,
-              ),
+      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: const Color.fromRGBO(8, 10, 35, 1),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Image.asset(
+              'assets/images/ikon.png',
+              // width: 300,
+              // height: 300,
+              fit: BoxFit.cover,
             ),
-            // Container(
-            //   padding: const EdgeInsets.symmetric(horizontal: 20),
-            //   child: const Text(
-            //     "Unlock Better Sleep",
-            //     style: TextStyle(color: Colors.white),
-            //   ),
-            // ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
+          ),
+          // Container(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: const Text(
+          //     "Unlock Better Sleep",
+          //     style: TextStyle(color: Colors.white),
+          //   ),
+          // ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Obx(
+                  () => Text(
                     "Halo, ${controller.user.value.name.split(' ')[0]}!",
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    "Tentukan Prioritas Tidurmu",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  "Tentukan Prioritas Tidurmu",
+                  style: TextStyle(
+                    color: Colors.white,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  AspectRatio _card() {
-    return AspectRatio(
-      aspectRatio: 336 / 140,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: const Color.fromRGBO(38, 38, 66, 1),
-        ),
-        child: Column(
+  Container _card() {
+    // final controller = Get.put(GetSleepDiaryController());
+    // controller.date = HomePage.today;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: const Color.fromRGBO(38, 38, 66, 1),
+      ),
+      child: Obx(
+        () => Column(
           children: [
             Row(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                   alignment: Alignment.topLeft,
-                  child: const Row(
-                    children: [
-                      Icon(
-                        CupertinoIcons.calendar,
-                        color: Colors.white,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Jumat 15-03-2024",
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            // Additional Row 1
-            Row(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                  alignment: Alignment.topLeft,
-                  margin: const EdgeInsets.only(
-                      top: 1), // Add margin to bring the clock row closer
-                  child: const Row(
-                    children: [
-                      Icon(
-                        CupertinoIcons.clock,
-                        color: Colors.white,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "21.00 - 06.00 (9 Jam)",
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                  alignment: Alignment.topLeft,
-                  margin: const EdgeInsets.only(
-                      top: 1), // Add margin to bring the clock row closer
                   child: Row(
                     children: [
-                      Image.asset(
-                        'assets/images/skala2.png',
-                        width: 24, // Set width and height as needed
-                        height: 24, // You can specify the color of the icon
-                      ),
-                      SizedBox(width: 10),
                       Text(
-                        "Tidurmu sangat nyenyak, Pertahankan!",
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                        DateFormat.yMMMMEEEEd().format(HomePage.today),
+                        style: const TextStyle(
+                            fontSize: 10,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/lingkungan.png', // Adjust the path to your image asset
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
-                ),
-                SizedBox(width: 9),
-                Image.asset(
-                  'assets/images/sakit.png', // Adjust the path to your image asset
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
-                ),
-                SizedBox(width: 9),
-                Image.asset(
-                  'assets/images/gelisah.png', // Adjust the path to your image asset
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
-                ),
-                SizedBox(width: 9),
-                Image.asset(
-                  'assets/images/terbangun.png', // Adjust the path to your image asset
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
-                ),
-                SizedBox(width: 9),
-                Image.asset(
-                  'assets/images/stress.png', // Adjust the path to your image asset
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
-                ),
-                SizedBox(width: 9),
-              ],
-            )
-
-            // Additional Rows can be added here if needed
+            HomePage.sleepDiaryController.sleepDiary.value.sleepDate == ''
+                ? const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 40, horizontal: 5),
+                    child: Text(
+                      'Tidak ada data tidur hari ini',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  )
+                : Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                durationBadge(calculateTimeDifference(
+                                    HomePage.sleepDiaryController.sleepDiary
+                                        .value.wakeupTime,
+                                    HomePage.sleepDiaryController.sleepDiary
+                                        .value.sleepTime)),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '${HomePage.sleepDiaryController.sleepDiary.value.sleepTime} - ${HomePage.sleepDiaryController.sleepDiary.value.wakeupTime}',
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: factorIcons(HomePage
+                                .sleepDiaryController.sleepDiary.value.factors),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 12),
+                        decoration: BoxDecoration(
+                          color: const Color.fromRGBO(255, 255, 255, 0.13),
+                          borderRadius: BorderRadius.circular(11),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            displayImageScale(HomePage
+                                .sleepDiaryController.sleepDiary.value.scale),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: displaySleepText(HomePage
+                                  .sleepDiaryController.sleepDiary.value.scale),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
           ],
         ),
       ),
@@ -377,4 +359,153 @@ class PopUpMenu extends StatelessWidget {
       ),
     );
   }
+}
+
+int calculateTimeDifference(String wakeupTime, String sleepTime) {
+  // Ubah string waktu menjadi objek DateTime
+  final wakeupTimeParts = wakeupTime.split(":");
+  int wakeupHour = int.tryParse(wakeupTimeParts[0]) ?? 0;
+  int wakeupMinute =
+      wakeupTimeParts.length > 1 ? int.tryParse(wakeupTimeParts[1]) ?? 0 : 0;
+
+  final sleepTimeParts = sleepTime.split(":");
+  int sleepHour = int.tryParse(sleepTimeParts[0]) ?? 0;
+  int sleepMinute =
+      sleepTimeParts.length > 1 ? int.tryParse(sleepTimeParts[1]) ?? 0 : 0;
+
+  DateTime firstTime = DateTime(2024, 4, 22, sleepHour, sleepMinute);
+  DateTime secondTime = DateTime(2024, 5, 22, wakeupHour, wakeupMinute);
+
+  Duration differenceTime = secondTime.difference(firstTime);
+  int hours = differenceTime.inHours % 24;
+  int minutes = differenceTime.inMinutes % 60;
+
+  return hours;
+}
+
+Widget displayImageScale(int scale) {
+  if (scale == 1) {
+    return Image.asset(
+      'assets/images/skala1.png',
+      width: 40,
+      height: 40,
+    );
+  } else if (scale == 2) {
+    return Image.asset(
+      'assets/images/skala2.png',
+      width: 40,
+      height: 40,
+    );
+  } else if (scale == 3) {
+    return Image.asset(
+      'assets/images/skala3.png',
+      width: 40,
+      height: 40,
+    );
+  } else if (scale == 4) {
+    return Image.asset(
+      'assets/images/skala4.png',
+      width: 40,
+      height: 40,
+    );
+  } else {
+    return Image.asset(
+      'assets/images/skala5.png',
+      width: 40,
+      height: 40,
+    );
+  }
+}
+
+Widget displaySleepText(int scale) {
+  if (scale == 1) {
+    return const Text(
+      'Tidurmu sangat buruk, Perbaiki!',
+      style: TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  } else if (scale == 2) {
+    return const Text(
+      'Tidurmu buruk, Perbaiki!',
+      style: TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  } else if (scale == 3) {
+    return const Text(
+      'Tidurmu cukup, Tingkatkan!',
+      style: TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  } else if (scale == 4) {
+    return const Text(
+      'Tidurmu baik, Tingkatkan!',
+      style: TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  } else {
+    return const Text(
+      'Tidurmu sempurna, Pertahankan!',
+      style: TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
+}
+
+Widget factorIcons(List<String> factors) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: factors.map((factor) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 3.0),
+        child: Image.asset(
+          'assets/images/$factor.png',
+          width: 25,
+          height: 25,
+        ),
+      );
+    }).toList(),
+  );
+}
+
+Widget durationBadge(int duration) {
+  Color badgeColor;
+
+  if ((duration < 7 && duration >= 6) || (duration > 9 && duration <= 10)) {
+    badgeColor = Colors.yellow[600]!.withOpacity(0.7);
+  } else if (duration >= 7 && duration <= 9) {
+    badgeColor = Colors.green.withOpacity(0.7);
+  } else {
+    badgeColor = Colors.red.withOpacity(0.7);
+  }
+
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+    decoration: BoxDecoration(
+      color: badgeColor,
+      borderRadius: BorderRadius.circular(25),
+    ),
+    child: Text(
+      '$duration Jam',
+      style: const TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
 }

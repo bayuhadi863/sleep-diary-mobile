@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/models/sleep_diary_mode.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
@@ -12,8 +13,8 @@ class SleepDiaryRepository {
   final String hour2;
   final String minute2;
   final int scale;
+  final List<String> factors;
   final String description;
-  final List<int> factors;
 
   // Proses mendapatkan variabel dari halaman lain
   const SleepDiaryRepository(
@@ -23,8 +24,8 @@ class SleepDiaryRepository {
       required this.hour2,
       required this.minute2,
       required this.scale,
-      required this.description,
-      required this.factors});
+      required this.factors,
+      required this.description});
 
   // Fungsi untuk menyimpan SleepDiary dan SleepFactor
   Future<void> createSleepDiary(BuildContext context) async {
@@ -39,35 +40,20 @@ class SleepDiaryRepository {
         sleepTime: sleepTime,
         wakeupTime: wakeupTime,
         scale: scale,
+        factors: factors,
         description: description);
 
     try {
       // Insert SleepDiary ke Firebase
-      // Kita simpan ke variabel supaya bisa kita ambil ID nya
-      final response = await FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection("sleepDiaries")
           .add(newSleepDiary.toJson());
 
-      // Mengambil ID sleep diary yang baru di-insert
-      String newId = response.id;
-
-      // Insert faktor-faktor
-      for (var factor in factors) {
-        // Pembuatan model sleep factor yang akan di-insert
-        Map<String, dynamic> sleepFactors = {
-          'sleepDiaryId': newId,
-          'factorId': factor
-        };
-
-        // Insert sleep factor ke firebase
-        await FirebaseFirestore.instance
-            .collection('sleepFactors')
-            .add(sleepFactors);
-      }
+      HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
 
       // Redirect ke Home Page
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+          context, MaterialPageRoute(builder: (context) => const MainPage()));
     } catch (error) {
       throw 'Error $error';
     }

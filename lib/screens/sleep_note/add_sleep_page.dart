@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:sleep_diary_mobile/repositories/sleep_diary/sleep_diary_repository.dart';
+import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
 
 class AddSleepPage extends StatefulWidget {
   const AddSleepPage({super.key});
@@ -17,6 +19,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
   var minutes1 = 0;
   var hour2 = 0;
   var minutes2 = 0;
+  List<String> factors = [];
+  ValueNotifier<int> scale = ValueNotifier<int>(0);
+  TextEditingController description = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,9 +53,19 @@ class _AddSleepPageState extends State<AddSleepPage> {
               height: 20,
             ),
             GestureDetector(
-              // onTap: () async {
-              //   await AuthenticationRepository.instance.logout();
-              // },
+              onTap: () async {
+                final repository = SleepDiaryRepository(
+                  sleepDate: DateFormat.yMMMMEEEEd('en_US').format(HomePage.today),
+                  hour1: (hour1 < 10) ? "0$hour1" : hour1.toString(),
+                  minute1: (minutes1 < 10) ? "0$minutes1" : minutes1.toString(),
+                  hour2: (hour2 < 10) ? "0$hour2" : hour2.toString(),
+                  minute2: (minutes2 < 10) ? "0$minutes2" : minutes2.toString(), 
+                  scale: scale.value, 
+                  factors: factors,
+                  description: description.text
+                );
+                await repository.createSleepDiary(context);
+              },
               child: Container(
                 height: 50,
                 width: 370,
@@ -81,7 +96,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
             Column(
               children: [
                 Text(
-                  DateFormat.yMMMMEEEEd().format(DateTime.now()),
+                  DateFormat.yMMMMEEEEd().format(HomePage.today),
                   style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w800,
@@ -374,6 +389,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
   }
 
   AspectRatio _factors() {
+    final ValueNotifier<List<bool>> selectedFactors = ValueNotifier<List<bool>>([false, false, false, false, false]);
+
     return AspectRatio(
       aspectRatio: 336 / 100,
       child: Container(
@@ -394,93 +411,194 @@ class _AddSleepPageState extends State<AddSleepPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InkWell(
-                    splashColor: Colors.black26,
-                    onTap: () {},
-                    child: Container(
+                ValueListenableBuilder(
+                  valueListenable: selectedFactors, 
+                  builder: (context, value, child){
+                    return InkWell(
+                      splashColor: Colors.black26,
+                      onTap: () {
+                          if(!selectedFactors.value[0]){
+                            factors.add("lingkungan");
+                            selectedFactors.value[0] = true;
+                          }
+                          else{
+                            factors.remove("lingkungan");
+                            selectedFactors.value[0] = false;
+                          }
+                          print(factors);
+                          print(selectedFactors);
+                          selectedFactors.notifyListeners();
+                      },
+                      child: Container(
                         child: Column(
-                      children: [
-                        Ink.image(
-                          image:
-                              const AssetImage('assets/images/lingkungan.png'),
-                          height: 50,
-                          width: 50,
-                        ),
-                        const Text("Lingkungan",
-                            style: TextStyle(color: Colors.white))
-                      ],
-                    ))),
-                InkWell(
-                    splashColor: Colors.black26,
-                    onTap: () {},
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Ink.image(
-                            image: const AssetImage('assets/images/stress.png'),
-                            height: 50,
-                            width: 50,
-                          ),
-                          const Text("Stress",
-                              style: TextStyle(color: Colors.white))
-                        ],
-                      ),
-                    )),
-                InkWell(
-                    splashColor: Colors.black26,
-                    onTap: () {},
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Ink.image(
-                            image: const AssetImage('assets/images/sakit.png'),
-                            height: 50,
-                            width: 50,
-                          ),
-                          const Text("Sakit",
-                              style: TextStyle(color: Colors.white))
-                        ],
-                      ),
-                    )),
-                InkWell(
-                    splashColor: Colors.black26,
-                    onTap: () {},
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Ink.image(
-                            image:
-                                const AssetImage('assets/images/gelisah.png'),
-                            height: 50,
-                            width: 50,
-                          ),
-                          const Text("Gelisah",
-                              style: TextStyle(color: Colors.white))
-                        ],
-                      ),
-                    )),
-                InkWell(
-                    splashColor: Colors.black26,
-                    onTap: () {},
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Ink.image(
-                            image:
-                                const AssetImage('assets/images/terbangun.png'),
-                            height: 50,
-                            width: 50,
-                          ),
-                          const Text("Terbangun",
-                              style: TextStyle(color: Colors.white))
-                        ],
-                      ),
-                    )),
+                          children: [
+                            Ink.image(
+                              image: const AssetImage('assets/images/lingkungan.png'),
+                              height: 50,
+                              width: 50,
+                              colorFilter: (value[0] == false) ? 
+                                const ColorFilter.mode(Color.fromRGBO(8, 10, 35, 1), BlendMode.color) : 
+                                const ColorFilter.mode(Colors.transparent, BlendMode.color)
+                            ),
+                            const Text("Lingkungan",style: TextStyle(color: Colors.white))
+                          ],
+                        )
+                      )
+                    );
+                  }
+                ),
+                ValueListenableBuilder(
+                  valueListenable: selectedFactors, 
+                  builder: (context, value, child){
+                    return InkWell(
+                      splashColor: Colors.black26,
+                      onTap: () {
+                        if(!selectedFactors.value[1]){
+                          factors.add("stress");
+                          selectedFactors.value[1] = true;
+                        }
+                        else{
+                          factors.remove("stress");
+                          selectedFactors.value[1] = false;
+                        }
+                        print(factors);
+                        print(selectedFactors);
+                        selectedFactors.notifyListeners();
+                      },
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Ink.image(
+                              image: const AssetImage('assets/images/stress.png'),
+                              height: 50,
+                              width: 50,
+                              colorFilter: (value[1] == false) ? 
+                                const ColorFilter.mode(Color.fromRGBO(8, 10, 35, 1), BlendMode.color) : 
+                                const ColorFilter.mode(Colors.transparent, BlendMode.color)
+                            ),
+                            const Text("Stress",style: TextStyle(color: Colors.white))
+                          ],
+                        )
+                      )
+                    );
+                  }
+                ),
+                ValueListenableBuilder(
+                  valueListenable: selectedFactors, 
+                  builder: (context, value, child){
+                    return InkWell(
+                      splashColor: Colors.black26,
+                      onTap: () {
+                        if(!selectedFactors.value[2]){
+                          factors.add("sakit");
+                          selectedFactors.value[2] = true;
+                        }
+                        else{
+                          factors.remove("sakit");
+                          selectedFactors.value[2] = false;
+                        }
+                        print(factors);
+                        print(selectedFactors);
+                        selectedFactors.notifyListeners();
+                      },
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Ink.image(
+                              image: const AssetImage('assets/images/sakit.png'),
+                              height: 50,
+                              width: 50,
+                              colorFilter: (value[2] == false) ? 
+                                const ColorFilter.mode(Color.fromRGBO(8, 10, 35, 1), BlendMode.color) : 
+                                const ColorFilter.mode(Colors.transparent, BlendMode.color)
+                            ),
+                            const Text("Sakit",style: TextStyle(color: Colors.white))
+                          ],
+                        )
+                      )
+                    );
+                  }
+                ),
+                ValueListenableBuilder(
+                  valueListenable: selectedFactors, 
+                  builder: (context, value, child){
+                    return InkWell(
+                      splashColor: Colors.black26,
+                      onTap: () {
+                        if(!selectedFactors.value[3]){
+                          factors.add("gelisah");
+                          selectedFactors.value[3] = true;
+                        }
+                        else{
+                          factors.remove("gelisah");
+                          selectedFactors.value[3] = false;
+                        }
+                        print(factors);
+                        print(selectedFactors);
+                        selectedFactors.notifyListeners();
+                      },
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Ink.image(
+                              image: const AssetImage('assets/images/gelisah.png'),
+                              height: 50,
+                              width: 50,
+                              colorFilter: (value[3] == false) ? 
+                                const ColorFilter.mode(Color.fromRGBO(8, 10, 35, 1), BlendMode.color) : 
+                                const ColorFilter.mode(Colors.transparent, BlendMode.color)
+                            ),
+                            const Text("Gelisah",style: TextStyle(color: Colors.white))
+                          ],
+                        )
+                      )
+                    );
+                  }
+                ),
+                ValueListenableBuilder(
+                  valueListenable: selectedFactors, 
+                  builder: (context, value, child){
+                    return InkWell(
+                      splashColor: Colors.black26,
+                      onTap: () {
+                        if(!selectedFactors.value[4]){
+                          factors.add("terbangun");
+                          selectedFactors.value[4] = true;
+                        }
+                        else{
+                          factors.remove("terbangun");
+                          selectedFactors.value[4] = false;
+                        }
+                        print(factors);
+                        print(selectedFactors);
+                        selectedFactors.notifyListeners();
+                      },
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Ink.image(
+                              image: const AssetImage('assets/images/terbangun.png'),
+                              height: 50,
+                              width: 50,
+                              colorFilter: (value[4] == false) ? 
+                                const ColorFilter.mode(Color.fromRGBO(8, 10, 35, 1), BlendMode.color) : 
+                                const ColorFilter.mode(Colors.transparent, BlendMode.color)
+                            ),
+                            const Text("Terbangun",style: TextStyle(color: Colors.white))
+                          ],
+                        )
+                      )
+                    );
+                  }
+                ),
               ],
             ),
-          ])),
+          ]
+        )
+      ),
     );
   }
+
 
   AspectRatio _desc() {
     return AspectRatio(
@@ -492,10 +610,10 @@ class _AddSleepPageState extends State<AddSleepPage> {
           color: Colors.white24,
         ),
         padding: const EdgeInsets.all(10),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Ceritakan tidurmu",
               style: TextStyle(
                 fontSize: 15,
@@ -503,11 +621,12 @@ class _AddSleepPageState extends State<AddSleepPage> {
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 1),
+            const SizedBox(height: 1),
             Expanded(
               child: TextField(
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                controller: description,
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   filled: true,
                   fillColor: Colors.transparent,
                 ),
