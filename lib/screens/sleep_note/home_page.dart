@@ -12,6 +12,8 @@ import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   static DateTime today = DateTime.now();
+  static GetSleepDiaryController sleepDiaryController =
+      Get.put(GetSleepDiaryController());
   const HomePage({super.key});
 
   @override
@@ -22,9 +24,11 @@ class _HomePageState extends State<HomePage> {
   // final String formattedDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
   DateTime selectedDate = DateTime.now();
 
+  // final sleepDiaryController = Get.put(GetSleepDiaryController());
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
-      HomePage.today= day;
+      HomePage.today = day;
+      HomePage.sleepDiaryController.fetchSleepDiaryData(day);
     });
   }
 
@@ -84,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 26,
                           fontWeight: FontWeight.bold)),
                   TextSpan(
-                      text: DateFormat.yMMMMEEEEd().format(today),
+                      text: DateFormat.yMMMMEEEEd().format(HomePage.today),
                       style:
                           const TextStyle(color: Colors.white, fontSize: 14)),
                 ],
@@ -180,7 +184,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Container _card() {
-    final controller = Get.put(GetSleepDiaryController());
+    // final controller = Get.put(GetSleepDiaryController());
+    // controller.date = HomePage.today;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -198,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     children: [
                       Text(
-                        controller.sleepDiary.value.sleepDate,
+                        DateFormat.yMMMMEEEEd().format(HomePage.today),
                         style: const TextStyle(
                             fontSize: 10,
                             color: Colors.white,
@@ -209,99 +215,72 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            // Additional Row 1
-            Row(
-              children: [
-                Expanded(
-                  child: Row(
+            HomePage.sleepDiaryController.sleepDiary.value.sleepDate == ''
+                ? const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 40, horizontal: 5),
+                    child: Text(
+                      'Tidak ada data tidur hari ini',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  )
+                : Column(
                     children: [
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                durationBadge(calculateTimeDifference(
+                                    HomePage.sleepDiaryController.sleepDiary
+                                        .value.wakeupTime,
+                                    HomePage.sleepDiaryController.sleepDiary
+                                        .value.sleepTime)),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '${HomePage.sleepDiaryController.sleepDiary.value.sleepTime} - ${HomePage.sleepDiaryController.sleepDiary.value.wakeupTime}',
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: factorIcons(HomePage
+                                .sleepDiaryController.sleepDiary.value.factors),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                            horizontal: 15, vertical: 12),
                         decoration: BoxDecoration(
                           color: const Color.fromRGBO(255, 255, 255, 0.13),
-                          borderRadius: BorderRadius.circular(25),
+                          borderRadius: BorderRadius.circular(11),
                         ),
-                        child: Text(
-                          '${calculateTimeDifference('23:00', '06:00')} jam ',
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${controller.sleepDiary.value.sleepTime} - ${controller.sleepDiary.value.wakeupTime}',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            displayImageScale(HomePage
+                                .sleepDiaryController.sleepDiary.value.scale),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: displaySleepText(HomePage
+                                  .sleepDiaryController.sleepDiary.value.scale),
+                            ),
+                          ],
                         ),
                       ),
                     ],
-                  ),
-                ),
-                Expanded(
-                  // Menggunakan Expanded di sini
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/lingkungan-fiks.png',
-                        width: 25,
-                        height: 25,
-                      ),
-                      const SizedBox(width: 6),
-                      Image.asset(
-                        'assets/images/sakit.png',
-                        width: 25,
-                        height: 25,
-                      ),
-                      const SizedBox(width: 6),
-                      Image.asset(
-                        'assets/images/gelisah.png',
-                        width: 25,
-                        height: 25,
-                      ),
-                      const SizedBox(width: 6),
-                      Image.asset(
-                        'assets/images/terbangun.png',
-                        width: 25,
-                        height: 25,
-                      ),
-                      const SizedBox(width: 6),
-                      Image.asset(
-                        'assets/images/stress.png',
-                        width: 25,
-                        height: 25,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Container(
-              // margin: const EdgeInsets.symmetric(vertical: 10),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(255, 255, 255, 0.13),
-                borderRadius: BorderRadius.circular(11),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  displayImageScale(controller.sleepDiary.value.scale),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: displaySleepText(controller.sleepDiary.value.scale),
-                  ),
-                ],
-              ),
-            ),
+                  )
           ],
         ),
       ),
@@ -385,15 +364,17 @@ class PopUpMenu extends StatelessWidget {
 int calculateTimeDifference(String wakeupTime, String sleepTime) {
   // Ubah string waktu menjadi objek DateTime
   final wakeupTimeParts = wakeupTime.split(":");
-  int wakeupHour = int.parse(wakeupTimeParts[0]);
-  int wakeupMinute = int.parse(wakeupTimeParts[1]);
+  int wakeupHour = int.tryParse(wakeupTimeParts[0]) ?? 0;
+  int wakeupMinute =
+      wakeupTimeParts.length > 1 ? int.tryParse(wakeupTimeParts[1]) ?? 0 : 0;
 
   final sleepTimeParts = sleepTime.split(":");
-  int sleepHour = int.parse(sleepTimeParts[0]);
-  int sleepMinute = int.parse(sleepTimeParts[1]);
+  int sleepHour = int.tryParse(sleepTimeParts[0]) ?? 0;
+  int sleepMinute =
+      sleepTimeParts.length > 1 ? int.tryParse(sleepTimeParts[1]) ?? 0 : 0;
 
   DateTime firstTime = DateTime(2024, 4, 22, sleepHour, sleepMinute);
-  DateTime secondTime = DateTime(2024, 4, 22, wakeupHour, wakeupMinute);
+  DateTime secondTime = DateTime(2024, 5, 22, wakeupHour, wakeupMinute);
 
   Duration differenceTime = secondTime.difference(firstTime);
   int hours = differenceTime.inHours % 24;
@@ -483,4 +464,48 @@ Widget displaySleepText(int scale) {
       ),
     );
   }
+}
+
+Widget factorIcons(List<String> factors) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: factors.map((factor) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 3.0),
+        child: Image.asset(
+          'assets/images/$factor.png',
+          width: 25,
+          height: 25,
+        ),
+      );
+    }).toList(),
+  );
+}
+
+Widget durationBadge(int duration) {
+  Color badgeColor;
+
+  if ((duration < 7 && duration >= 6) || (duration > 9 && duration <= 10)) {
+    badgeColor = Colors.yellow[600]!.withOpacity(0.7);
+  } else if (duration >= 7 && duration <= 9) {
+    badgeColor = Colors.green.withOpacity(0.7);
+  } else {
+    badgeColor = Colors.red.withOpacity(0.7);
+  }
+
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+    decoration: BoxDecoration(
+      color: badgeColor,
+      borderRadius: BorderRadius.circular(25),
+    ),
+    child: Text(
+      '$duration Jam',
+      style: const TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
 }

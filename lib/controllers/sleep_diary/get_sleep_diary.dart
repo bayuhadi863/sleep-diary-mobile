@@ -4,39 +4,25 @@ import 'package:sleep_diary_mobile/repositories/sleep_diary/get_sleep_diary.dart
 
 class GetSleepDiaryController extends GetxController {
   static GetSleepDiaryController get instance => Get.find();
+  var date = DateTime.now();
 
   Rx<SleepDiaryModel> sleepDiary = SleepDiaryModel.empty().obs;
-  // RxList<Map<String, dynamic>> sleepFactors = <Map<String, dynamic>>[].obs;
   final getSleepDiaryRepository = Get.put(GetSleepDiaryRepository());
 
   @override
   void onInit() {
     super.onInit();
-    fetchSleepDiaryData();
-    // fetchSleepFactore();
+    fetchSleepDiaryData(date);
   }
 
-  /// Fetch user record
-  fetchSleepDiaryData() async {
+  fetchSleepDiaryData(date) async {
     try {
-      final sleepDiary = await getSleepDiaryRepository.fetchSleepDiary();
+      final sleepDiary = await getSleepDiaryRepository.fetchSleepDiary(date);
       this.sleepDiary(sleepDiary);
+      print('sleepdiary data: ${this.sleepDiary.value.toJson() == SleepDiaryModel.empty().toJson()}');
     } catch (e) {
       sleepDiary(SleepDiaryModel.empty());
+      // print(e);
     }
   }
-
-  // Future<void> fetchSleepFactors() async {
-  //   try {
-  //     // Assuming sleepDiaryId is available (modify based on your logic)
-  //     final String sleepDiaryId =
-  //         sleepDiary.value.id; // Get sleepDiaryId from sleepDiary
-  //     final fetchedSleepFactors =
-  //         await getSleepDiaryRepository.fetchSleepFactorIds(sleepDiaryId);
-  //     this.sleepFactors(fetchedSleepFactors);
-  //   } catch (e) {
-  //     print(
-  //         'Error fetching sleep factors: $e'); // Consider error handling (e.g., snackbar)
-  //   }
-  // }
 }

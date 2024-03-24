@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/models/sleep_diary_mode.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
@@ -45,12 +46,14 @@ class SleepDiaryRepository {
     try {
       // Insert SleepDiary ke Firebase
       await FirebaseFirestore.instance
-        .collection("sleepDiaries")
-        .add(newSleepDiary.toJson());
+          .collection("sleepDiaries")
+          .add(newSleepDiary.toJson());
+
+      HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
 
       // Redirect ke Home Page
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+          context, MaterialPageRoute(builder: (context) => const MainPage()));
     } catch (error) {
       throw 'Error $error';
     }

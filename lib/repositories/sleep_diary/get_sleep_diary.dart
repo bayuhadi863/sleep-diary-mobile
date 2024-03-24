@@ -10,11 +10,11 @@ class GetSleepDiaryRepository extends GetxController {
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Future<SleepDiaryModel> fetchSleepDiary() async {
+  Future<SleepDiaryModel> fetchSleepDiary(date) async {
     try {
       final user = AuthenticationRepository.instance.authUser;
       final now = DateTime.now();
-      final String formattedDate = DateFormat.yMMMMEEEEd().format(now);
+      final String formattedDate = DateFormat.yMMMMEEEEd().format(date);
 
       final snapshot = await _db
           .collection('sleepDiaries')
@@ -24,39 +24,24 @@ class GetSleepDiaryRepository extends GetxController {
 
       if (snapshot.docs.isNotEmpty) {
         final data = snapshot.docs.first.data();
+        // print('Data fetched: $data');
         return SleepDiaryModel(
           userId: data['userId'],
           sleepDate: data['sleepDate'],
           sleepTime: data['sleepTime'],
           wakeupTime: data['wakeupTime'],
           scale: data['scale'],
+          factors:
+              data['factors'] != null ? List<String>.from(data['factors']) : [],
           description: data['description'],
         );
       }
+      // print('No data fetched');
       return SleepDiaryModel.empty();
     } on PlatformException catch (e) {
       Get.snackbar('Error', e.message ?? 'An error occurred');
+      // print('Error fetching data: $e');
       return SleepDiaryModel.empty();
-    }
-  }
-
-  Future<List<String>> fetchSleepFactorIds(String sleepDiaryId) async {
-    try {
-      final snapshot = await _db
-          .collection('sleepFactors')
-          .where('sleepDiaryId', isEqualTo: sleepDiaryId)
-          .get();
-
-      if (snapshot.docs.isNotEmpty) {
-        // Extract only factorIds for efficiency and clarity
-        return snapshot.docs
-            .map((doc) => doc.data()['factorId'] as String)
-            .toList();
-      }
-      return [];
-    } on PlatformException catch (e) {
-      Get.snackbar('Error', e.message ?? 'An error occurred');
-      return [];
     }
   }
 }
