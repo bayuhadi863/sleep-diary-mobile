@@ -12,6 +12,7 @@ class AddSleepPage extends StatefulWidget {
 }
 
 class _AddSleepPageState extends State<AddSleepPage> {
+  TimeOfDay? time = const TimeOfDay(hour: 00, minute: 00);
   var hour1 = 0;
   var minutes1 = 0;
   var hour2 = 0;
@@ -31,9 +32,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
               height: 20,
             ),
             _addTime(),
-            const SizedBox(
-              height: 20,
-            ),
+            // const SizedBox(
+            //   height: 20,
+            // ),
             _scale(),
             const SizedBox(
               height: 20,
@@ -54,7 +55,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                 height: 50,
                 width: 370,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Center(
@@ -99,115 +100,178 @@ class _AddSleepPageState extends State<AddSleepPage> {
         ));
   }
 
+  // Widget _addTime() {
+  //   return AspectRatio(
+  //     aspectRatio: 336 / 130,
+  //     child: Column(
+  //       children: [
+  //         const Text("Pilih jam tidurmu",
+  //             style: TextStyle(color: Colors.white)),
+  //         SizedBox(height: 35),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //           children: [
+  //             Container(
+  //               child: Row(
+  //                 children: [
+  //                   GestureDetector(
+  //                     onTap: () async {
+  //                       final TimeOfDay? pickedTime = await showTimePicker(
+  //                         context: context,
+  //                         initialTime: TimeOfDay(hour: hour1, minute: minutes1),
+  //                       );
+  //                       if (pickedTime != null) {
+  //                         setState(() {
+  //                           hour1 = pickedTime.hour;
+  //                           minutes1 = pickedTime.minute;
+  //                         });
+  //                       }
+  //                     },
+  //                     child: Text(
+  //                       '${hour1.toString().padLeft(2, '0')}:${minutes1.toString().padLeft(2, '0')}',
+  //                       style: const TextStyle(
+  //                         fontSize: 30,
+  //                         fontWeight: FontWeight.w700,
+  //                         color: Colors.white,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   // const Icon(Icons.access_time_outlined, color: Colors.white),
+  //                 ],
+  //               ),
+  //             ),
+  //             const Text(
+  //               "-",
+  //               style: TextStyle(
+  //                   fontSize: 30,
+  //                   fontWeight: FontWeight.w500,
+  //                   color: Colors.white),
+  //             ),
+  //             Container(
+  //               child: Row(
+  //                 children: [
+  //                   GestureDetector(
+  //                     onTap: () async {
+  //                       final TimeOfDay? pickedTime = await showTimePicker(
+  //                         context: context,
+  //                         initialTime: TimeOfDay(hour: hour2, minute: minutes2),
+  //                       );
+  //                       if (pickedTime != null) {
+  //                         setState(() {
+  //                           hour2 = pickedTime.hour;
+  //                           minutes2 = pickedTime.minute;
+  //                         });
+  //                       }
+  //                     },
+  //                     child: Text(
+  //                       '${hour2.toString().padLeft(2, '0')}:${minutes2.toString().padLeft(2, '0')}',
+  //                       style: const TextStyle(
+  //                         fontSize: 30,
+  //                         fontWeight: FontWeight.w700,
+  //                         color: Colors.white,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   // const Icon(Icons.access_time_outlined, color: Colors.white),
+  //                 ],
+  //               ),
+  //             ),
+  //           ],
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
   Widget _addTime() {
     return AspectRatio(
-      aspectRatio: 336 / 250,
+      aspectRatio: 336 / 130,
       child: Column(
         children: [
           const Text("Pilih jam tidurmu",
               style: TextStyle(color: Colors.white)),
+          const SizedBox(height: 35),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white24,
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: Row(
                   children: [
-                    NumberPicker(
-                      minValue: 0,
-                      maxValue: 24,
-                      value: hour1,
-                      zeroPad: true,
-                      infiniteLoop: true,
-                      itemHeight: 80,
-                      itemWidth: 60,
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            hour1 = value;
-                          },
+                    GestureDetector(
+                      onTap: () async {
+                        final TimeOfDay? pickedTime = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay(hour: hour1, minute: minutes1),
                         );
+                        if (pickedTime != null) {
+                          setState(() {
+                            hour1 = pickedTime.hour;
+                            minutes1 = pickedTime.minute;
+                          });
+                        }
                       },
-                      selectedTextStyle: const TextStyle(
+                      child: Text(
+                        '${hour1.toString().padLeft(2, '0')}:${minutes1.toString().padLeft(2, '0')}',
+                        style: const TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w700,
-                          color: Colors.white),
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                    NumberPicker(
-                      minValue: 0,
-                      maxValue: 59,
-                      value: minutes1,
-                      zeroPad: true,
-                      infiniteLoop: true,
-                      itemHeight: 80,
-                      itemWidth: 60,
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            minutes1 = value;
-                          },
-                        );
-                      },
-                      selectedTextStyle: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white),
+                    const SizedBox(
+                      width: 10,
                     ),
+                    const Icon(Icons.arrow_drop_down, color: Colors.white),
                   ],
                 ),
-                // decoration: BoxDecoration(
-
-                // ),
               ),
               const Text(
                 "-",
                 style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
               ),
               Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white24,
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: Row(
                   children: [
-                    NumberPicker(
-                      minValue: 0,
-                      maxValue: 24,
-                      value: hour2,
-                      zeroPad: true,
-                      infiniteLoop: true,
-                      itemHeight: 80,
-                      itemWidth: 60,
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            hour2 = value;
-                          },
+                    GestureDetector(
+                      onTap: () async {
+                        final TimeOfDay? pickedTime = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay(hour: hour2, minute: minutes2),
                         );
+                        if (pickedTime != null) {
+                          setState(() {
+                            hour2 = pickedTime.hour;
+                            minutes2 = pickedTime.minute;
+                          });
+                        }
                       },
-                      selectedTextStyle: const TextStyle(
+                      child: Text(
+                        '${hour2.toString().padLeft(2, '0')}:${minutes2.toString().padLeft(2, '0')}',
+                        style: const TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w700,
-                          color: Colors.white),
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                    NumberPicker(
-                      minValue: 0,
-                      maxValue: 59,
-                      value: minutes2,
-                      zeroPad: true,
-                      infiniteLoop: true,
-                      itemHeight: 80,
-                      itemWidth: 60,
-                      onChanged: (value) {
-                        setState(
-                          () {
-                            minutes2 = value;
-                          },
-                        );
-                      },
-                      selectedTextStyle: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white),
+                    const SizedBox(
+                      width: 10,
                     ),
+                    const Icon(Icons.arrow_drop_down, color: Colors.white),
                   ],
                 ),
               ),
@@ -326,6 +390,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   color: Colors.white),
               textAlign: TextAlign.start,
             ),
+            // SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -461,7 +526,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text("Information"),
+            title: const Text("Detail Informasi"),
             content: SingleChildScrollView(
               child: Column(
                 children: [
@@ -469,27 +534,28 @@ class _AddSleepPageState extends State<AddSleepPage> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Expanded(
+                        const Expanded(
                           child: Image(
-                            image: AssetImage('assets/images/6.png'),
+                            image: AssetImage('assets/images/skalabulan1.png'),
                             height: 30,
                           ),
                         ),
                         Expanded(
                           flex: 3,
-                          child: new Column(
+                          child: Column(
                             children: <Widget>[
                               Title(
                                 color: Colors.black,
-                                child: Text(
+                                child: const Text(
                                   "Sangat Buruk",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              Text("Tidur sangat buruk dan tidak memuaskan",
-                                  textAlign: TextAlign.left),
-                              Text(
+                              const Text(
+                                  "Tidur sangat buruk dan tidak memuaskan",
+                                  textAlign: TextAlign.justify),
+                              const Text(
                                   "Merasa sangat lelah dan tidak segar saat bangun pagi",
                                   textAlign: TextAlign.left),
                             ],
@@ -501,27 +567,27 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   Container(
                     child: Row(
                       children: <Widget>[
-                        Expanded(
+                        const Expanded(
                           child: Image(
-                            image: AssetImage('assets/images/7.png'),
+                            image: AssetImage('assets/images/skalabulan2.png'),
                             height: 30,
                           ),
                         ),
                         Expanded(
                           flex: 3,
-                          child: new Column(
+                          child: Column(
                             children: <Widget>[
                               Title(
                                 color: Colors.black,
-                                child: Text("Buruk",
+                                child: const Text("Buruk",
                                     textAlign: TextAlign.left,
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
-                              Text(
+                              const Text(
                                   "Tidur kurang baik, tetapi tidak seburuk skala 1",
                                   textAlign: TextAlign.left),
-                              Text(
+                              const Text(
                                   "Merasa lelah atau kurang segar saat bangun pagi",
                                   textAlign: TextAlign.left),
                             ],
@@ -533,7 +599,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   Container(
                     child: Row(
                       children: <Widget>[
-                        Expanded(
+                        const Expanded(
                           child: Image(
                             image: AssetImage('assets/images/8.png'),
                             height: 30,
@@ -545,15 +611,15 @@ class _AddSleepPageState extends State<AddSleepPage> {
                             children: <Widget>[
                               Title(
                                 color: Colors.black,
-                                child: Text("Cukup",
+                                child: const Text("Cukup",
                                     textAlign: TextAlign.left,
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
-                              Text(
+                              const Text(
                                   "Tidur relatif stabil tanpa terlalu banyak gangguan",
                                   textAlign: TextAlign.left),
-                              Text(
+                              const Text(
                                   "Bangun pagi dengan segar, tetapi masih ada kelelahan",
                                   textAlign: TextAlign.left),
                             ],
@@ -565,7 +631,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   Container(
                     child: Row(
                       children: <Widget>[
-                        Expanded(
+                        const Expanded(
                           child: Image(
                             image: AssetImage('assets/images/9.png'),
                             height: 30,
@@ -577,15 +643,15 @@ class _AddSleepPageState extends State<AddSleepPage> {
                             children: <Widget>[
                               Title(
                                 color: Colors.black,
-                                child: Text("Baik",
+                                child: const Text("Baik",
                                     textAlign: TextAlign.left,
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
-                              Text(
+                              const Text(
                                   "Tidur sangat baik dan nyenyak sepanjang malam",
                                   textAlign: TextAlign.left),
-                              Text(
+                              const Text(
                                   "Bangun pagi dengan perasaan segar dan bertenaga",
                                   textAlign: TextAlign.left),
                             ],
@@ -597,7 +663,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   Container(
                     child: Row(
                       children: <Widget>[
-                        Expanded(
+                        const Expanded(
                           child: Image(
                             image: AssetImage('assets/images/10.png'),
                             height: 30,
@@ -609,15 +675,15 @@ class _AddSleepPageState extends State<AddSleepPage> {
                             children: <Widget>[
                               Title(
                                 color: Colors.black,
-                                child: Text("Sangat Baik",
+                                child: const Text("Sangat Baik",
                                     textAlign: TextAlign.left,
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
-                              Text(
+                              const Text(
                                   "Tidur sangat luar biasa, sangat nyenyak dan puas",
                                   textAlign: TextAlign.left),
-                              Text(
+                              const Text(
                                   "Bangun pagi dengan perasaan segar bersemangat dan penuh energi",
                                   textAlign: TextAlign.left),
                             ],
