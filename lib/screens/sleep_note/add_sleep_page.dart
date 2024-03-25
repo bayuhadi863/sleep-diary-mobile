@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -15,10 +16,13 @@ class AddSleepPage extends StatefulWidget {
 
 class _AddSleepPageState extends State<AddSleepPage> {
   TimeOfDay? time = const TimeOfDay(hour: 00, minute: 00);
-  var hour1 = 0;
-  var minutes1 = 0;
-  var hour2 = 0;
-  var minutes2 = 0;
+  ValueNotifier<int> hour1 = ValueNotifier<int>(0);
+  ValueNotifier<int> minutes1 = ValueNotifier<int>(0);
+  ValueNotifier<int> hour2 = ValueNotifier<int>(0);
+  ValueNotifier<int> minutes2 = ValueNotifier<int>(0);
+  // var minutes1 = 0;
+  // var hour2 = 0;
+  // var minutes2 = 0;
   List<String> factors = [];
   ValueNotifier<int> scale = ValueNotifier<int>(0);
   TextEditingController description = TextEditingController();
@@ -55,15 +59,23 @@ class _AddSleepPageState extends State<AddSleepPage> {
             GestureDetector(
               onTap: () async {
                 final repository = SleepDiaryRepository(
-                  sleepDate: DateFormat.yMMMMEEEEd('en_US').format(HomePage.today),
-                  hour1: (hour1 < 10) ? "0$hour1" : hour1.toString(),
-                  minute1: (minutes1 < 10) ? "0$minutes1" : minutes1.toString(),
-                  hour2: (hour2 < 10) ? "0$hour2" : hour2.toString(),
-                  minute2: (minutes2 < 10) ? "0$minutes2" : minutes2.toString(), 
-                  scale: scale.value, 
-                  factors: factors,
-                  description: description.text
-                );
+                    sleepDate:
+                        DateFormat.yMMMMEEEEd('en_US').format(HomePage.today),
+                    hour1: (hour1.value < 10)
+                        ? "0${hour1.value}"
+                        : hour1.value.toString(),
+                    minute1: (minutes1.value < 10)
+                        ? "0${minutes1.value}"
+                        : minutes1.value.toString(),
+                    hour2: (hour2.value < 10)
+                        ? "0${hour2.value}"
+                        : hour2.value.toString(),
+                    minute2: (minutes2.value < 10)
+                        ? "0${minutes2.value}"
+                        : minutes2.value.toString(),
+                    scale: scale.value,
+                    factors: factors,
+                    description: description.text);
                 await repository.createSleepDiary(context);
               },
               child: Container(
@@ -220,23 +232,28 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       onTap: () async {
                         final TimeOfDay? pickedTime = await showTimePicker(
                           context: context,
-                          initialTime: TimeOfDay(hour: hour1, minute: minutes1),
+                          initialTime: TimeOfDay(
+                              hour: hour1.value, minute: minutes1.value),
                         );
                         if (pickedTime != null) {
-                          setState(() {
-                            hour1 = pickedTime.hour;
-                            minutes1 = pickedTime.minute;
-                          });
+                          // setState(() {
+                          hour1.value = pickedTime.hour;
+                          minutes1.value = pickedTime.minute;
+                          //   });
                         }
                       },
-                      child: Text(
-                        '${hour1.toString().padLeft(2, '0')}:${minutes1.toString().padLeft(2, '0')}',
-                        style: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: ValueListenableBuilder(
+                          valueListenable: hour1,
+                          builder: (context, value, child) {
+                            return Text(
+                              '${value.toString().padLeft(2, '0')}:${minutes1.value.toString().padLeft(2, '0')}',
+                              style: const TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            );
+                          }),
                     ),
                     const SizedBox(
                       width: 10,
@@ -265,23 +282,28 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       onTap: () async {
                         final TimeOfDay? pickedTime = await showTimePicker(
                           context: context,
-                          initialTime: TimeOfDay(hour: hour2, minute: minutes2),
+                          initialTime: TimeOfDay(
+                              hour: hour2.value, minute: minutes2.value),
                         );
                         if (pickedTime != null) {
-                          setState(() {
-                            hour2 = pickedTime.hour;
-                            minutes2 = pickedTime.minute;
-                          });
+                          // setState(() {
+                          hour2.value = pickedTime.hour;
+                          minutes2.value = pickedTime.minute;
+                          // });
                         }
                       },
-                      child: Text(
-                        '${hour2.toString().padLeft(2, '0')}:${minutes2.toString().padLeft(2, '0')}',
-                        style: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: ValueListenableBuilder(
+                          valueListenable: hour2,
+                          builder: (context, value, child) {
+                            return Text(
+                              '${value.toString().padLeft(2, '0')}:${minutes2.value.toString().padLeft(2, '0')}',
+                              style: const TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            );
+                          }),
                     ),
                     const SizedBox(
                       width: 10,
@@ -330,56 +352,116 @@ class _AddSleepPageState extends State<AddSleepPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {},
-                  child: Ink.image(
-                    image: const AssetImage('assets/images/skalabulan1.png'),
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {},
-                  child: Ink.image(
-                    image: const AssetImage('assets/images/skalabulan2.png'),
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {},
-                  child: Ink.image(
-                    image: const AssetImage('assets/images/skalabulan3.png'),
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {},
-                  child: Ink.image(
-                    image: const AssetImage('assets/images/skalabulan4.png'),
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                InkWell(
-                  splashColor: Colors.black26,
-                  onTap: () {},
-                  child: Ink.image(
-                    image: const AssetImage('assets/images/skalabulan5.png'),
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                ValueListenableBuilder(
+                    valueListenable: scale,
+                    builder: (context, value, child) {
+                      return InkWell(
+                        splashColor: Colors.black26,
+                        onTap: () {
+                          scale.value = 1;
+                          print(scale);
+                        },
+                        child: Ink.image(
+                            image: const AssetImage('assets/images/6.png'),
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.cover,
+                            colorFilter: (value == 1)
+                                ? const ColorFilter.mode(
+                                    Color.fromRGBO(8, 10, 35, 1),
+                                    BlendMode.color)
+                                : const ColorFilter.mode(
+                                    Colors.transparent, BlendMode.color)),
+                      );
+                    }),
+                ValueListenableBuilder(
+                    valueListenable: scale,
+                    builder: (context, value, child) {
+                      return InkWell(
+                        splashColor: Colors.black26,
+                        onTap: () {
+                          scale.value = 2;
+                          print(scale);
+                        },
+                        child: Ink.image(
+                            image: const AssetImage('assets/images/7.png'),
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.cover,
+                            colorFilter: (value == 2)
+                                ? const ColorFilter.mode(
+                                    Color.fromRGBO(8, 10, 35, 1),
+                                    BlendMode.color)
+                                : const ColorFilter.mode(
+                                    Colors.transparent, BlendMode.color)),
+                      );
+                    }),
+                ValueListenableBuilder(
+                    valueListenable: scale,
+                    builder: (context, value, child) {
+                      return InkWell(
+                        splashColor: Colors.black26,
+                        onTap: () {
+                          scale.value = 3;
+                          print(scale);
+                        },
+                        child: Ink.image(
+                            image: const AssetImage('assets/images/8.png'),
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.cover,
+                            colorFilter: (value == 3)
+                                ? const ColorFilter.mode(
+                                    Color.fromRGBO(8, 10, 35, 1),
+                                    BlendMode.color)
+                                : const ColorFilter.mode(
+                                    Colors.transparent, BlendMode.color)),
+                      );
+                    }),
+                ValueListenableBuilder(
+                    valueListenable: scale,
+                    builder: (context, value, child) {
+                      return InkWell(
+                        splashColor: Colors.black26,
+                        onTap: () {
+                          scale.value = 4;
+                          print(scale);
+                        },
+                        child: Ink.image(
+                            image: const AssetImage('assets/images/9.png'),
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.cover,
+                            colorFilter: (value == 4)
+                                ? const ColorFilter.mode(
+                                    Color.fromRGBO(8, 10, 35, 1),
+                                    BlendMode.color)
+                                : const ColorFilter.mode(
+                                    Colors.transparent, BlendMode.color)),
+                      );
+                    }),
+                ValueListenableBuilder(
+                    valueListenable: scale,
+                    builder: (context, value, child) {
+                      return InkWell(
+                        splashColor: Colors.black26,
+                        onTap: () {
+                          scale.value = 5;
+                          print(scale);
+                        },
+                        child: Ink.image(
+                            image: const AssetImage('assets/images/10.png'),
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.cover,
+                            colorFilter: (value == 5)
+                                ? const ColorFilter.mode(
+                                    Color.fromRGBO(8, 10, 35, 1),
+                                    BlendMode.color)
+                                : const ColorFilter.mode(
+                                    Colors.transparent, BlendMode.color)),
+                      );
+                    }),
               ],
             )
           ],
@@ -389,7 +471,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
   }
 
   AspectRatio _factors() {
-    final ValueNotifier<List<bool>> selectedFactors = ValueNotifier<List<bool>>([false, false, false, false, false]);
+    final ValueNotifier<List<bool>> selectedFactors =
+        ValueNotifier<List<bool>>([false, false, false, false, false]);
 
     return AspectRatio(
       aspectRatio: 336 / 100,
@@ -412,193 +495,190 @@ class _AddSleepPageState extends State<AddSleepPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ValueListenableBuilder(
-                  valueListenable: selectedFactors, 
-                  builder: (context, value, child){
-                    return InkWell(
-                      splashColor: Colors.black26,
-                      onTap: () {
-                          if(!selectedFactors.value[0]){
-                            factors.add("lingkungan");
-                            selectedFactors.value[0] = true;
-                          }
-                          else{
-                            factors.remove("lingkungan");
-                            selectedFactors.value[0] = false;
-                          }
-                          print(factors);
-                          print(selectedFactors);
-                          selectedFactors.notifyListeners();
-                      },
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Ink.image(
-                              image: const AssetImage('assets/images/lingkungan.png'),
-                              height: 50,
-                              width: 50,
-                              colorFilter: (value[0] == false) ? 
-                                const ColorFilter.mode(Color.fromRGBO(8, 10, 35, 1), BlendMode.color) : 
-                                const ColorFilter.mode(Colors.transparent, BlendMode.color)
-                            ),
-                            const Text("Lingkungan",style: TextStyle(color: Colors.white))
-                          ],
-                        )
-                      )
-                    );
-                  }
-                ),
+                    valueListenable: selectedFactors,
+                    builder: (context, value, child) {
+                      return InkWell(
+                          splashColor: Colors.black26,
+                          onTap: () {
+                            if (!selectedFactors.value[0]) {
+                              factors.add("lingkungan");
+                              selectedFactors.value[0] = true;
+                            } else {
+                              factors.remove("lingkungan");
+                              selectedFactors.value[0] = false;
+                            }
+                            print(factors);
+                            print(selectedFactors);
+                            selectedFactors.notifyListeners();
+                          },
+                          child: Container(
+                              child: Column(
+                            children: [
+                              Ink.image(
+                                  image: const AssetImage(
+                                      'assets/images/lingkungan.png'),
+                                  height: 50,
+                                  width: 50,
+                                  colorFilter: (value[0] == false)
+                                      ? const ColorFilter.mode(
+                                          Color.fromRGBO(8, 10, 35, 1),
+                                          BlendMode.color)
+                                      : const ColorFilter.mode(
+                                          Colors.transparent, BlendMode.color)),
+                              const Text("Lingkungan",
+                                  style: TextStyle(color: Colors.white))
+                            ],
+                          )));
+                    }),
                 ValueListenableBuilder(
-                  valueListenable: selectedFactors, 
-                  builder: (context, value, child){
-                    return InkWell(
-                      splashColor: Colors.black26,
-                      onTap: () {
-                        if(!selectedFactors.value[1]){
-                          factors.add("stress");
-                          selectedFactors.value[1] = true;
-                        }
-                        else{
-                          factors.remove("stress");
-                          selectedFactors.value[1] = false;
-                        }
-                        print(factors);
-                        print(selectedFactors);
-                        selectedFactors.notifyListeners();
-                      },
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Ink.image(
-                              image: const AssetImage('assets/images/stress.png'),
-                              height: 50,
-                              width: 50,
-                              colorFilter: (value[1] == false) ? 
-                                const ColorFilter.mode(Color.fromRGBO(8, 10, 35, 1), BlendMode.color) : 
-                                const ColorFilter.mode(Colors.transparent, BlendMode.color)
-                            ),
-                            const Text("Stress",style: TextStyle(color: Colors.white))
-                          ],
-                        )
-                      )
-                    );
-                  }
-                ),
+                    valueListenable: selectedFactors,
+                    builder: (context, value, child) {
+                      return InkWell(
+                          splashColor: Colors.black26,
+                          onTap: () {
+                            if (!selectedFactors.value[1]) {
+                              factors.add("stress");
+                              selectedFactors.value[1] = true;
+                            } else {
+                              factors.remove("stress");
+                              selectedFactors.value[1] = false;
+                            }
+                            print(factors);
+                            print(selectedFactors);
+                            selectedFactors.notifyListeners();
+                          },
+                          child: Container(
+                              child: Column(
+                            children: [
+                              Ink.image(
+                                  image: const AssetImage(
+                                      'assets/images/stress.png'),
+                                  height: 50,
+                                  width: 50,
+                                  colorFilter: (value[1] == false)
+                                      ? const ColorFilter.mode(
+                                          Color.fromRGBO(8, 10, 35, 1),
+                                          BlendMode.color)
+                                      : const ColorFilter.mode(
+                                          Colors.transparent, BlendMode.color)),
+                              const Text("Stress",
+                                  style: TextStyle(color: Colors.white))
+                            ],
+                          )));
+                    }),
                 ValueListenableBuilder(
-                  valueListenable: selectedFactors, 
-                  builder: (context, value, child){
-                    return InkWell(
-                      splashColor: Colors.black26,
-                      onTap: () {
-                        if(!selectedFactors.value[2]){
-                          factors.add("sakit");
-                          selectedFactors.value[2] = true;
-                        }
-                        else{
-                          factors.remove("sakit");
-                          selectedFactors.value[2] = false;
-                        }
-                        print(factors);
-                        print(selectedFactors);
-                        selectedFactors.notifyListeners();
-                      },
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Ink.image(
-                              image: const AssetImage('assets/images/sakit.png'),
-                              height: 50,
-                              width: 50,
-                              colorFilter: (value[2] == false) ? 
-                                const ColorFilter.mode(Color.fromRGBO(8, 10, 35, 1), BlendMode.color) : 
-                                const ColorFilter.mode(Colors.transparent, BlendMode.color)
-                            ),
-                            const Text("Sakit",style: TextStyle(color: Colors.white))
-                          ],
-                        )
-                      )
-                    );
-                  }
-                ),
+                    valueListenable: selectedFactors,
+                    builder: (context, value, child) {
+                      return InkWell(
+                          splashColor: Colors.black26,
+                          onTap: () {
+                            if (!selectedFactors.value[2]) {
+                              factors.add("sakit");
+                              selectedFactors.value[2] = true;
+                            } else {
+                              factors.remove("sakit");
+                              selectedFactors.value[2] = false;
+                            }
+                            print(factors);
+                            print(selectedFactors);
+                            selectedFactors.notifyListeners();
+                          },
+                          child: Container(
+                              child: Column(
+                            children: [
+                              Ink.image(
+                                  image: const AssetImage(
+                                      'assets/images/sakit.png'),
+                                  height: 50,
+                                  width: 50,
+                                  colorFilter: (value[2] == false)
+                                      ? const ColorFilter.mode(
+                                          Color.fromRGBO(8, 10, 35, 1),
+                                          BlendMode.color)
+                                      : const ColorFilter.mode(
+                                          Colors.transparent, BlendMode.color)),
+                              const Text("Sakit",
+                                  style: TextStyle(color: Colors.white))
+                            ],
+                          )));
+                    }),
                 ValueListenableBuilder(
-                  valueListenable: selectedFactors, 
-                  builder: (context, value, child){
-                    return InkWell(
-                      splashColor: Colors.black26,
-                      onTap: () {
-                        if(!selectedFactors.value[3]){
-                          factors.add("gelisah");
-                          selectedFactors.value[3] = true;
-                        }
-                        else{
-                          factors.remove("gelisah");
-                          selectedFactors.value[3] = false;
-                        }
-                        print(factors);
-                        print(selectedFactors);
-                        selectedFactors.notifyListeners();
-                      },
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Ink.image(
-                              image: const AssetImage('assets/images/gelisah.png'),
-                              height: 50,
-                              width: 50,
-                              colorFilter: (value[3] == false) ? 
-                                const ColorFilter.mode(Color.fromRGBO(8, 10, 35, 1), BlendMode.color) : 
-                                const ColorFilter.mode(Colors.transparent, BlendMode.color)
-                            ),
-                            const Text("Gelisah",style: TextStyle(color: Colors.white))
-                          ],
-                        )
-                      )
-                    );
-                  }
-                ),
+                    valueListenable: selectedFactors,
+                    builder: (context, value, child) {
+                      return InkWell(
+                          splashColor: Colors.black26,
+                          onTap: () {
+                            if (!selectedFactors.value[3]) {
+                              factors.add("gelisah");
+                              selectedFactors.value[3] = true;
+                            } else {
+                              factors.remove("gelisah");
+                              selectedFactors.value[3] = false;
+                            }
+                            print(factors);
+                            print(selectedFactors);
+                            selectedFactors.notifyListeners();
+                          },
+                          child: Container(
+                              child: Column(
+                            children: [
+                              Ink.image(
+                                  image: const AssetImage(
+                                      'assets/images/gelisah.png'),
+                                  height: 50,
+                                  width: 50,
+                                  colorFilter: (value[3] == false)
+                                      ? const ColorFilter.mode(
+                                          Color.fromRGBO(8, 10, 35, 1),
+                                          BlendMode.color)
+                                      : const ColorFilter.mode(
+                                          Colors.transparent, BlendMode.color)),
+                              const Text("Gelisah",
+                                  style: TextStyle(color: Colors.white))
+                            ],
+                          )));
+                    }),
                 ValueListenableBuilder(
-                  valueListenable: selectedFactors, 
-                  builder: (context, value, child){
-                    return InkWell(
-                      splashColor: Colors.black26,
-                      onTap: () {
-                        if(!selectedFactors.value[4]){
-                          factors.add("terbangun");
-                          selectedFactors.value[4] = true;
-                        }
-                        else{
-                          factors.remove("terbangun");
-                          selectedFactors.value[4] = false;
-                        }
-                        print(factors);
-                        print(selectedFactors);
-                        selectedFactors.notifyListeners();
-                      },
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Ink.image(
-                              image: const AssetImage('assets/images/terbangun.png'),
-                              height: 50,
-                              width: 50,
-                              colorFilter: (value[4] == false) ? 
-                                const ColorFilter.mode(Color.fromRGBO(8, 10, 35, 1), BlendMode.color) : 
-                                const ColorFilter.mode(Colors.transparent, BlendMode.color)
-                            ),
-                            const Text("Terbangun",style: TextStyle(color: Colors.white))
-                          ],
-                        )
-                      )
-                    );
-                  }
-                ),
+                    valueListenable: selectedFactors,
+                    builder: (context, value, child) {
+                      return InkWell(
+                          splashColor: Colors.black26,
+                          onTap: () {
+                            if (!selectedFactors.value[4]) {
+                              factors.add("terbangun");
+                              selectedFactors.value[4] = true;
+                            } else {
+                              factors.remove("terbangun");
+                              selectedFactors.value[4] = false;
+                            }
+                            print(factors);
+                            print(selectedFactors);
+                            selectedFactors.notifyListeners();
+                          },
+                          child: Container(
+                              child: Column(
+                            children: [
+                              Ink.image(
+                                  image: const AssetImage(
+                                      'assets/images/terbangun.png'),
+                                  height: 50,
+                                  width: 50,
+                                  colorFilter: (value[4] == false)
+                                      ? const ColorFilter.mode(
+                                          Color.fromRGBO(8, 10, 35, 1),
+                                          BlendMode.color)
+                                      : const ColorFilter.mode(
+                                          Colors.transparent, BlendMode.color)),
+                              const Text("Terbangun",
+                                  style: TextStyle(color: Colors.white))
+                            ],
+                          )));
+                    }),
               ],
             ),
-          ]
-        )
-      ),
+          ])),
     );
   }
-
 
   AspectRatio _desc() {
     return AspectRatio(
