@@ -362,7 +362,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           print(scale);
                         },
                         child: Ink.image(
-                            image: const AssetImage('assets/images/6.png'),
+                            image: const AssetImage(
+                                'assets/images/skalabulan1.png'),
                             height: 50,
                             width: 50,
                             fit: BoxFit.cover,
@@ -384,7 +385,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           print(scale);
                         },
                         child: Ink.image(
-                            image: const AssetImage('assets/images/7.png'),
+                            image: const AssetImage(
+                                'assets/images/skalabulan2.png'),
                             height: 50,
                             width: 50,
                             fit: BoxFit.cover,
@@ -406,7 +408,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           print(scale);
                         },
                         child: Ink.image(
-                            image: const AssetImage('assets/images/8.png'),
+                            image: const AssetImage(
+                                'assets/images/skalabulan3.png'),
                             height: 50,
                             width: 50,
                             fit: BoxFit.cover,
@@ -428,7 +431,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           print(scale);
                         },
                         child: Ink.image(
-                            image: const AssetImage('assets/images/9.png'),
+                            image: const AssetImage(
+                                'assets/images/skalabulan4.png'),
                             height: 50,
                             width: 50,
                             fit: BoxFit.cover,
@@ -450,7 +454,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           print(scale);
                         },
                         child: Ink.image(
-                            image: const AssetImage('assets/images/10.png'),
+                            image: const AssetImage(
+                                'assets/images/skalabulan5.png'),
                             height: 50,
                             width: 50,
                             fit: BoxFit.cover,
