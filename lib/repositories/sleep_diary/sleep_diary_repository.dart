@@ -4,6 +4,7 @@ import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/models/sleep_diary_mode.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
+import 'package:sleep_diary_mobile/widgets/loaders.dart';
 
 class SleepDiaryRepository {
   // Variabel-variabel yang harus di dapatkan saat ingin mengakses class ini
@@ -44,17 +45,43 @@ class SleepDiaryRepository {
         description: description);
 
     try {
-      // Insert SleepDiary ke Firebase
-      await FirebaseFirestore.instance
-          .collection("sleepDiaries")
-          .add(newSleepDiary.toJson());
+      if (newSleepDiary.sleepDate == "") {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Tanggal tidak boleh kosong");
+      } else if (newSleepDiary.sleepTime == "") {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Waktu tidur tidak boleh kosong");
+      } else if (newSleepDiary.wakeupTime == "") {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Waktu bangun tidak boleh kosong");
+      } else if (newSleepDiary.scale == 0) {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Skala kualitas tidak boleh kosong");
+      } else if (newSleepDiary.scale < 4 && newSleepDiary.factors.isEmpty) {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Faktor tidur tidak boleh kosong");
+      } else if (newSleepDiary.description == "") {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Deskripsi tidur tidak boleh kosong");
+      } else {
+        // Insert SleepDiary ke Firebase
+        await FirebaseFirestore.instance
+            .collection("sleepDiaries")
+            .add(newSleepDiary.toJson());
 
-      HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
+        // Show Success Message
+        TLoaders.successSnackBar(
+            title: 'Selamat!', message: 'Anda berhasil mencatat tidur Anda.');
 
-      // Redirect ke Home Page
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const MainPage()));
+        // Fetch data SleepDiary
+        HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
+
+        // Redirect ke Home Page
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const MainPage()));
+      }
     } catch (error) {
+      print('Error: $error');
       throw 'Error $error';
     }
   }
