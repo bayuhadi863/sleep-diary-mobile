@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/add_sleep_page.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
 import 'package:sleep_diary_mobile/firebase_options.dart';
+import 'package:sleep_diary_mobile/widgets/loaders.dart';
 
 Future<void> main() async {
   final WidgetsBinding widgetsBinding =
@@ -34,7 +36,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromRGBO(38, 38, 66, 1)),
         useMaterial3: true,
       ),
       home: const Scaffold(
@@ -88,8 +91,16 @@ class _MainPageState extends State<MainPage> {
             backgroundColor: Colors.transparent,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             selectedIndex: index,
-            onDestinationSelected: (index) =>
-                setState(() => this.index = index),
+            onDestinationSelected: (index) {
+              if (HomePage.sleepDiaryController.sleepDiary.value.sleepDate !=
+                  '') {
+                TLoaders.errorSnackBar(
+                    title: 'Gagal!',
+                    message: 'Anda sudah mencatat tidur pada hari tersebut.');
+                return;
+              }
+              setState(() => this.index = index);
+            },
             destinations: [
               NavigationDestination(
                 icon: Icon(Icons.home,

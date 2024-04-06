@@ -26,11 +26,11 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 52,
             ),
             const CircleAvatar(
-              radius: 70,
+              radius: 60,
               backgroundColor: Colors.transparent,
-              backgroundImage: AssetImage('assets/images/bulan.png'),
+              backgroundImage: AssetImage('assets/images/profile.png'),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 40),
             Container(
               decoration: BoxDecoration(
                 color: const Color(0xFF262642),

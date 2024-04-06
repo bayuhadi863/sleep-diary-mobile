@@ -7,6 +7,7 @@ import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
+import 'package:sleep_diary_mobile/widgets/loaders.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
@@ -27,6 +28,16 @@ class _HomePageState extends State<HomePage> {
   // final sleepDiaryController = Get.put(GetSleepDiaryController());
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
+      DateTime today = DateTime.now();
+      int stringDay = int.parse(DateFormat('yyyyMMdd').format(day));
+      int stringToday = int.parse(DateFormat('yyyyMMdd').format(today));
+
+      if (stringDay > stringToday) {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!',
+            message: 'Anda tidak bisa memilih hari yang belum tiba.');
+        return;
+      }
       HomePage.today = day;
       HomePage.sleepDiaryController.fetchSleepDiaryData(day);
     });
