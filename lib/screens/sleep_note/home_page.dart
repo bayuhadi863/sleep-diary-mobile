@@ -7,6 +7,7 @@ import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
+import 'package:sleep_diary_mobile/screens/sleep_note/detail_card.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
@@ -65,7 +66,7 @@ class _HomePageState extends State<HomePage> {
             ),
             _header(),
             content(),
-            _card(),
+            _card(context),
           ],
         )));
   }
@@ -183,7 +184,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Container _card() {
+  Container _card(BuildContext context) {
     // final controller = Get.put(GetSleepDiaryController());
     // controller.date = HomePage.today;
 
@@ -209,6 +210,34 @@ class _HomePageState extends State<HomePage> {
                             fontSize: 10,
                             color: Colors.white,
                             fontWeight: FontWeight.w600),
+                      ),
+                      //Detail
+                      const SizedBox(width: 100),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DetailCard(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 7, horizontal: 15),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: const Color.fromARGB(255, 112, 112, 149),
+                          ),
+                          child: const Text(
+                            'Detail',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -261,7 +290,7 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 12),
+                            horizontal: 10, vertical: 12),
                         decoration: BoxDecoration(
                           color: const Color.fromRGBO(255, 255, 255, 0.13),
                           borderRadius: BorderRadius.circular(11),
