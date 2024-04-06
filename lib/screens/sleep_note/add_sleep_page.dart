@@ -356,16 +356,17 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         print(scale);
                       },
                       child: Ink.image(
-                          image:
-                              const AssetImage('assets/images/skalabulan1.png'),
-                          height: 50,
-                          width: 50,
-                          fit: BoxFit.cover,
-                          colorFilter: (value == 1)
-                              ? const ColorFilter.mode(
-                                  Color.fromRGBO(8, 10, 35, 1), BlendMode.color)
-                              : const ColorFilter.mode(
-                                  Colors.transparent, BlendMode.color)),
+                        image:
+                            const AssetImage('assets/images/skalabulan1.png'),
+                        height: value == 1 ? 57 : 50,
+                        width: value == 1 ? 57 : 50,
+                        fit: BoxFit.cover,
+                        colorFilter: (value == 1)
+                            ? const ColorFilter.mode(
+                                Color.fromRGBO(8, 10, 35, 1), BlendMode.color)
+                            : const ColorFilter.mode(
+                                Colors.transparent, BlendMode.color)
+                      ),
                     );
                   }),
               ValueListenableBuilder(
@@ -380,14 +381,15 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       child: Ink.image(
                           image:
                               const AssetImage('assets/images/skalabulan2.png'),
-                          height: 50,
-                          width: 50,
+                          height: value == 2 ? 57 : 50,
+                          width: value == 2 ? 57 : 50,
                           fit: BoxFit.cover,
                           colorFilter: (value == 2)
                               ? const ColorFilter.mode(
                                   Color.fromRGBO(8, 10, 35, 1), BlendMode.color)
                               : const ColorFilter.mode(
-                                  Colors.transparent, BlendMode.color)),
+                                  Colors.transparent, BlendMode.color),
+                                  ),
                     );
                   }),
               ValueListenableBuilder(
@@ -402,14 +404,15 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       child: Ink.image(
                           image:
                               const AssetImage('assets/images/skalabulan3.png'),
-                          height: 50,
-                          width: 50,
+                          height: value == 3 ? 57 : 50,
+                          width: value == 3 ? 57 : 50,
                           fit: BoxFit.cover,
                           colorFilter: (value == 3)
                               ? const ColorFilter.mode(
                                   Color.fromRGBO(8, 10, 35, 1), BlendMode.color)
                               : const ColorFilter.mode(
-                                  Colors.transparent, BlendMode.color)),
+                                  Colors.transparent, BlendMode.color),
+                                  ),
                     );
                   }),
               ValueListenableBuilder(
@@ -432,14 +435,15 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       child: Ink.image(
                           image:
                               const AssetImage('assets/images/skalabulan4.png'),
-                          height: 50,
-                          width: 50,
+                          height: value == 4 ? 57 : 50,
+                          width: value == 4 ? 57 : 50,
                           fit: BoxFit.cover,
                           colorFilter: (value == 4)
                               ? const ColorFilter.mode(
                                   Color.fromRGBO(8, 10, 35, 1), BlendMode.color)
                               : const ColorFilter.mode(
-                                  Colors.transparent, BlendMode.color)),
+                                  Colors.transparent, BlendMode.color),
+                          ),
                     );
                   }),
               ValueListenableBuilder(
@@ -462,14 +466,15 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       child: Ink.image(
                           image:
                               const AssetImage('assets/images/skalabulan5.png'),
-                          height: 50,
-                          width: 50,
+                          height: value == 5 ? 57 : 50,
+                          width: value == 5 ? 57 : 50,
                           fit: BoxFit.cover,
                           colorFilter: (value == 5)
                               ? const ColorFilter.mode(
                                   Color.fromRGBO(8, 10, 35, 1), BlendMode.color)
                               : const ColorFilter.mode(
-                                  Colors.transparent, BlendMode.color)),
+                                  Colors.transparent, BlendMode.color)
+                          ),
                     );
                   }),
             ],
