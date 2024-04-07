@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,19 +14,17 @@ class _DetailCardState extends State<DetailCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors
-            .white24, // Atur warna latar belakang AppBar sesuai kebutuhan Anda
-        elevation: 0, // Hilangkan bayangan di bawah AppBar
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back,
-              color: Colors.white), // Tambahkan ikon panah kembali
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(
-                context); // Tambahkan fungsi untuk kembali ke layar sebelumnya
+            Navigator.pop(context);
           },
         ),
+        //Tanggal 
         title: const Text(
-          "Sabtu, 6 April 2024", // Teks tanggal sebagai judul AppBar
+          "Sabtu, 6 April 2024",
           style: TextStyle(
             color: Colors.white,
             fontSize: 25,
@@ -40,7 +37,7 @@ class _DetailCardState extends State<DetailCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 20), // Spacer antara teks dan kotak
+            const SizedBox(height: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +48,7 @@ class _DetailCardState extends State<DetailCard> {
                   decoration: BoxDecoration(
                     color: Colors.white24,
                     borderRadius:
-                        BorderRadius.circular(10), // Atur border radius di sini
+                        BorderRadius.circular(10), 
                   ),
                   margin:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -108,7 +105,7 @@ class _DetailCardState extends State<DetailCard> {
                   decoration: BoxDecoration(
                     color: Colors.white24,
                     borderRadius:
-                        BorderRadius.circular(10), // Atur border radius di sini
+                        BorderRadius.circular(10), 
                   ),
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: Column(
@@ -124,8 +121,8 @@ class _DetailCardState extends State<DetailCard> {
                       ),
                       const SizedBox(height: 20),
                       Image.asset(
-                        'assets/images/skala5.png', // Ubah sesuai path gambar Anda
-                        width: 100, // Sesuaikan ukuran gambar
+                        'assets/images/skala5.png', 
+                        width: 100,
                         height: 100,
                         fit: BoxFit.cover,
                       ),
@@ -147,7 +144,7 @@ class _DetailCardState extends State<DetailCard> {
                   decoration: BoxDecoration(
                     color: Colors.white24,
                     borderRadius:
-                        BorderRadius.circular(10), // Atur border radius di sini
+                        BorderRadius.circular(10), 
                   ),
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: Column(

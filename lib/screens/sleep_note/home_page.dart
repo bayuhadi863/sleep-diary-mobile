@@ -71,7 +71,6 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 20,
             ),
-            // _greetings(),
             const SizedBox(
               height: 10,
             ),
@@ -131,10 +130,6 @@ class _HomePageState extends State<HomePage> {
               onDaySelected: _onDaySelected,
             ),
           ),
-          // const SizedBox(
-          //   height: 20,
-          //   child: const Text('Pilih'),
-          // ),
         ],
       ),
     );
@@ -154,18 +149,9 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: Image.asset(
               'assets/images/ikon.png',
-              // width: 300,
-              // height: 300,
               fit: BoxFit.cover,
             ),
           ),
-          // Container(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: const Text(
-          //     "Unlock Better Sleep",
-          //     style: TextStyle(color: Colors.white),
-          //   ),
-          // ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -222,34 +208,36 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                             fontWeight: FontWeight.w600),
                       ),
-                      //Detail
-                      const SizedBox(width: 100),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const DetailCard(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 7, horizontal: 15),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: const Color.fromARGB(255, 112, 112, 149),
-                          ),
-                          child: const Text(
-                            'Detail',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
+                      //Detail Card
+                      // const SizedBox(
+                      //   width: 100,
+                      // ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => const DetailCard(),
+                      //       ),
+                      //     );
+                      //   },
+                      //   child: Container(
+                      //     padding: const EdgeInsets.symmetric(
+                      //         vertical: 7, horizontal: 15),
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(15),
+                      //       color: const Color.fromARGB(255, 112, 112, 149),
+                      //     ),
+                      //     child: const Text(
+                      //       'Detail',
+                      //       style: TextStyle(
+                      //         color: Colors.white,
+                      //         fontSize: 10,
+                      //         fontWeight: FontWeight.bold,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
