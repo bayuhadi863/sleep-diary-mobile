@@ -16,16 +16,19 @@ class SignupController extends GetxController {
   final password = TextEditingController();
   GlobalKey<FormState> signupFormKey =
       GlobalKey<FormState>(); // form key for form validation
+  final isLoading = false.obs;
 
   /// Signup
   signup() async {
     try {
       // start Loading
+      isLoading.value = true;
 
       // Check Internet Connectivity
 
       // Form Validation
       if (!signupFormKey.currentState!.validate()) {
+        isLoading.value = false;
         return;
       }
 
@@ -51,9 +54,16 @@ class SignupController extends GetxController {
 
       // Move to Verify Email Screen
       Get.to(() => VerifyEmailScreen(email: email.text.trim()));
+
+      // Stop Loading
+      isLoading.value = false;
+
     } catch (e) {
       // Show some Generic error to the user
       TLoaders.errorSnackBar(title: 'Oh, Snap!', message: e.toString());
+
+      // Stop Loading
+      isLoading.value = false;
     }
   }
 }

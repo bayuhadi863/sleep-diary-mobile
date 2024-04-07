@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/sleep_diary_repository.dart';
@@ -23,6 +20,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
   final ValueNotifier<List<bool>> selectedFactors =
       ValueNotifier<List<bool>>([false, false, false, false, false]);
   TextEditingController description = TextEditingController();
+
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,40 +54,60 @@ class _AddSleepPageState extends State<AddSleepPage> {
               height: 20,
             ),
             GestureDetector(
-              onTap: () async {
-                final repository = SleepDiaryRepository(
-                    sleepDate:
-                        DateFormat.yMMMMEEEEd('en_US').format(HomePage.today),
-                    hour1: (time1.value[0] < 10)
-                        ? "0${time1.value[0]}"
-                        : time1.value[0].toString(),
-                    minute1: (time1.value[1] < 10)
-                        ? "0${time1.value[1]}"
-                        : time1.value[1].toString(),
-                    hour2: (time2.value[0] < 10)
-                        ? "0${time2.value[0]}"
-                        : time2.value[0].toString(),
-                    minute2: (time2.value[1] < 10)
-                        ? "0${time2.value[1]}"
-                        : time2.value[1].toString(),
-                    scale: scale.value,
-                    factors: factors,
-                    description: description.text);
-                await repository.createSleepDiary(context);
-              },
+              onTap: isLoading
+                  ? null
+                  : () async {
+                      // Start Loading
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      final repository = SleepDiaryRepository(
+                          sleepDate: DateFormat.yMMMMEEEEd('en_US')
+                              .format(HomePage.today),
+                          hour1: (time1.value[0] < 10)
+                              ? "0${time1.value[0]}"
+                              : time1.value[0].toString(),
+                          minute1: (time1.value[1] < 10)
+                              ? "0${time1.value[1]}"
+                              : time1.value[1].toString(),
+                          hour2: (time2.value[0] < 10)
+                              ? "0${time2.value[0]}"
+                              : time2.value[0].toString(),
+                          minute2: (time2.value[1] < 10)
+                              ? "0${time2.value[1]}"
+                              : time2.value[1].toString(),
+                          scale: scale.value,
+                          factors: factors,
+                          description: description.text);
+
+                      await repository.createSleepDiary(context);
+
+                      // Stop Loading
+                      setState(() {
+                        isLoading = false;
+                      });
+                    },
               child: Container(
                 height: 50,
                 width: 370,
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 255, 255, 255),
+                  color: isLoading
+                      ? const Color.fromARGB(255, 255, 255, 255)
+                          .withOpacity(0.8)
+                      : const Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: const Center(
-                  child: Text(
-                    "Simpan",
-                    style: TextStyle(color: Colors.black),
-                  ),
+                child: Center(
+                  child: isLoading
+                      ? const CircularProgressIndicator(
+                          color: Colors.black,
+                        )
+                      : const Text(
+                          "Simpan",
+                          style: TextStyle(color: Colors.black),
+                        ),
                 ),
               ),
             ),
@@ -106,7 +126,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
             Column(
               children: [
                 Text(
-                  DateFormat.yMMMMEEEEd().format(HomePage.today),
+                  DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
                   style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w800,
@@ -782,8 +802,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
       ),
     );
   }
-
-  Future<void> _scaleInfo(BuildContext context) {
+Future<void> _scaleInfo(BuildContext context) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -793,17 +812,19 @@ class _AddSleepPageState extends State<AddSleepPage> {
               child: Column(
                 children: [
                   Row(
-                    mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      const Expanded(
-                        child: Image(
-                          image: AssetImage('assets/images/skalabulan1.png'),
-                          height: 30,
-                        ),
+                      const Image(
+                        image: AssetImage('assets/images/skalabulan1.png'),
+                        height: 40,
+                        width: 40,
+                      ),
+                      const SizedBox(
+                        width: 10.0,
                       ),
                       Expanded(
-                        flex: 3,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Title(
                               color: Colors.black,
@@ -813,136 +834,152 @@ class _AddSleepPageState extends State<AddSleepPage> {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Text("Tidur sangat buruk dan tidak memuaskan",
-                                textAlign: TextAlign.justify),
                             const Text(
-                                "Merasa sangat lelah dan tidak segar saat bangun pagi",
-                                textAlign: TextAlign.left),
+                              'Tidur sangat buruk dan tidak memuaskan. Merasa sangat lelah dan tidak segar saat bangun pagi.',
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(fontSize: 12),
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
+                  const SizedBox(height: 10.0),
                   Row(
                     children: <Widget>[
-                      const Expanded(
-                        child: Image(
-                          image: AssetImage('assets/images/skalabulan2.png'),
-                          height: 30,
-                        ),
+                      const Image(
+                        image: AssetImage('assets/images/skalabulan2.png'),
+                        height: 40,
+                        width: 40,
+                      ),
+                      const SizedBox(
+                        width: 10.0,
                       ),
                       Expanded(
-                        flex: 3,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text("Buruk",
-                                  textAlign: TextAlign.left,
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                              child: const Text(
+                                "Buruk",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                             const Text(
-                                "Tidur kurang baik, tetapi tidak seburuk skala 1",
-                                textAlign: TextAlign.left),
-                            const Text(
-                                "Merasa lelah atau kurang segar saat bangun pagi",
-                                textAlign: TextAlign.left),
+                              'Tidur kurang baik, tetapi tidak seburuk skala 1. Merasa lelah atau kurang segar saat bangun pagi.',
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(fontSize: 12),
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
+                  const SizedBox(height: 10.0),
                   Row(
                     children: <Widget>[
-                      const Expanded(
-                        child: Image(
-                          image: AssetImage('assets/images/skalabulan3.png'),
-                          height: 30,
-                        ),
+                      const Image(
+                        image: AssetImage('assets/images/skalabulan3.png'),
+                        height: 40,
+                        width: 40,
+                      ),
+                      const SizedBox(
+                        width: 10.0,
                       ),
                       Expanded(
-                        flex: 3,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text("Cukup",
-                                  textAlign: TextAlign.left,
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                              child: const Text(
+                                "Cukup",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                             const Text(
-                                "Tidur relatif stabil tanpa terlalu banyak gangguan",
-                                textAlign: TextAlign.left),
-                            const Text(
-                                "Bangun pagi dengan segar, tetapi masih ada kelelahan",
-                                textAlign: TextAlign.left),
+                              'Tidur relatif stabil tanpa terlalu banyak gangguan. Bangun pagi dengan segar, tetapi masih ada kelelahan.',
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(fontSize: 12),
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
+                  const SizedBox(height: 10.0),
                   Row(
                     children: <Widget>[
-                      const Expanded(
-                        child: Image(
-                          image: AssetImage('assets/images/skalabulan4.png'),
-                          height: 30,
-                        ),
+                      const Image(
+                        image: AssetImage('assets/images/skalabulan4.png'),
+                        height: 40,
+                        width: 40,
+                      ),
+                      const SizedBox(
+                        width: 10.0,
                       ),
                       Expanded(
-                        flex: 3,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text("Baik",
-                                  textAlign: TextAlign.left,
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                              child: const Text(
+                                "Baik",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                             const Text(
-                                "Tidur sangat baik dan nyenyak sepanjang malam",
-                                textAlign: TextAlign.left),
-                            const Text(
-                                "Bangun pagi dengan perasaan segar dan bertenaga",
-                                textAlign: TextAlign.left),
+                              'Tidur sangat baik dan nyenyak sepanjang malam. Bangun pagi dengan perasaan segar dan bertenaga.',
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(fontSize: 12),
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
+                  const SizedBox(height: 10.0),
                   Row(
                     children: <Widget>[
-                      const Expanded(
-                        child: Image(
-                          image: AssetImage('assets/images/skalabulan5.png'),
-                          height: 30,
-                        ),
+                      const Image(
+                        image: AssetImage('assets/images/skalabulan5.png'),
+                        height: 40,
+                        width: 40,
+                      ),
+                      const SizedBox(
+                        width: 10.0,
                       ),
                       Expanded(
-                        flex: 3,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text("Sangat Baik",
-                                  textAlign: TextAlign.left,
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                              child: const Text(
+                                "Sangat Baik",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                             const Text(
-                                "Tidur sangat luar biasa, sangat nyenyak dan puas",
-                                textAlign: TextAlign.left),
-                            const Text(
-                                "Bangun pagi dengan perasaan segar bersemangat dan penuh energi",
-                                textAlign: TextAlign.left),
+                              'Tidur sangat luar biasa, sangat nyenyak dan puas. Bangun pagi dengan perasaan segar bersemangat dan penuh energi.',
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(fontSize: 12),
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

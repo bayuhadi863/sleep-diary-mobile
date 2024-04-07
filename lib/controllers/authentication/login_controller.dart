@@ -11,12 +11,19 @@ class LoginController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final isLoading = false.obs;
 
   /// Email and password sign in
   Future<void> emailAndPasswordSignIn() async {
     try {
+      // Start Loading
+      isLoading.value = true;
+
       // Form validation
       if (!loginFormKey.currentState!.validate()) {
+        // Stop Loading
+        isLoading.value = false;
+
         return;
       }
 
@@ -29,11 +36,17 @@ class LoginController extends GetxController {
 
       // redirect
       AuthenticationRepository.instance.screenRedirect();
+
+      // Stop Loading
+      isLoading.value = false;
     } catch (e) {
       TLoaders.errorSnackBar(
         title: 'Oh Snap',
         message: e.toString(),
       );
+
+      // Stop Loading
+      isLoading.value = false;
     }
   }
 }

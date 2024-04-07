@@ -155,22 +155,33 @@ class SignupScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         height: 60,
-                        child: ElevatedButton(
-                          onPressed: () => controller.signup(),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                const Color(0xFF080A23)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  30,
+                        child: Obx(
+                          () => ElevatedButton(
+                            onPressed: () => controller.isLoading.isTrue
+                                ? null // Menonaktifkan button saat isLoading bernilai true
+                                : controller.signup(),
+                            style: ButtonStyle(
+                              backgroundColor: controller.isLoading.isTrue
+                                  ? MaterialStateProperty.all(
+                                      const Color(0xFF080A23).withOpacity(
+                                          0.6)) // Atur opasitas warna latar belakang
+                                  : MaterialStateProperty.all(
+                                      const Color(0xFF080A23)),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    30,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          child: const Text(
-                            'Buat Akun',
-                            style: TextStyle(color: Colors.white),
+                            child: controller.isLoading.isTrue
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white)
+                                : const Text(
+                                    'Buat Akun',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                           ),
                         ),
                       ),

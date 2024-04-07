@@ -93,15 +93,16 @@ class _HomePageState extends State<HomePage> {
               text: TextSpan(
                 children: <TextSpan>[
                   const TextSpan(
-                      text: 'Catat Tidurmu!\n',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold)),
+                    text: 'Catat Tidurmu!\n',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold),
+                  ),
                   TextSpan(
-                      text: DateFormat.yMMMMEEEEd().format(HomePage.today),
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 14)),
+                    text: DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
+                    style: const TextStyle(color: Colors.white, fontSize: 14),
+                  ),
                 ],
               ),
             ),
@@ -202,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     children: [
                       Text(
-                        DateFormat.yMMMMEEEEd().format(HomePage.today),
+                        DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
                         style: const TextStyle(
                             fontSize: 10,
                             color: Colors.white,
@@ -260,25 +261,23 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 10),
                       Row(
                         children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                durationBadge(calculateTimeDifference(
-                                    HomePage.sleepDiaryController.sleepDiary
-                                        .value.wakeupTime,
-                                    HomePage.sleepDiaryController.sleepDiary
-                                        .value.sleepTime)),
-                                const SizedBox(width: 4),
-                                Text(
-                                  '${HomePage.sleepDiaryController.sleepDiary.value.sleepTime} - ${HomePage.sleepDiaryController.sleepDiary.value.wakeupTime}',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          Row(
+                            children: [
+                              durationBadge(calculateTimeDifference(
+                                  HomePage.sleepDiaryController.sleepDiary.value
+                                      .wakeupTime,
+                                  HomePage.sleepDiaryController.sleepDiary.value
+                                      .sleepTime)),
+                              const SizedBox(width: 4),
+                              Text(
+                                '${HomePage.sleepDiaryController.sleepDiary.value.sleepTime} - ${HomePage.sleepDiaryController.sleepDiary.value.wakeupTime}',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           Expanded(
                             child: factorIcons(HomePage

@@ -45,6 +45,8 @@ class SleepDiaryRepository {
         description: description);
 
     try {
+
+      // Validasi data
       if (newSleepDiary.sleepDate == "") {
         TLoaders.errorSnackBar(
             title: 'Gagal!', message: "Tanggal tidak boleh kosong");
