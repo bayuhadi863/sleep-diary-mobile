@@ -14,6 +14,7 @@ class AuthenticationRepository extends GetxController {
   /// Variables
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
+  final isLoading = false.obs;
 
   /// Get Authenticated User Data
   User? get authUser => _auth.currentUser;
@@ -108,16 +109,25 @@ class AuthenticationRepository extends GetxController {
 
   /// LogoutUser
   Future<void> logout() async {
+    // Start loading
+    isLoading.value = true;
+
     try {
       await FirebaseAuth.instance.signOut();
       Get.offAll(() => const LoginScreen());
+
+      isLoading.value = false;
     } on FirebaseAuthException catch (e) {
+      isLoading.value = false;
       throw e.code;
     } on FirebaseException catch (e) {
+      isLoading.value = false;
       throw e.code;
     } on FormatException catch (_) {
+      isLoading.value = false;
       throw 'Format exception error';
     } on PlatformException catch (e) {
+      isLoading.value = false;
       throw e.code;
     } catch (e) {
       throw 'Something went wrong. Please try again';

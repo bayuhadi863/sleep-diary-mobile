@@ -93,15 +93,16 @@ class _HomePageState extends State<HomePage> {
               text: TextSpan(
                 children: <TextSpan>[
                   const TextSpan(
-                      text: 'Catat Tidurmu!\n',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold)),
+                    text: 'Catat Tidurmu!\n',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold),
+                  ),
                   TextSpan(
-                      text: DateFormat.yMMMMEEEEd().format(HomePage.today),
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 14)),
+                    text: DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
+                    style: const TextStyle(color: Colors.white, fontSize: 14),
+                  ),
                 ],
               ),
             ),
@@ -215,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                     children: [
                       Text(
-                        DateFormat.yMMMMEEEEd().format(HomePage.today),
+                        DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
                         style: const TextStyle(
                             fontSize: 10,
                             color: Colors.white,

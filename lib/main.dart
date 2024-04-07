@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
@@ -23,6 +24,8 @@ Future<void> main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await GetStorage.init();
+
+  await initializeDateFormatting('id_ID', null);
 
   runApp(const MyApp());
 }
@@ -92,13 +95,16 @@ class _MainPageState extends State<MainPage> {
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             selectedIndex: index,
             onDestinationSelected: (index) {
-              if (HomePage.sleepDiaryController.sleepDiary.value.sleepDate !=
-                  '') {
-                TLoaders.errorSnackBar(
-                    title: 'Gagal!',
-                    message: 'Anda sudah mencatat tidur pada hari tersebut.');
-                return;
+              if (index == 1) {
+                if (HomePage.sleepDiaryController.sleepDiary.value.sleepDate !=
+                    '') {
+                  TLoaders.errorSnackBar(
+                      title: 'Gagal!',
+                      message: 'Anda sudah mencatat tidur pada hari tersebut.');
+                  return;
+                }
               }
+
               setState(() => this.index = index);
             },
             destinations: [

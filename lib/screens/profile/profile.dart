@@ -73,20 +73,32 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(
               height: 200,
             ),
-            GestureDetector(
-              onTap: () async {
-                await AuthenticationRepository.instance.logout();
-              },
-              child: Container(
-                height: 60,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 167, 21, 21),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Logout",
-                    style: TextStyle(color: Colors.white),
+            Obx(
+              () => GestureDetector(
+                onTap: AuthenticationRepository.instance.isLoading.isTrue
+                    ? null
+                    : () async {
+                        await AuthenticationRepository.instance.logout();
+                      },
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: AuthenticationRepository.instance.isLoading.isTrue
+                        ? const Color.fromARGB(255, 167, 21, 21)
+                            .withOpacity(0.6)
+                        : const Color.fromARGB(255, 167, 21, 21),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: AuthenticationRepository.instance.isLoading.isTrue
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            "Logout",
+                            style: TextStyle(color: Colors.white),
+                          ),
                   ),
                 ),
               ),
