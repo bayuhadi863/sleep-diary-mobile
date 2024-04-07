@@ -313,59 +313,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  Padding _greetings() {
-    final controller = Get.put(UserController());
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Halo, ${controller.user.value.name.split(' ')[0]}!",
-              style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white)),
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: PopUpMenu(
-          //     menuList: [
-          //       PopupMenuItem(
-          //         child: const ListTile(
-          //           leading: Icon(
-          //             CupertinoIcons.person,
-          //           ),
-          //           title: Text("My Profile"),
-          //         ),
-          //         onTap: () {
-          //           Navigator.push(
-          //             context,
-          //             MaterialPageRoute(
-          //                 builder: (context) => const ProfilePage()),
-          //           );
-          //         },
-          //       ),
-          //       const PopupMenuDivider(),
-          //       PopupMenuItem(
-          //         child: ListTile(
-          //           leading: const Icon(Icons.logout),
-          //           title: TextButton(
-          //             onPressed: () =>
-          //                 AuthenticationRepository.instance.logout(),
-          //             child: const Text(
-          //               'Logout',
-          //               style: TextStyle(color: Colors.black),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-        ],
-      ),
-    );
-  }
 }
 
 class PopUpMenu extends StatelessWidget {
@@ -413,31 +360,31 @@ int calculateTimeDifference(String wakeupTime, String sleepTime) {
 Widget displayImageScale(int scale) {
   if (scale == 1) {
     return Image.asset(
-      'assets/images/skala1.png',
+      'assets/images/skalabulan1.png',
       width: 40,
       height: 40,
     );
   } else if (scale == 2) {
     return Image.asset(
-      'assets/images/skala2.png',
+      'assets/images/skalabulan2.png',
       width: 40,
       height: 40,
     );
   } else if (scale == 3) {
     return Image.asset(
-      'assets/images/skala3.png',
+      'assets/images/skalabulan3.png',
       width: 40,
       height: 40,
     );
   } else if (scale == 4) {
     return Image.asset(
-      'assets/images/skala4.png',
+      'assets/images/skalabulan4.png',
       width: 40,
       height: 40,
     );
   } else {
     return Image.asset(
-      'assets/images/skala5.png',
+      'assets/images/skalabulan5.png',
       width: 40,
       height: 40,
     );

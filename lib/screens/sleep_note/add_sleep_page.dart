@@ -802,7 +802,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
       ),
     );
   }
-Future<void> _scaleInfo(BuildContext context) {
+
+  Future<void> _scaleInfo(BuildContext context) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -984,11 +985,26 @@ Future<void> _scaleInfo(BuildContext context) {
               ),
             ),
             actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("Close"),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(102, 28, 237, 226),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                        const Size(double.infinity, 50)),
+                  ),
+                  child: const Text(
+                    "Mengerti",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
             ],
           );
