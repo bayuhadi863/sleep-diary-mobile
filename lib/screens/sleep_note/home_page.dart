@@ -244,25 +244,23 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 10),
                       Row(
                         children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                durationBadge(calculateTimeDifference(
-                                    HomePage.sleepDiaryController.sleepDiary
-                                        .value.wakeupTime,
-                                    HomePage.sleepDiaryController.sleepDiary
-                                        .value.sleepTime)),
-                                const SizedBox(width: 4),
-                                Text(
-                                  '${HomePage.sleepDiaryController.sleepDiary.value.sleepTime} - ${HomePage.sleepDiaryController.sleepDiary.value.wakeupTime}',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          Row(
+                            children: [
+                              durationBadge(calculateTimeDifference(
+                                  HomePage.sleepDiaryController.sleepDiary.value
+                                      .wakeupTime,
+                                  HomePage.sleepDiaryController.sleepDiary.value
+                                      .sleepTime)),
+                              const SizedBox(width: 4),
+                              Text(
+                                '${HomePage.sleepDiaryController.sleepDiary.value.sleepTime} - ${HomePage.sleepDiaryController.sleepDiary.value.wakeupTime}',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           Expanded(
                             child: factorIcons(HomePage
