@@ -38,9 +38,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
               height: 20,
             ),
             _addTime(),
-            // const SizedBox(
-            //   height: 20,
-            // ),
+            const SizedBox(
+              height: 15,
+            ),
             _scale(),
             const SizedBox(
               height: 20,
@@ -135,7 +135,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                 const Text(
                   "SleepDiary",
                   style: TextStyle(
-                      fontSize: 10,
+                      fontSize: 14,
                       fontWeight: FontWeight.w300,
                       color: Colors.white),
                 ),
@@ -145,187 +145,128 @@ class _AddSleepPageState extends State<AddSleepPage> {
         ));
   }
 
-  // Widget _addTime() {
-  //   return AspectRatio(
-  //     aspectRatio: 336 / 130,
-  //     child: Column(
-  //       children: [
-  //         const Text("Pilih jam tidurmu",
-  //             style: TextStyle(color: Colors.white)),
-  //         SizedBox(height: 35),
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //           children: [
-  //             Container(
-  //               child: Row(
-  //                 children: [
-  //                   GestureDetector(
-  //                     onTap: () async {
-  //                       final TimeOfDay? pickedTime = await showTimePicker(
-  //                         context: context,
-  //                         initialTime: TimeOfDay(hour: hour1, minute: minutes1),
-  //                       );
-  //                       if (pickedTime != null) {
-  //                         setState(() {
-  //                           hour1 = pickedTime.hour;
-  //                           minutes1 = pickedTime.minute;
-  //                         });
-  //                       }
-  //                     },
-  //                     child: Text(
-  //                       '${hour1.toString().padLeft(2, '0')}:${minutes1.toString().padLeft(2, '0')}',
-  //                       style: const TextStyle(
-  //                         fontSize: 30,
-  //                         fontWeight: FontWeight.w700,
-  //                         color: Colors.white,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   // const Icon(Icons.access_time_outlined, color: Colors.white),
-  //                 ],
-  //               ),
-  //             ),
-  //             const Text(
-  //               "-",
-  //               style: TextStyle(
-  //                   fontSize: 30,
-  //                   fontWeight: FontWeight.w500,
-  //                   color: Colors.white),
-  //             ),
-  //             Container(
-  //               child: Row(
-  //                 children: [
-  //                   GestureDetector(
-  //                     onTap: () async {
-  //                       final TimeOfDay? pickedTime = await showTimePicker(
-  //                         context: context,
-  //                         initialTime: TimeOfDay(hour: hour2, minute: minutes2),
-  //                       );
-  //                       if (pickedTime != null) {
-  //                         setState(() {
-  //                           hour2 = pickedTime.hour;
-  //                           minutes2 = pickedTime.minute;
-  //                         });
-  //                       }
-  //                     },
-  //                     child: Text(
-  //                       '${hour2.toString().padLeft(2, '0')}:${minutes2.toString().padLeft(2, '0')}',
-  //                       style: const TextStyle(
-  //                         fontSize: 30,
-  //                         fontWeight: FontWeight.w700,
-  //                         color: Colors.white,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                   // const Icon(Icons.access_time_outlined, color: Colors.white),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
   Widget _addTime() {
     return AspectRatio(
       aspectRatio: 336 / 130,
       child: Column(
         children: [
-          const Text("Pilih jam tidurmu",
-              style: TextStyle(color: Colors.white)),
-          const SizedBox(height: 35),
+          const Text("Catat Tidurmu",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white24,
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Row(
-                  children: [
-                    GestureDetector(
+              Column(
+                children: [
+                  const Text(
+                    'Tidur',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white24,
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                    child: GestureDetector(
                       onTap: () async {
                         final TimeOfDay? pickedTime = await showTimePicker(
                           context: context,
                           initialTime: TimeOfDay(
-                              hour: time1.value[0], minute: time1.value[1]),
+                            hour: time1.value[0],
+                            minute: time1.value[1],
+                          ),
                         );
                         if (pickedTime != null) {
                           time1.value = [pickedTime.hour, pickedTime.minute];
                         }
                       },
-                      child: ValueListenableBuilder(
-                          valueListenable: time1,
-                          builder: (context, value, child) {
-                            return Text(
-                              '${value[0].toString().padLeft(2, '0')}:${value[1].toString().padLeft(2, '0')}',
-                              style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
-                            );
-                          }),
+                      child: Row(
+                        children: [
+                          ValueListenableBuilder(
+                            valueListenable: time1,
+                            builder: (context, value, child) {
+                              return Text(
+                                '${value[0].toString().padLeft(2, '0')}:${value[1].toString().padLeft(2, '0')}',
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(width: 5),
+                          const Icon(Icons.arrow_drop_down,
+                              color: Color(0xFF71B2BD)),
+                        ],
+                      ),
                     ),
-                    const SizedBox(
-                      width: 10,
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  const Text(
+                    'Bangun',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
                     ),
-                    const Icon(Icons.arrow_drop_down, color: Colors.white),
-                  ],
-                ),
-              ),
-              const Text(
-                "-",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white24,
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Row(
-                  children: [
-                    GestureDetector(
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white24,
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                    child: GestureDetector(
                       onTap: () async {
                         final TimeOfDay? pickedTime = await showTimePicker(
                           context: context,
                           initialTime: TimeOfDay(
-                              hour: time2.value[0], minute: time2.value[1]),
+                            hour: time2.value[0],
+                            minute: time2.value[1],
+                          ),
                         );
                         if (pickedTime != null) {
                           time2.value = [pickedTime.hour, pickedTime.minute];
                         }
                       },
-                      child: ValueListenableBuilder(
-                          valueListenable: time2,
-                          builder: (context, value, child) {
-                            return Text(
-                              '${value[0].toString().padLeft(2, '0')}:${value[1].toString().padLeft(2, '0')}',
-                              style: const TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
-                            );
-                          }),
+                      child: Row(
+                        children: [
+                          ValueListenableBuilder(
+                            valueListenable: time2,
+                            builder: (context, value, child) {
+                              return Text(
+                                '${value[0].toString().padLeft(2, '0')}:${value[1].toString().padLeft(2, '0')}',
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(width: 5),
+                          const Icon(Icons.arrow_drop_down,
+                              color: Color(0xFF71B2BD)),
+                        ],
+                      ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Icon(Icons.arrow_drop_down, color: Colors.white),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -1044,11 +985,26 @@ class _AddSleepPageState extends State<AddSleepPage> {
               ),
             ),
             actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("Close"),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(102, 28, 237, 226),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                        const Size(double.infinity, 50)),
+                  ),
+                  child: const Text(
+                    "Mengerti",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
             ],
           );

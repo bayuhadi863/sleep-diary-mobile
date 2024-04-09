@@ -8,6 +8,7 @@ import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart'
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
+import 'package:sleep_diary_mobile/screens/sleep_note/detail_card.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 
@@ -70,13 +71,12 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 20,
             ),
-            // _greetings(),
             const SizedBox(
               height: 10,
             ),
             _header(),
             content(),
-            _card(),
+            _card(context),
           ],
         )));
   }
@@ -131,10 +131,6 @@ class _HomePageState extends State<HomePage> {
               onDaySelected: _onDaySelected,
             ),
           ),
-          // const SizedBox(
-          //   height: 20,
-          //   child: const Text('Pilih'),
-          // ),
         ],
       ),
     );
@@ -154,18 +150,9 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: Image.asset(
               'assets/images/ikon.png',
-              // width: 300,
-              // height: 300,
               fit: BoxFit.cover,
             ),
           ),
-          // Container(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: const Text(
-          //     "Unlock Better Sleep",
-          //     style: TextStyle(color: Colors.white),
-          //   ),
-          // ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -195,7 +182,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Container _card() {
+  Container _card(BuildContext context) {
     // final controller = Get.put(GetSleepDiaryController());
     // controller.date = HomePage.today;
 
@@ -222,6 +209,36 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white,
                             fontWeight: FontWeight.w600),
                       ),
+                      //Detail Card
+                      // const SizedBox(
+                      //   width: 100,
+                      // ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => const DetailCard(),
+                      //       ),
+                      //     );
+                      //   },
+                      //   child: Container(
+                      //     padding: const EdgeInsets.symmetric(
+                      //         vertical: 7, horizontal: 15),
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(15),
+                      //       color: const Color.fromARGB(255, 112, 112, 149),
+                      //     ),
+                      //     child: const Text(
+                      //       'Detail',
+                      //       style: TextStyle(
+                      //         color: Colors.white,
+                      //         fontSize: 10,
+                      //         fontWeight: FontWeight.bold,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -271,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 12),
+                            horizontal: 10, vertical: 12),
                         decoration: BoxDecoration(
                           color: const Color.fromRGBO(255, 255, 255, 0.13),
                           borderRadius: BorderRadius.circular(11),
@@ -293,59 +310,6 @@ class _HomePageState extends State<HomePage> {
                   )
           ],
         ),
-      ),
-    );
-  }
-
-  Padding _greetings() {
-    final controller = Get.put(UserController());
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Halo, ${controller.user.value.name.split(' ')[0]}!",
-              style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white)),
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: PopUpMenu(
-          //     menuList: [
-          //       PopupMenuItem(
-          //         child: const ListTile(
-          //           leading: Icon(
-          //             CupertinoIcons.person,
-          //           ),
-          //           title: Text("My Profile"),
-          //         ),
-          //         onTap: () {
-          //           Navigator.push(
-          //             context,
-          //             MaterialPageRoute(
-          //                 builder: (context) => const ProfilePage()),
-          //           );
-          //         },
-          //       ),
-          //       const PopupMenuDivider(),
-          //       PopupMenuItem(
-          //         child: ListTile(
-          //           leading: const Icon(Icons.logout),
-          //           title: TextButton(
-          //             onPressed: () =>
-          //                 AuthenticationRepository.instance.logout(),
-          //             child: const Text(
-          //               'Logout',
-          //               style: TextStyle(color: Colors.black),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-        ],
       ),
     );
   }
@@ -396,31 +360,31 @@ int calculateTimeDifference(String wakeupTime, String sleepTime) {
 Widget displayImageScale(int scale) {
   if (scale == 1) {
     return Image.asset(
-      'assets/images/skala1.png',
+      'assets/images/skalabulan1.png',
       width: 40,
       height: 40,
     );
   } else if (scale == 2) {
     return Image.asset(
-      'assets/images/skala2.png',
+      'assets/images/skalabulan2.png',
       width: 40,
       height: 40,
     );
   } else if (scale == 3) {
     return Image.asset(
-      'assets/images/skala3.png',
+      'assets/images/skalabulan3.png',
       width: 40,
       height: 40,
     );
   } else if (scale == 4) {
     return Image.asset(
-      'assets/images/skala4.png',
+      'assets/images/skalabulan4.png',
       width: 40,
       height: 40,
     );
   } else {
     return Image.asset(
-      'assets/images/skala5.png',
+      'assets/images/skalabulan5.png',
       width: 40,
       height: 40,
     );
