@@ -54,11 +54,20 @@ class _HomePageState extends State<HomePage> {
       confirmText: 'OK',
       helpText: 'Select date',
     );
-    if (picked != null && picked != HomePage.today) {
-      setState(() {
-        HomePage.today = picked;
-      });
+
+    if (picked == null) return;
+    if (picked == HomePage.today) return;
+    if (picked.isAfter(DateTime.now())) {
+      TLoaders.errorSnackBar(
+          title: 'Gagal!',
+          message: 'Anda tidak bisa memilih hari yang belum tiba.');
+      return;
     }
+
+    setState(() {
+      HomePage.today = picked;
+      HomePage.sleepDiaryController.fetchSleepDiaryData(picked);
+    });
   }
 
   @override
@@ -335,7 +344,14 @@ class PopUpMenu extends StatelessWidget {
   }
 }
 
-int calculateTimeDifference(String wakeupTime, String sleepTime) {
+class TimeDifference {
+  final int hour;
+  final int minute;
+
+  TimeDifference({required this.hour, required this.minute});
+}
+
+TimeDifference calculateTimeDifference(String wakeupTime, String sleepTime) {
   // Ubah string waktu menjadi objek DateTime
   final wakeupTimeParts = wakeupTime.split(":");
   int wakeupHour = int.tryParse(wakeupTimeParts[0]) ?? 0;
@@ -354,7 +370,7 @@ int calculateTimeDifference(String wakeupTime, String sleepTime) {
   int hours = differenceTime.inHours % 24;
   int minutes = differenceTime.inMinutes % 60;
 
-  return hours;
+  return TimeDifference(hour: hours, minute: minutes);
 }
 
 Widget displayImageScale(int scale) {
@@ -456,12 +472,13 @@ Widget factorIcons(List<String> factors) {
   );
 }
 
-Widget durationBadge(int duration) {
+Widget durationBadge(TimeDifference duration) {
   Color badgeColor;
 
-  if ((duration < 7 && duration >= 6) || (duration > 9 && duration <= 10)) {
+  if ((duration.hour < 7 && duration.hour >= 6) ||
+      (duration.hour > 9 && duration.hour <= 10)) {
     badgeColor = Colors.yellow[600]!.withOpacity(0.7);
-  } else if (duration >= 7 && duration <= 9) {
+  } else if (duration.hour >= 7 && duration.hour <= 9) {
     badgeColor = Colors.green.withOpacity(0.7);
   } else {
     badgeColor = Colors.red.withOpacity(0.7);
@@ -474,9 +491,9 @@ Widget durationBadge(int duration) {
       borderRadius: BorderRadius.circular(25),
     ),
     child: Text(
-      '$duration Jam',
+      duration.hour > 0 ? '${duration.hour} Jam' : '${duration.minute} Menit',
       style: const TextStyle(
-        fontSize: 12,
+        fontSize: 11,
         color: Colors.white,
         fontWeight: FontWeight.w600,
       ),

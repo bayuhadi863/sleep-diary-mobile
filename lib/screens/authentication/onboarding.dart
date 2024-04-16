@@ -61,12 +61,12 @@ class OnBoardingPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/app_logo.png', // Ganti dengan path gambar yang sesuai
-                width: 96, // Lebar gambar
-                height: 120, // Tinggi gambar
+                'assets/images/app_icon.png', // Ganti dengan path gambar yang sesuai
+                width: 85, // Lebar gambar
+                height: 85, // Tinggi gambar
               ),
               const SizedBox(
-                  width: 10), // Memberikan jarak antara gambar dan teks
+                  width: 15), // Memberikan jarak antara gambar dan teks
               const Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

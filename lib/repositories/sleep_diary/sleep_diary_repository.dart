@@ -45,46 +45,96 @@ class SleepDiaryRepository {
         description: description);
 
     try {
-
       // Validasi data
       if (newSleepDiary.sleepDate == "") {
         TLoaders.errorSnackBar(
             title: 'Gagal!', message: "Tanggal tidak boleh kosong");
-      } else if (newSleepDiary.sleepTime == "") {
+
+        return;
+      }
+
+      if (newSleepDiary.sleepTime == "") {
         TLoaders.errorSnackBar(
             title: 'Gagal!', message: "Waktu tidur tidak boleh kosong");
-      } else if (newSleepDiary.wakeupTime == "") {
+
+        return;
+      }
+
+      if (newSleepDiary.wakeupTime == "") {
         TLoaders.errorSnackBar(
             title: 'Gagal!', message: "Waktu bangun tidak boleh kosong");
-      } else if (newSleepDiary.scale == 0) {
+
+        return;
+      }
+
+      if (calculateTimeDifference(wakeupTime, sleepTime) < 15) {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Durasi tidur minimal 15 menit");
+
+        return;
+      }
+
+      if (newSleepDiary.scale == 0) {
         TLoaders.errorSnackBar(
             title: 'Gagal!', message: "Skala kualitas tidak boleh kosong");
-      } else if (newSleepDiary.scale < 4 && newSleepDiary.factors.isEmpty) {
+
+        return;
+      }
+
+      if (newSleepDiary.scale < 4 && newSleepDiary.factors.isEmpty) {
         TLoaders.errorSnackBar(
             title: 'Gagal!', message: "Faktor tidur tidak boleh kosong");
-      } else if (newSleepDiary.description == "") {
+
+        return;
+      }
+
+      if (newSleepDiary.description == "") {
         TLoaders.errorSnackBar(
             title: 'Gagal!', message: "Deskripsi tidur tidak boleh kosong");
-      } else {
-        // Insert SleepDiary ke Firebase
-        await FirebaseFirestore.instance
-            .collection("sleepDiaries")
-            .add(newSleepDiary.toJson());
 
-        // Show Success Message
-        TLoaders.successSnackBar(
-            title: 'Selamat!', message: 'Anda berhasil mencatat tidur Anda.');
-
-        // Fetch data SleepDiary
-        HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
-
-        // Redirect ke Home Page
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const MainPage()));
+        return;
       }
+
+      // Insert SleepDiary ke Firebase
+      await FirebaseFirestore.instance
+          .collection("sleepDiaries")
+          .add(newSleepDiary.toJson());
+
+      // Show Success Message
+      TLoaders.successSnackBar(
+          title: 'Selamat!', message: 'Anda berhasil mencatat tidur Anda.');
+
+      // Fetch data SleepDiary
+      HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
+
+      // Redirect ke Home Page
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const MainPage()));
     } catch (error) {
       print('Error: $error');
       throw 'Error $error';
     }
+  }
+
+  int calculateTimeDifference(String wakeupTime, String sleepTime) {
+    // Ubah string waktu menjadi objek DateTime
+    final wakeupTimeParts = wakeupTime.split(":");
+    int wakeupHour = int.tryParse(wakeupTimeParts[0]) ?? 0;
+    int wakeupMinute =
+        wakeupTimeParts.length > 1 ? int.tryParse(wakeupTimeParts[1]) ?? 0 : 0;
+
+    final sleepTimeParts = sleepTime.split(":");
+    int sleepHour = int.tryParse(sleepTimeParts[0]) ?? 0;
+    int sleepMinute =
+        sleepTimeParts.length > 1 ? int.tryParse(sleepTimeParts[1]) ?? 0 : 0;
+
+    DateTime firstTime = DateTime(2024, 4, 22, sleepHour, sleepMinute);
+    DateTime secondTime = DateTime(2024, 5, 22, wakeupHour, wakeupMinute);
+
+    Duration differenceTime = secondTime.difference(firstTime);
+    int hours = differenceTime.inHours % 24;
+    int minutes = differenceTime.inMinutes % 60;
+
+    return (hours * 60) + minutes;
   }
 }
