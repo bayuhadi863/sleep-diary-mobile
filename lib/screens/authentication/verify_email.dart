@@ -40,7 +40,7 @@ class VerifyEmailScreen extends StatelessWidget {
               width: double.infinity,
               height: 60,
               child: ElevatedButton(
-                onPressed: () => controller.checkEmailVerificationStatus(),
+                onPressed: () => controller.sendEmailVerification(),
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all(const Color(0xFF080A23)),
@@ -53,19 +53,9 @@ class VerifyEmailScreen extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  'Continue',
+                  'Resend email',
                   style: TextStyle(color: Colors.white),
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            TextButton(
-              onPressed: () => controller.sendEmailVerification(),
-              child: const Text(
-                'Resend email',
-                style: TextStyle(color: Color(0xFF080A23)),
               ),
             ),
           ],
