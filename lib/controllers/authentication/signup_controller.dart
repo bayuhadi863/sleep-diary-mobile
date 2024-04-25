@@ -17,6 +17,7 @@ class SignupController extends GetxController {
   GlobalKey<FormState> signupFormKey =
       GlobalKey<FormState>(); // form key for form validation
   final isLoading = false.obs;
+  final disabled = false.obs;
 
   /// Signup
   signup() async {
@@ -49,21 +50,36 @@ class SignupController extends GetxController {
 
       // Show Success Message
       TLoaders.successSnackBar(
-          title: 'Congratulations',
-          message: 'Your account has been created! Verify email to continue.');
+          title: 'Akun berhasil dibuat!',
+          message: 'Catat tidurmu sekarang juga!');
 
       // Move to Verify Email Screen
-      Get.to(() => VerifyEmailScreen(email: email.text.trim()));
+      // Get.to(() => VerifyEmailScreen(email: email.text.trim()));
+
+      AuthenticationRepository.instance.screenRedirect();
 
       // Stop Loading
       isLoading.value = false;
-
     } catch (e) {
       // Show some Generic error to the user
-      TLoaders.errorSnackBar(title: 'Oh, Snap!', message: e.toString());
+      TLoaders.errorSnackBar(
+          title: 'Registrasi gagal!', message: getErrorMessage(e.toString()));
 
       // Stop Loading
       isLoading.value = false;
+    }
+  }
+
+  getErrorMessage(String error) {
+    switch (error) {
+      case 'email-already-in-use':
+        return 'Email sudah terdaftar. Silahkan login.';
+      case 'weak-password':
+        return 'Password terlalu lemah.';
+      case 'invalid-email':
+        return 'Email tidak valid.';
+      default:
+        return error.toString();
     }
   }
 }

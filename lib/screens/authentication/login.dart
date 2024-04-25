@@ -133,9 +133,18 @@ class LoginScreen extends StatelessWidget {
                         height: 60,
                         child: Obx(
                           () => ElevatedButton(
-                            onPressed: controller.isLoading.isTrue
-                                ? null // Menonaktifkan button saat isLoading bernilai true
-                                : () => controller.emailAndPasswordSignIn(),
+                            onPressed: controller.disabled.value
+                                ? null
+                                : controller.isLoading.isTrue
+                                    ? null // Menonaktifkan button saat isLoading bernilai true
+                                    : () async {
+                                        controller.disabled.value = true;
+                                        controller.emailAndPasswordSignIn();
+                                        // wait 1 second
+                                        await Future.delayed(
+                                            const Duration(seconds: 4));
+                                        controller.disabled.value = false;
+                                      },
                             style: ButtonStyle(
                               backgroundColor: controller.isLoading.isTrue
                                   ? MaterialStateProperty.all(

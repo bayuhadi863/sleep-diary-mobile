@@ -30,15 +30,7 @@ class AuthenticationRepository extends GetxController {
   screenRedirect() async {
     final user = _auth.currentUser;
     if (user != null) {
-      if (user.emailVerified) {
-        Get.offAll(() => const MainPage());
-      } else {
-        Get.offAll(
-          () => VerifyEmailScreen(
-            email: _auth.currentUser?.email,
-          ),
-        );
-      }
+      Get.offAll(() => const MainPage());
     } else {
       // Local storage
       deviceStorage.writeIfNull('isFirstTime', true);

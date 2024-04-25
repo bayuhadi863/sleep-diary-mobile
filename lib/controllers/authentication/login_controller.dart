@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,6 +14,7 @@ class LoginController extends GetxController {
   final password = TextEditingController();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final isLoading = false.obs;
+  final disabled = false.obs;
 
   /// Email and password sign in
   Future<void> emailAndPasswordSignIn() async {
@@ -32,7 +35,7 @@ class LoginController extends GetxController {
           .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
 
       TLoaders.successSnackBar(
-          title: "Login success", message: 'Mari catat tidurmu!');
+          title: "Berhasil login!", message: 'Catat tidurmu sekarang juga!');
 
       // redirect
       AuthenticationRepository.instance.screenRedirect();
@@ -41,12 +44,27 @@ class LoginController extends GetxController {
       isLoading.value = false;
     } catch (e) {
       TLoaders.errorSnackBar(
-        title: 'Oh Snap',
-        message: e.toString(),
+        title: 'Login gagal!',
+        message: getErrorMessage(e.toString()),
       );
 
       // Stop Loading
       isLoading.value = false;
+    }
+  }
+
+  getErrorMessage(String error) {
+    switch (error) {
+      case 'invalid-credential':
+        return 'Email atau password salah!';
+      case 'too-many-requests':
+        return 'Terlalu banyak percobaan login. Coba lagi nanti.';
+      default:
+    }
+    if (error == 'invalid-credential') {
+      return 'Email atau password salah!';
+    } else {
+      return error.toString();
     }
   }
 }
