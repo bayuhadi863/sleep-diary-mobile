@@ -25,6 +25,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // final String formattedDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
   DateTime selectedDate = DateTime.now();
+  TimeOfDay reminderTime = const TimeOfDay(hour: 00, minute: 00);
+  bool active = true;
 
   // final sleepDiaryController = Get.put(GetSleepDiaryController());
   void _onDaySelected(DateTime day, DateTime focusedDay) {
@@ -85,6 +87,7 @@ class _HomePageState extends State<HomePage> {
             ),
             _header(),
             content(),
+            _reminder(context),
             _card(context),
           ],
         )));
@@ -189,6 +192,61 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  void _timePicker() {
+    showTimePicker(
+            context: context,
+            initialTime:
+                TimeOfDay(hour: reminderTime.hour, minute: reminderTime.minute))
+        .then((value) {
+      setState(
+        () {
+          reminderTime = value!;
+        },
+      );
+    });
+  }
+
+  Container _reminder(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: const Color.fromRGBO(38, 38, 66, 1),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: GestureDetector(
+                  onTap: () {
+                    _timePicker();
+                  },
+                  child: Text(
+                    '${reminderTime.hour.toString().padLeft(2, '0')} : ${reminderTime.minute.toString().padLeft(2, '0')}',
+                    style: const TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white),
+                  ),
+                )),
+            Container(
+              child: Switch(
+                value: active,
+                onChanged: ((bool value) {
+                  setState(() {
+                    active = value;
+                  });
+                }),
+              ),
+            )
+          ],
+        ));
   }
 
   Container _card(BuildContext context) {
