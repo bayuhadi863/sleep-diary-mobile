@@ -14,7 +14,7 @@ class _FaqPageState extends State<FaqPage> {
       backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
-        title: Center(
+        title: const Center(
           child: Text(
             'FAQ',
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
@@ -25,7 +25,7 @@ class _FaqPageState extends State<FaqPage> {
         child: Column(
           children: [
             SizedBox(
-              height: 40,
+              height: 20,
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 26),

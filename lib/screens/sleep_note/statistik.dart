@@ -13,7 +13,10 @@ class _StatistikPageState extends State<StatistikPage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
       body: Center(
-        child: Text('Halaman Statistik User'),
+        child: Text(
+          'Halaman Statistik User',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     );
   }
