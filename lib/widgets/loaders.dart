@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TLoaders {
-  static successSnackBar({required title, message = '', duration = 3}) {
+  static successSnackBar({required title, message = '', duration = 2}) {
     Get.snackbar(
       title,
       message,
@@ -19,7 +19,7 @@ class TLoaders {
     );
   }
 
-  static errorSnackBar({required title, message = '', duration = 3}) {
+  static errorSnackBar({required title, message = '', duration = 2}) {
     Get.snackbar(
       title,
       message,

@@ -24,20 +24,20 @@ class TValidator {
       return 'Password minimal 8 karakter.';
     }
 
-    // Check for uppercase letters
-    if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Minimal ada satu huruf kapital.';
-    }
+    // // Check for uppercase letters
+    // if (!value.contains(RegExp(r'[A-Z]'))) {
+    //   return 'Minimal ada satu huruf kapital.';
+    // }
 
-    // Check for numbers
-    if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'Minimal ada satu angka.';
-    }
+    // // Check for numbers
+    // if (!value.contains(RegExp(r'[0-9]'))) {
+    //   return 'Minimal ada satu angka.';
+    // }
 
-    // Check for special characters
-    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'Minimal ada satu karakter spesial.';
-    }
+    // // Check for special characters
+    // if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+    //   return 'Minimal ada satu karakter spesial.';
+    // }
 
     return null;
   }
