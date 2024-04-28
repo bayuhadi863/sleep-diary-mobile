@@ -264,50 +264,48 @@ class _HomePageState extends State<HomePage> {
         () => Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  child: Row(
-                    children: [
-                      Text(
-                        DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
-                        style: const TextStyle(
-                            fontSize: 10,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      //Detail Card
-                      // const SizedBox(
-                      //   width: 100,
-                      // ),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //         builder: (context) => const DetailCard(),
-                      //       ),
-                      //     );
-                      //   },
-                      //   child: Container(
-                      //     padding: const EdgeInsets.symmetric(
-                      //         vertical: 7, horizontal: 15),
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(15),
-                      //       color: const Color.fromARGB(255, 112, 112, 149),
-                      //     ),
-                      //     child: const Text(
-                      //       'Detail',
-                      //       style: TextStyle(
-                      //         color: Colors.white,
-                      //         fontSize: 10,
-                      //         fontWeight: FontWeight.bold,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
+                Text(
+                  DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
+                  style: const TextStyle(
+                    fontSize: 10,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
                   ),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailCard()));
+                      },
+                      icon: Icon(
+                        Icons.remove_red_eye_sharp,
+                        size: 16,
+                      ),
+                      color: Colors.white,
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.edit,
+                        size: 16,
+                      ),
+                      color: Colors.white,
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.delete,
+                        size: 16,
+                      ),
+                      color: Colors.white,
+                    ),
+                  ],
                 ),
               ],
             ),
