@@ -7,9 +7,11 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
+import 'package:sleep_diary_mobile/screens/sleep_note/faq.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/add_sleep_page.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
 import 'package:sleep_diary_mobile/firebase_options.dart';
+import 'package:sleep_diary_mobile/screens/sleep_note/statistik.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
 
 Future<void> main() async {
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromRGBO(38, 38, 66, 1)),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       home: const Scaffold(
         backgroundColor: Colors.white,
         body: Center(
@@ -66,7 +69,9 @@ class _MainPageState extends State<MainPage> {
   int index = 0;
   final pages = [
     const HomePage(),
+    const StatistikPage(),
     const AddSleepPage(),
+    const FaqPage(),
     const ProfilePage(),
   ];
 
@@ -95,7 +100,7 @@ class _MainPageState extends State<MainPage> {
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             selectedIndex: index,
             onDestinationSelected: (index) {
-              if (index == 1) {
+              if (index == 2) {
                 if (HomePage.sleepDiaryController.sleepDiary.value.sleepDate !=
                     '') {
                   TLoaders.errorSnackBar(
@@ -116,15 +121,29 @@ class _MainPageState extends State<MainPage> {
                 label: 'Home',
               ),
               NavigationDestination(
-                icon: Icon(Icons.add,
+                icon: Icon(Icons.bar_chart_rounded,
                     color: index == 1
+                        ? const Color.fromRGBO(38, 38, 66, 1)
+                        : Colors.white),
+                label: 'Statistik',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.add,
+                    color: index == 2
                         ? const Color.fromRGBO(38, 38, 66, 1)
                         : Colors.white),
                 label: 'Add',
               ),
               NavigationDestination(
+                icon: Icon(Icons.live_help_rounded,
+                    color: index == 3
+                        ? const Color.fromRGBO(38, 38, 66, 1)
+                        : Colors.white),
+                label: 'FAQ',
+              ),
+              NavigationDestination(
                 icon: Icon(Icons.person,
-                    color: index == 2
+                    color: index == 4
                         ? const Color.fromRGBO(38, 38, 66, 1)
                         : Colors.white),
                 label: 'Profile',

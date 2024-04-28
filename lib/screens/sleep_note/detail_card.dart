@@ -17,18 +17,24 @@ class _DetailCardState extends State<DetailCard> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          icon: Padding(
+            padding: const EdgeInsets.only(left: 12),
+            child: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        //Tanggal 
-        title: const Text(
-          "Sabtu, 6 April 2024",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
+        //Tanggal
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+          child: const Text(
+            "Sabtu, 26 April 2024",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
@@ -47,8 +53,7 @@ class _DetailCardState extends State<DetailCard> {
                   height: 100,
                   decoration: BoxDecoration(
                     color: Colors.white24,
-                    borderRadius:
-                        BorderRadius.circular(10), 
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   margin:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -104,8 +109,7 @@ class _DetailCardState extends State<DetailCard> {
                   height: 240,
                   decoration: BoxDecoration(
                     color: Colors.white24,
-                    borderRadius:
-                        BorderRadius.circular(10), 
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   child: Column(
@@ -121,7 +125,7 @@ class _DetailCardState extends State<DetailCard> {
                       ),
                       const SizedBox(height: 20),
                       Image.asset(
-                        'assets/images/skala5.png', 
+                        'assets/images/skala5.png',
                         width: 100,
                         height: 100,
                         fit: BoxFit.cover,
@@ -140,22 +144,23 @@ class _DetailCardState extends State<DetailCard> {
                 ),
                 Container(
                   width: 370,
-                  height: 150,
                   decoration: BoxDecoration(
                     color: Colors.white24,
-                    borderRadius:
-                        BorderRadius.circular(10), 
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  margin: const EdgeInsets.symmetric(vertical: 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        "Faktor yang memengaruhi",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 8.0, left: 8.0, right: 8.0),
+                        child: const Text(
+                          "Faktor yang memengaruhi",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -215,7 +220,6 @@ class _DetailCardState extends State<DetailCard> {
                 ),
                 Container(
                   width: 370,
-                  height: 200,
                   decoration: BoxDecoration(
                     color: Colors.white24,
                     borderRadius: BorderRadius.circular(10),
@@ -233,19 +237,15 @@ class _DetailCardState extends State<DetailCard> {
                         ),
                       ),
                       SizedBox(height: 20),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12),
-                            child: Text(
-                              "Tidur saya semalam terganggu oleh suara bising dari luar jendela saya. Para tetangga sepertinya mengadakan pesta di rumahnya dan suara musik yang keras terus berbunyi hingga dini hari. Saya merasa sangat kesal dan sulit untuk tertidur. Setiap kali hampir tertidur, suara tersebut kembali mengganggu tidur saya. Akibatnya, saya merasa sangat lelah dan tidak segar saat bangun pagi ini.",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
-                              textAlign: TextAlign.justify,
-                            ),
+                      Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Text(
+                          "Tidur saya semalam terganggu oleh suara bising dari luar jendela saya. Para tetangga sepertinya mengadakan pesta di rumahnya dan suara musik yang keras terus berbunyi hingga dini hari. Saya merasa sangat kesal dan sulit untuk tertidur. Setiap kali hampir tertidur, suara tersebut kembali mengganggu tidur saya. Akibatnya, saya merasa sangat lelah dan tidak segar saat bangun pagi ini.",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
                           ),
+                          textAlign: TextAlign.justify,
                         ),
                       ),
                       SizedBox(
