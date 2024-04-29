@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage> {
             ),
             _textReminder(),
             const SizedBox(
-              height: 7,
+              height: 8,
             ),
             _reminder(context),
             const SizedBox(
@@ -374,19 +374,23 @@ class _HomePageState extends State<HomePage> {
 
   void _timePicker() {
     showTimePicker(
-            context: context,
-            initialTime:
-                TimeOfDay(hour: reminderTime.hour, minute: reminderTime.minute))
-        .then((value) {
-      setState(
-        () {
-          reminderTime = value!;
+      context: context,
+      initialTime:
+          TimeOfDay(hour: reminderTime.hour, minute: reminderTime.minute),
+    ).then((TimeOfDay? value) {
+      if (value != null) {
+        setState(() {
+          reminderTime = value;
           reminderRepository.updateReminderTime(value);
           if (active) {
             reminderRepository.onReminderNotification(value);
           }
-        },
-      );
+        });
+      } else {
+        Navigator.popUntil(context, (route) => route.isFirst);
+      }
+    }).catchError((error) {
+      print('Terjadi kesalahan: $error');
     });
   }
 
