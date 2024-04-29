@@ -13,6 +13,7 @@ class _FaqPageState extends State<FaqPage> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
         title: const Center(
           child: Text(
