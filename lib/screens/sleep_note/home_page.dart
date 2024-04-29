@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -5,6 +7,9 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart';
+import 'package:sleep_diary_mobile/repositories/reminder/reminder_repository.dart';
+import 'package:sleep_diary_mobile/screens/profile/profile.dart';
+import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/detail_card.dart';
 // import 'package:table_calendar/table_calendar.dart';
@@ -25,8 +30,39 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // final String formattedDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
   DateTime selectedDate = DateTime.now();
-  TimeOfDay reminderTime = const TimeOfDay(hour: 00, minute: 00);
-  bool active = true;
+  late TimeOfDay reminderTime = const TimeOfDay(hour: 0, minute: 0);
+  late bool active = false;
+  final reminderRepository = ReminderRepository();
+
+  @override
+  void initState() {
+    
+    super.initState();
+    
+    initializeReminderNotification();
+
+    reminderRepository.getReminderTime().then((time) {
+      setState(() {
+        reminderTime = time;
+      });
+    });
+
+    reminderRepository.getReminderIsActive().then((isActive) {
+      setState(() {
+        active = isActive;
+        if(isActive){
+          reminderRepository.onReminderNotification(reminderTime);
+        }
+        else{
+          reminderRepository.offReminderNotification();
+        }
+      });
+    });
+  }
+
+  Future<void> initializeReminderNotification() async {
+    await reminderRepository.initializeReminder();
+  }
 
   // final sleepDiaryController = Get.put(GetSleepDiaryController());
   void _onDaySelected(DateTime day, DateTime focusedDay) {
@@ -310,6 +346,10 @@ class _HomePageState extends State<HomePage> {
       setState(
         () {
           reminderTime = value!;
+          reminderRepository.updateReminderTime(value);
+          if(active){
+            reminderRepository.onReminderNotification(value);
+          }
         },
       );
     });
@@ -348,6 +388,13 @@ class _HomePageState extends State<HomePage> {
                 onChanged: ((bool value) {
                   setState(() {
                     active = value;
+                    reminderRepository.updateReminderIsActive(value);
+                    if(value){
+                      reminderRepository.onReminderNotification(reminderTime);
+                    }
+                    else{
+                      reminderRepository.offReminderNotification();
+                    }
                   });
                 }),
               ),
