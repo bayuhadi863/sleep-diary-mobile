@@ -223,9 +223,9 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DetailCard()));
+                                builder: (context) => const DetailCard()));
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.remove_red_eye_sharp,
                         size: 16,
                       ),
@@ -233,7 +233,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.edit,
                         size: 16,
                       ),
@@ -241,7 +241,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.delete,
                         size: 16,
                       ),
