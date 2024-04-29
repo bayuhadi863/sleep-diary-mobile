@@ -17,8 +17,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
   ValueNotifier<List<int>> time2 = ValueNotifier<List<int>>([0, 0]);
   ValueNotifier<int> scale = ValueNotifier<int>(0);
   List<String> factors = [];
-  final ValueNotifier<List<bool>> selectedFactors =
-      ValueNotifier<List<bool>>([false, false, false, false, false]);
+  final ValueNotifier<List<bool>> selectedFactors = ValueNotifier<List<bool>>([false, false, false, false, false]);
   TextEditingController description = TextEditingController();
 
   bool isLoading = false;
@@ -319,8 +318,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       child: Ink.image(
                           image:
                               const AssetImage('assets/images/skalabulan1.png'),
-                          height: value == 1 ? 57 : 50,
-                          width: value == 1 ? 57 : 50,
+                          height: value == 1 ? 57 : value == 0 ? 50 : 37,
+                          width: value == 1 ? 57 : value == 0 ? 50 : 37,
                           fit: BoxFit.cover,
                           colorFilter: (value == 1)
                               ? const ColorFilter.mode(
@@ -341,8 +340,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       child: Ink.image(
                         image:
                             const AssetImage('assets/images/skalabulan2.png'),
-                        height: value == 2 ? 57 : 50,
-                        width: value == 2 ? 57 : 50,
+                        height: value == 2 ? 57 : value == 0 ? 50 : 37,
+                        width: value == 2 ? 57 : value == 0 ? 50 : 37,
                         fit: BoxFit.cover,
                         colorFilter: (value == 2)
                             ? const ColorFilter.mode(
@@ -364,8 +363,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       child: Ink.image(
                         image:
                             const AssetImage('assets/images/skalabulan3.png'),
-                        height: value == 3 ? 57 : 50,
-                        width: value == 3 ? 57 : 50,
+                        height: value == 3 ? 57 : value == 0 ? 50 : 37,
+                        width: value == 3 ? 57 : value == 0 ? 50 : 37,
                         fit: BoxFit.cover,
                         colorFilter: (value == 3)
                             ? const ColorFilter.mode(
@@ -395,8 +394,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       child: Ink.image(
                         image:
                             const AssetImage('assets/images/skalabulan4.png'),
-                        height: value == 4 ? 57 : 50,
-                        width: value == 4 ? 57 : 50,
+                        height: value == 4 ? 57 : value == 0 ? 50 : 37,
+                        width: value == 4 ? 57 : value == 0 ? 50 : 37,
                         fit: BoxFit.cover,
                         colorFilter: (value == 4)
                             ? const ColorFilter.mode(
@@ -426,8 +425,8 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       child: Ink.image(
                           image:
                               const AssetImage('assets/images/skalabulan5.png'),
-                          height: value == 5 ? 57 : 50,
-                          width: value == 5 ? 57 : 50,
+                          height: value == 5 ? 57 : value == 0 ? 50 : 37,
+                          width: value == 5 ? 57 : value == 0 ? 50 : 37,
                           fit: BoxFit.cover,
                           colorFilter: (value == 5)
                               ? const ColorFilter.mode(

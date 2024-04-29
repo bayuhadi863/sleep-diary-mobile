@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart';
+import 'package:sleep_diary_mobile/repositories/reminder/reminder_repository.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
@@ -25,6 +26,27 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // final String formattedDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
   DateTime selectedDate = DateTime.now();
+  late TimeOfDay reminderTime = const TimeOfDay(hour: 0, minute: 0);
+  late bool active = false;
+  final reminderRepository = ReminderRepository();
+
+  @override
+  void initState() {
+    
+    super.initState();
+    
+    reminderRepository.getReminderTime().then((time) {
+      setState(() {
+        reminderTime = time;
+      });
+    });
+
+    reminderRepository.getReminderIsActive().then((isActive) {
+      setState(() {
+        active = isActive;
+      });
+    });
+  }
 
   // final sleepDiaryController = Get.put(GetSleepDiaryController());
   void _onDaySelected(DateTime day, DateTime focusedDay) {
@@ -85,6 +107,7 @@ class _HomePageState extends State<HomePage> {
             ),
             _header(),
             content(),
+            _reminder(context),
             _card(context),
           ],
         )));
@@ -189,6 +212,69 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  void _timePicker() {
+    showTimePicker(
+            context: context,
+            initialTime:
+                TimeOfDay(hour: reminderTime.hour, minute: reminderTime.minute))
+        .then((value) {
+      setState(
+        () {
+          reminderTime = value!;
+          reminderRepository.updateReminderTime(value);
+        },
+      );
+    });
+  }
+
+  Container _reminder(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: const Color.fromRGBO(38, 38, 66, 1),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: GestureDetector(
+                  onTap: () {
+                    _timePicker();
+                  },
+                  child: Text(
+                    '${reminderTime.hour.toString().padLeft(2, '0')} : ${reminderTime.minute.toString().padLeft(2, '0')}',
+                    style: const TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white),
+                  ),
+                )),
+            Container(
+              child: Switch(
+                value: active,
+                onChanged: ((bool value) {
+                  setState(() {
+                    active = value;
+                    reminderRepository.updateReminderIsActive(value);
+                    if(value){
+                      reminderRepository.onReminderNotification(reminderTime);
+                    }
+                    else{
+                      reminderRepository.offReminderNotification();
+                    }
+                  });
+                }),
+              ),
+            )
+          ],
+        ));
   }
 
   Container _card(BuildContext context) {
