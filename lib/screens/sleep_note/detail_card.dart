@@ -14,6 +14,7 @@ class _DetailCardState extends State<DetailCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -42,7 +43,7 @@ class _DetailCardState extends State<DetailCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +51,7 @@ class _DetailCardState extends State<DetailCard> {
                 Container(
                   width: 370,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: const Color.fromRGBO(38, 38, 66, 1),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   margin:
@@ -110,7 +111,7 @@ class _DetailCardState extends State<DetailCard> {
                 Container(
                   width: 370,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: const Color.fromRGBO(38, 38, 66, 1),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   margin: const EdgeInsets.symmetric(vertical: 10),
@@ -153,7 +154,7 @@ class _DetailCardState extends State<DetailCard> {
                 Container(
                   width: 370,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: const Color.fromRGBO(38, 38, 66, 1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   margin: const EdgeInsets.symmetric(vertical: 10),
@@ -161,8 +162,8 @@ class _DetailCardState extends State<DetailCard> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Padding(
-                        padding: EdgeInsets.only(
-                            top: 8.0, left: 8.0, right: 8.0),
+                        padding:
+                            EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
                         child: Text(
                           "Faktor yang memengaruhi",
                           style: TextStyle(
@@ -186,7 +187,7 @@ class _DetailCardState extends State<DetailCard> {
                                   height: 40,
                                   fit: BoxFit.cover,
                                 ),
-                                 Padding(
+                                Padding(
                                   padding: EdgeInsets.all(8.0),
                                   child: const Text(
                                     'Galau',
@@ -285,7 +286,7 @@ class _DetailCardState extends State<DetailCard> {
                 Container(
                   width: 370,
                   decoration: BoxDecoration(
-                    color: Colors.white24,
+                    color: const Color.fromRGBO(38, 38, 66, 1),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   margin: const EdgeInsets.symmetric(vertical: 10),

@@ -4,14 +4,14 @@ import 'package:numberpicker/numberpicker.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/sleep_diary_repository.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
 
-class AddSleepPage extends StatefulWidget {
-  const AddSleepPage({super.key});
+class EditSleepPage extends StatefulWidget {
+  const EditSleepPage({super.key});
 
   @override
-  State<AddSleepPage> createState() => _AddSleepPageState();
+  State<EditSleepPage> createState() => _EditSleepPageState();
 }
 
-class _AddSleepPageState extends State<AddSleepPage> {
+class _EditSleepPageState extends State<EditSleepPage> {
   TimeOfDay? time = const TimeOfDay(hour: 00, minute: 00);
   ValueNotifier<List<int>> time1 = ValueNotifier<List<int>>([0, 0]);
   ValueNotifier<List<int>> time2 = ValueNotifier<List<int>>([0, 0]);
@@ -26,16 +26,37 @@ class _AddSleepPageState extends State<AddSleepPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
+        title: Text(
+          DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
+          style: const TextStyle(
+              fontSize: 25, fontWeight: FontWeight.w800, color: Colors.white),
+        ),
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
       backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
       body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(
-              height: 52,
+              height: 10,
             ),
             _date(),
             const SizedBox(
-              height: 20,
+              height: 12,
             ),
             _addTime(),
             const SizedBox(
@@ -105,7 +126,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           color: Colors.black,
                         )
                       : const Text(
-                          "Simpan",
+                          "Update",
                           style: TextStyle(color: Colors.black),
                         ),
                 ),
@@ -123,24 +144,15 @@ class _AddSleepPageState extends State<AddSleepPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Column(
-              children: [
-                Text(
-                  DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
-                  style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white),
-                ),
-                const Text(
-                  "SleepDiary",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.white),
-                ),
-              ],
-            )
+            Column(children: [
+              const Text(
+                "SleepDiary",
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white),
+              ),
+            ])
           ],
         ));
   }
@@ -150,7 +162,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
       aspectRatio: 336 / 130,
       child: Column(
         children: [
-          const Text("Catat Tidurmu",
+          const Text("Edit Data Tidurmu",
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           const SizedBox(height: 30),

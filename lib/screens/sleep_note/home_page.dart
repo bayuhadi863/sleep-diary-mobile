@@ -10,6 +10,7 @@ import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart'
 import 'package:sleep_diary_mobile/repositories/reminder/reminder_repository.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
+import 'package:sleep_diary_mobile/screens/sleep_note/edit_sleep_page.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/detail_card.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -34,9 +35,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    
     super.initState();
-    
+
     initializeReminderNotification();
 
     reminderRepository.getReminderTime().then((time) {
@@ -48,10 +48,9 @@ class _HomePageState extends State<HomePage> {
     reminderRepository.getReminderIsActive().then((isActive) {
       setState(() {
         active = isActive;
-        if(isActive){
+        if (isActive) {
           reminderRepository.onReminderNotification(reminderTime);
-        }
-        else{
+        } else {
           reminderRepository.offReminderNotification();
         }
       });
@@ -121,7 +120,14 @@ class _HomePageState extends State<HomePage> {
             ),
             _header(),
             content(),
+            _textReminder(),
+            const SizedBox(
+              height: 7,
+            ),
             _reminder(context),
+            const SizedBox(
+              height: 10,
+            ),
             _card(context),
           ],
         )));
@@ -238,7 +244,7 @@ class _HomePageState extends State<HomePage> {
         () {
           reminderTime = value!;
           reminderRepository.updateReminderTime(value);
-          if(active){
+          if (active) {
             reminderRepository.onReminderNotification(value);
           }
         },
@@ -248,50 +254,81 @@ class _HomePageState extends State<HomePage> {
 
   Container _reminder(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          color: const Color.fromRGBO(38, 38, 66, 1),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: GestureDetector(
-                  onTap: () {
-                    _timePicker();
-                  },
-                  child: Text(
-                    '${reminderTime.hour.toString().padLeft(2, '0')} : ${reminderTime.minute.toString().padLeft(2, '0')}',
-                    style: const TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white),
-                  ),
-                )),
-            Container(
+      // padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        color: Color.fromRGBO(8, 10, 35, 1),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: const Color.fromRGBO(38, 38, 66, 1),
+                borderRadius: BorderRadius.circular(12)),
+            padding: EdgeInsets.only(top: 12, bottom: 12, left: 12, right: 68),
+            child: GestureDetector(
+              onTap: () {
+                _timePicker();
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(left: 52.0),
+                child: Text(
+                  '${reminderTime.hour.toString().padLeft(2, '0')} : ${reminderTime.minute.toString().padLeft(2, '0')}',
+                  style: const TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: const Color.fromRGBO(38, 38, 66, 1),
+                borderRadius: BorderRadius.circular(12)),
+            margin: const EdgeInsets.only(left: 12),
+            padding:
+                const EdgeInsets.only(top: 13, bottom: 13, right: 8, left: 26),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 18.0),
               child: Switch(
                 value: active,
                 onChanged: ((bool value) {
                   setState(() {
                     active = value;
                     reminderRepository.updateReminderIsActive(value);
-                    if(value){
+                    if (value) {
                       reminderRepository.onReminderNotification(reminderTime);
-                    }
-                    else{
+                    } else {
                       reminderRepository.offReminderNotification();
                     }
                   });
                 }),
               ),
-            )
-          ],
-        ));
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _textReminder() {
+    return const Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text(
+            'Reminder Waktu Tidur',
+            style: TextStyle(
+                color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ],
+    );
   }
 
   Container _card(BuildContext context) {
@@ -335,7 +372,12 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EditSleepPage()));
+                      },
                       icon: const Icon(
                         Icons.edit,
                         size: 16,
@@ -343,7 +385,50 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              title: const Text("Konfirmasi"),
+                              content: const Text(
+                                  "Apakah Anda yakin ingin menghapus data?"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text(
+                                    "Batal",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12),
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 215, 56, 45),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text(
+                                      "Hapus",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                       icon: const Icon(
                         Icons.delete,
                         size: 16,
