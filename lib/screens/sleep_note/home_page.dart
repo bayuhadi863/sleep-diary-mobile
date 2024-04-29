@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:feather_icons/feather_icons.dart';
@@ -35,6 +37,8 @@ class _HomePageState extends State<HomePage> {
     
     super.initState();
     
+    initializeReminderNotification();
+
     reminderRepository.getReminderTime().then((time) {
       setState(() {
         reminderTime = time;
@@ -44,8 +48,18 @@ class _HomePageState extends State<HomePage> {
     reminderRepository.getReminderIsActive().then((isActive) {
       setState(() {
         active = isActive;
+        if(isActive){
+          reminderRepository.onReminderNotification(reminderTime);
+        }
+        else{
+          reminderRepository.offReminderNotification();
+        }
       });
     });
+  }
+
+  Future<void> initializeReminderNotification() async {
+    await reminderRepository.initializeReminder();
   }
 
   // final sleepDiaryController = Get.put(GetSleepDiaryController());
@@ -224,6 +238,9 @@ class _HomePageState extends State<HomePage> {
         () {
           reminderTime = value!;
           reminderRepository.updateReminderTime(value);
+          if(active){
+            reminderRepository.onReminderNotification(value);
+          }
         },
       );
     });

@@ -31,8 +31,6 @@ Future<void> main() async {
   
   await GetStorage.init();
 
-  ReminderRepository().initializeReminder();
-
   tz.initializeTimeZones();
   final String timeZoneName = await FlutterTimezone.getLocalTimezone();
   tz.setLocalLocation(tz.getLocation(timeZoneName));
