@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
+import 'package:sleep_diary_mobile/repositories/reminder/reminder_repository.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/faq.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/add_sleep_page.dart';
@@ -13,6 +15,8 @@ import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
 import 'package:sleep_diary_mobile/firebase_options.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/statistik.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 Future<void> main() async {
   final WidgetsBinding widgetsBinding =
@@ -24,8 +28,14 @@ Future<void> main() async {
   );
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
+  
   await GetStorage.init();
+
+  ReminderRepository().initializeReminder();
+
+  tz.initializeTimeZones();
+  final String timeZoneName = await FlutterTimezone.getLocalTimezone();
+  tz.setLocalLocation(tz.getLocation(timeZoneName));
 
   await initializeDateFormatting('id_ID', null);
 
