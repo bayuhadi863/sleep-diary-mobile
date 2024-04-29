@@ -78,7 +78,37 @@ class _ProfilePageState extends State<ProfilePage> {
                 onTap: AuthenticationRepository.instance.isLoading.isTrue
                     ? null
                     : () async {
-                        await AuthenticationRepository.instance.logout();
+                        // Tampilkan dialog konfirmasi
+                        bool confirmLogout = await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Konfirmasi Logout'),
+                              content: Text('Apakah Anda yakin ingin logout?'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(false); // Batalkan logout
+                                  },
+                                  child: Text('Batal'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pop(true); // Lakukan logout
+                                  },
+                                  child: Text('Logout'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+
+                        // Jika pengguna mengkonfirmasi logout
+                        if (confirmLogout == true) {
+                          await AuthenticationRepository.instance.logout();
+                        }
                       },
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
