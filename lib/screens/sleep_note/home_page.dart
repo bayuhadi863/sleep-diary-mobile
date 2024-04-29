@@ -262,6 +262,8 @@ class _HomePageState extends State<HomePage> {
         iconColor: Colors.white,
         maxSelectedDate: DateTime.now(),
         inactiveDaysTextStyle: TextStyle(color: Colors.grey[700]),
+        isScrollable: false,
+        showOnlyCurrentMonthDate: true,
 
         /// null for not rendering any border, true for circular border, false for rectangular border
       ),
