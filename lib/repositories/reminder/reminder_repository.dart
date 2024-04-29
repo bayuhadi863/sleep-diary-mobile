@@ -93,16 +93,28 @@ class ReminderRepository {
       priority: Priority.max, 
       icon: '@mipmap/launcher_icon'
     );
+
     const iOSPlatformChannelSpecifics = DarwinNotificationDetails();
     const notificationDetails = NotificationDetails(
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
 
-    // await flutterLocalNotificationsPlugin.show(0, 'plain title', 'plain body', notificationDetails, payload: 'item x');
     await flutterLocalNotificationsPlugin.zonedSchedule(
       0,
-      'SleepDiary',
-      'Jangan Lupa Tidur',
+      'Ceritanya Cuman Reminder Bang, Tapi Kurang 5 Menit',
+      'Jangan Lupa untuk Membersihkan Badan dan Kasur Supaya Tidur Lebih Nyaman',
+      tz.TZDateTime(tz.local, DateTime.now().year, DateTime.now().month, DateTime.now().day, (time.minute < 5) ? time.hour - 1 : time.hour, (time.minute < 5) ? time.minute + 55 : time.minute - 5),
+      notificationDetails,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+      payload: 'item x'
+    );
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      1,
+      'Ceritanya Cuman Reminder Bang',
+      'Bang Tidur Bang',
       tz.TZDateTime(tz.local, DateTime.now().year, DateTime.now().month, DateTime.now().day, time.hour, time.minute),
       notificationDetails,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
@@ -113,7 +125,7 @@ class ReminderRepository {
   }
 
   Future<void> offReminderNotification() async {
-     await flutterLocalNotificationsPlugin.cancel(0);
+     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
 }
