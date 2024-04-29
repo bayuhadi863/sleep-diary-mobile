@@ -111,6 +111,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 80,
+            ),
           ],
         ),
       ),

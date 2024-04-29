@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart';
-import 'package:sleep_diary_mobile/screens/profile/profile.dart';
-import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/detail_card.dart';
-import 'package:table_calendar/table_calendar.dart';
+// import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
+    show CalendarCarousel;
 
 class HomePage extends StatefulWidget {
   static DateTime today = DateTime.now();
@@ -82,71 +82,178 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 20,
             ),
+
+            _header(),
+            const Text(
+              'Catat Tidurmu!',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(
               height: 10,
             ),
-            _header(),
-            content(),
+            calendar(),
+            // content(),
+            const SizedBox(
+              height: 5,
+            ),
             _reminder(context),
+            const SizedBox(
+              height: 5,
+            ),
             _card(context),
+            const SizedBox(
+              height: 80,
+            ),
           ],
         )));
   }
 
-  Widget content() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: _selectDate,
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                children: <TextSpan>[
-                  const TextSpan(
-                    text: 'Catat Tidurmu!\n',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(
-                    text: DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
-                  ),
-                ],
+  Widget calendar() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+      constraints: const BoxConstraints(maxHeight: 360),
+      decoration: BoxDecoration(
+        color: const Color.fromRGBO(38, 38, 66, 1),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: CalendarCarousel<Event>(
+        onDayPressed: (DateTime date, List<Event> events) {
+          setState(() {
+            DateTime today = DateTime.now();
+            int stringDay = int.parse(DateFormat('yyyyMMdd').format(date));
+            int stringToday = int.parse(DateFormat('yyyyMMdd').format(today));
+
+            if (stringDay > stringToday) {
+              TLoaders.errorSnackBar(
+                  title: 'Gagal!',
+                  message: 'Anda tidak bisa memilih hari yang belum tiba.');
+              return;
+            }
+            HomePage.today = date;
+            HomePage.sleepDiaryController.fetchSleepDiaryData(date);
+          });
+        },
+        // thisMonthDayBorderColor: Colors.grey,
+//      weekDays: null, /// for pass null when you do not want to render weekDays
+//      headerText: Container( /// Example for rendering custom header
+//        child: Text('Custom Header'),
+//      ),
+        customDayBuilder: (
+          /// you can provide your own build function to make custom day containers
+          bool isSelectable,
+          int index,
+          bool isSelectedDay,
+          bool isToday,
+          bool isPrevMonthDay,
+          TextStyle textStyle,
+          bool isNextMonthDay,
+          bool isThisMonthDay,
+          DateTime day,
+        ) {
+          /// If you return null, [CalendarCarousel] will build container for current [day] with default function.
+          /// This way you can build custom containers for specific days only, leaving rest as default.
+
+          // Example: every 15th of month, we have a flight, we can place an icon in the container like that:
+          if (day.day == 15) {
+            return Center(
+              child: Image.asset(
+                'assets/images/skala2.png',
+                width: 40,
+                height: 40,
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
-              border: Border.all(),
-              color: Colors.white,
-            ),
-            child: TableCalendar(
-              locale: "en_US",
-              rowHeight: 43,
-              headerStyle: const HeaderStyle(
-                formatButtonVisible: false,
-                titleCentered: true,
-              ),
-              availableGestures: AvailableGestures.all,
-              selectedDayPredicate: (day) => isSameDay(day, HomePage.today),
-              focusedDay: HomePage.today,
-              firstDay: DateTime.utc(2010, 10, 16),
-              lastDay: DateTime.utc(2030, 3, 14),
-              onDaySelected: _onDaySelected,
-            ),
-          ),
-        ],
+            );
+          } else {
+            return null;
+          }
+        },
+        weekFormat: false,
+        // markedDatesMap: _markedDateMap,
+        height: 360,
+        selectedDateTime: HomePage.today,
+        daysHaveCircularBorder: true,
+        thisMonthDayBorderColor: Colors.transparent,
+        headerMargin: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
+        daysTextStyle: const TextStyle(color: Colors.white),
+        weekdayTextStyle: const TextStyle(color: Colors.white),
+        todayButtonColor: Colors.transparent,
+        todayTextStyle: const TextStyle(color: Colors.white),
+        todayBorderColor: const Color(0xFF5C6AC0),
+        nextDaysTextStyle: TextStyle(color: Colors.grey[500]),
+        weekendTextStyle: const TextStyle(color: Colors.white),
+        selectedDayButtonColor: const Color(0xFF5C6AC0),
+        selectedDayBorderColor: const Color(0xFF5C6AC0),
+        headerTitleTouchable: true,
+        onHeaderTitlePressed: () => _selectDate(),
+        headerTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+        pageScrollPhysics: const NeverScrollableScrollPhysics(),
+        iconColor: Colors.white,
+        maxSelectedDate: DateTime.now(),
+        inactiveDaysTextStyle: TextStyle(color: Colors.grey[700]),
+
+        /// null for not rendering any border, true for circular border, false for rectangular border
       ),
     );
   }
+
+  // Widget content() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(20.0),
+  //     child: Column(
+  //       children: [
+  //         GestureDetector(
+  //           onTap: _selectDate,
+  //           child: RichText(
+  //             textAlign: TextAlign.center,
+  //             text: TextSpan(
+  //               children: <TextSpan>[
+  //                 const TextSpan(
+  //                   text: 'Catat Tidurmu!\n',
+  //                   style: TextStyle(
+  //                       color: Colors.white,
+  //                       fontSize: 26,
+  //                       fontWeight: FontWeight.bold),
+  //                 ),
+  //                 TextSpan(
+  //                   text: DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
+  //                   style: const TextStyle(color: Colors.white, fontSize: 14),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //         const SizedBox(
+  //           height: 20,
+  //         ),
+  //         Container(
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(15.0),
+  //             border: Border.all(),
+  //             color: Colors.white,
+  //           ),
+  //           child: TableCalendar(
+  //             locale: "en_US",
+  //             rowHeight: 43,
+  //             headerStyle: const HeaderStyle(
+  //               formatButtonVisible: false,
+  //               titleCentered: true,
+  //             ),
+  //             availableGestures: AvailableGestures.all,
+  //             selectedDayPredicate: (day) => isSameDay(day, HomePage.today),
+  //             focusedDay: HomePage.today,
+  //             firstDay: DateTime.utc(2010, 10, 16),
+  //             lastDay: DateTime.utc(2030, 3, 14),
+  //             onDaySelected: _onDaySelected,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _header() {
     final controller = Get.put(UserController());

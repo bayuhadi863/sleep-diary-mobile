@@ -60,48 +60,180 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   // int index = 0;
+  static const pages = [
+    HomePage(),
+    StatistikPage(),
+    AddSleepPage(),
+    FaqPage(),
+    ProfilePage(),
+  ];
+
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     PersistentTabController controller;
 
     controller = PersistentTabController(initialIndex: 0);
 
-    return PersistentTabView(
-      context,
-      controller: controller,
-      screens: _buildScreens(),
-      items: _navBarsItems(),
-      confineInSafeArea: true,
-      backgroundColor: const Color(0xFF262642), // Default is Colors.white.
-      handleAndroidBackButtonPress: true, // Default is true.
-      resizeToAvoidBottomInset:
-          true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-      stateManagement: true, // Default is true.
-      hideNavigationBarWhenKeyboardShows:
-          true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Colors.white,
+    // return Scaffold(
+    //   body: pages[selectedIndex],
+    //   bottomNavigationBar: PersistentTabView(
+    //     context,
+    //     controller: controller,
+    //     screens: _buildScreens(),
+    //     items: _navBarsItems(context),
+    //     confineInSafeArea: true,
+    //     backgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+    //     handleAndroidBackButtonPress: true,
+    //     resizeToAvoidBottomInset: true,
+    //     stateManagement: true,
+    //     hideNavigationBarWhenKeyboardShows: true,
+    //     decoration: const NavBarDecoration(
+    //       borderRadius: BorderRadius.vertical(
+    //         top: Radius.circular(10),
+    //       ),
+    //       colorBehindNavBar: Colors.white,
+    //     ),
+    //     popAllScreensOnTapOfSelectedTab: true,
+    //     itemAnimationProperties: const ItemAnimationProperties(
+    //       duration: Duration(milliseconds: 200),
+    //       curve: Curves.ease,
+    //     ),
+    //     screenTransitionAnimation: const ScreenTransitionAnimation(
+    //       animateTabTransition: true,
+    //       curve: Curves.ease,
+    //       duration: Duration(milliseconds: 200),
+    //     ),
+    //     navBarStyle: NavBarStyle.style3,
+    //     onItemSelected: (final index) {
+    //       setState(() {
+    //         selectedIndex = index;
+    //       });
+    //     },
+    //     floatingActionButton: FloatingActionButton(
+    //       onPressed: () {
+    //         setState(() {
+    //           selectedIndex = 2;
+    //         });
+    //       },
+    //       child: const Icon(Icons.add),
+    //       shape: const RoundedRectangleBorder(
+    //         borderRadius: BorderRadius.all(
+    //           Radius.circular(50),
+    //         ),
+    //       ),
+
+    //     ),
+    //   ),
+    // );
+
+    return Scaffold(
+      body: pages[selectedIndex],
+      extendBody: true,
+      floatingActionButton: Visibility(
+        visible: MediaQuery.of(context).viewInsets.bottom == 0,
+        child: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              selectedIndex = 2;
+            });
+          },
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(50),
+            ),
+          ),
+          backgroundColor: const Color(0xFF5C6AC0),
+          child: const Icon(Icons.add, color: Colors.white),
+        ),
       ),
-      popAllScreensOnTapOfSelectedTab: true,
-      popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: const ItemAnimationProperties(
-        // Navigation Bar's items animation properties.
-        duration: Duration(milliseconds: 200),
-        curve: Curves.ease,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        height: 60,
+        color: const Color.fromRGBO(38, 38, 66, 1),
+        // shape: const CircularNotchedRectangle(),
+        notchMargin: 5,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.house_fill,
+                    color: selectedIndex == 0
+                        ? const Color(0xFF5C6AC0)
+                        : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      selectedIndex = 0;
+                    });
+                  },
+                ),
+                const SizedBox(width: 20),
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.chart_bar_square_fill,
+                    color: selectedIndex == 1
+                        ? const Color(0xFF5C6AC0)
+                        : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      selectedIndex = 1;
+                    });
+                  },
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.question_square_fill,
+                    color: selectedIndex == 3
+                        ? const Color(0xFF5C6AC0)
+                        : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      selectedIndex = 3;
+                    });
+                  },
+                ),
+                const SizedBox(width: 20),
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.person_fill,
+                    color: selectedIndex == 4
+                        ? const Color(0xFF5C6AC0)
+                        : Colors.white,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      selectedIndex = 4;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-      screenTransitionAnimation: const ScreenTransitionAnimation(
-        // Screen transition animation on change of selected tab.
-        animateTabTransition: false,
-        curve: Curves.ease,
-        duration: Duration(milliseconds: 200),
-      ),
-      navBarStyle:
-          NavBarStyle.style15, // Choose the nav bar style with this property.
+      
     );
   }
 
@@ -109,43 +241,42 @@ class MainPage extends StatelessWidget {
     return [
       const HomePage(),
       const StatistikPage(),
-      const AddSleepPage(),
+      // const AddSleepPage(),
       const FaqPage(),
       const ProfilePage(),
       // const AddQuizPage(),
     ];
   }
 
-  List<PersistentBottomNavBarItem> _navBarsItems() {
+  List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.house_fill),
-        title: ("Home"),
-        activeColorPrimary: Colors.amber,
+        activeColorPrimary: const Color(0xFF5C6AC0),
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.category_rounded),
-        title: ("Categories"),
-        activeColorPrimary: Colors.yellow,
+        icon: const Icon(CupertinoIcons.chart_bar_square_fill),
+        activeColorPrimary: const Color(0xFF5C6AC0),
         inactiveColorPrimary: Colors.white,
       ),
+      // PersistentBottomNavBarItem(
+      //   icon: const Icon(
+      //     CupertinoIcons.plus,
+      //     color: Colors.white,
+      //   ),
+      //   activeColorPrimary: const Color(0xFF5C6AC0),
+      //   inactiveColorPrimary: Colors.white,
+
+      // ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.leaderboard_rounded),
-        title: ("Leaderboard"),
-        activeColorPrimary: Colors.yellow,
+        icon: const Icon(CupertinoIcons.question_square_fill),
+        activeColorPrimary: const Color(0xFF5C6AC0),
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.person_fill),
-        title: ("Profile"),
-        activeColorPrimary: Colors.yellow,
-        inactiveColorPrimary: Colors.white,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.person_fill),
-        title: ("Profile"),
-        activeColorPrimary: Colors.yellow,
+        activeColorPrimary: const Color(0xFF5C6AC0),
         inactiveColorPrimary: Colors.white,
       ),
     ];
