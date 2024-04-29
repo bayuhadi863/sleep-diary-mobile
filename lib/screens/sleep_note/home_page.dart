@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
             ),
             _reminder(context),
             const SizedBox(
-              height: 10,
+              height: 13,
             ),
             _card(context),
             const SizedBox(
@@ -251,7 +251,8 @@ class _HomePageState extends State<HomePage> {
         todayButtonColor: Colors.transparent,
         todayTextStyle: const TextStyle(color: Colors.white),
         todayBorderColor: const Color(0xFF5C6AC0),
-        nextDaysTextStyle: TextStyle(color: Colors.grey[500]),
+        nextDaysTextStyle: TextStyle(color: Colors.grey[600]),
+        prevDaysTextStyle: TextStyle(color: Colors.grey[600]),
         weekendTextStyle: const TextStyle(color: Colors.white),
         selectedDayButtonColor: const Color(0xFF5C6AC0),
         selectedDayBorderColor: const Color(0xFF5C6AC0),
@@ -389,69 +390,55 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Container _reminder(BuildContext context) {
-    return Container(
-      // padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        color: Color.fromRGBO(8, 10, 35, 1),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: const Color.fromRGBO(38, 38, 66, 1),
-                  borderRadius: BorderRadius.circular(12)),
-              padding:
-                  EdgeInsets.only(top: 12, bottom: 12, left: 12, right: 68),
-              child: GestureDetector(
-                onTap: () {
-                  _timePicker();
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 52.0),
-                  child: Text(
-                    '${reminderTime.hour.toString().padLeft(2, '0')} : ${reminderTime.minute.toString().padLeft(2, '0')}',
-                    style: const TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white),
-                  ),
-                ),
+  Widget _reminder(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: const Color.fromRGBO(38, 38, 66, 1),
+                borderRadius: BorderRadius.circular(12)),
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
+            child: GestureDetector(
+              onTap: () {
+                _timePicker();
+              },
+              child: Text(
+                '${reminderTime.hour.toString().padLeft(2, '0')} : ${reminderTime.minute.toString().padLeft(2, '0')}',
+                style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white),
               ),
             ),
-            Container(
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Container(
               decoration: BoxDecoration(
                   color: const Color.fromRGBO(38, 38, 66, 1),
                   borderRadius: BorderRadius.circular(12)),
-              margin: const EdgeInsets.only(left: 12),
-              padding: const EdgeInsets.only(
-                  top: 13, bottom: 13, right: 8, left: 26),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 18.0),
-                child: Switch(
-                  value: active,
-                  onChanged: ((bool value) {
-                    setState(() {
-                      active = value;
-                      reminderRepository.updateReminderIsActive(value);
-                      if (value) {
-                        reminderRepository.onReminderNotification(reminderTime);
-                      } else {
-                        reminderRepository.offReminderNotification();
-                      }
-                    });
-                  }),
-                ),
+              // margin: const EdgeInsets.only(left: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+              child: Switch(
+                value: active,
+                onChanged: ((bool value) {
+                  setState(() {
+                    active = value;
+                    reminderRepository.updateReminderIsActive(value);
+                    if (value) {
+                      reminderRepository.onReminderNotification(reminderTime);
+                    } else {
+                      reminderRepository.offReminderNotification();
+                    }
+                  });
+                }),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
