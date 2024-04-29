@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart';
 import 'package:sleep_diary_mobile/repositories/reminder/reminder_repository.dart';
+import 'package:sleep_diary_mobile/repositories/sleep_diary/get_sleep_diary.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
@@ -33,12 +34,14 @@ class _HomePageState extends State<HomePage> {
   late TimeOfDay reminderTime = const TimeOfDay(hour: 0, minute: 0);
   late bool active = false;
   final reminderRepository = ReminderRepository();
+  List<String> sleepDiaryDates = [];
 
   @override
   void initState() {
-    
     super.initState();
-    
+
+    getAllDates();
+
     initializeReminderNotification();
 
     reminderRepository.getReminderTime().then((time) {
@@ -50,14 +53,28 @@ class _HomePageState extends State<HomePage> {
     reminderRepository.getReminderIsActive().then((isActive) {
       setState(() {
         active = isActive;
-        if(isActive){
+        if (isActive) {
           reminderRepository.onReminderNotification(reminderTime);
-        }
-        else{
+        } else {
           reminderRepository.offReminderNotification();
         }
       });
     });
+  }
+
+  getAllDates() async {
+    final getSleepDiaryRepository = Get.put(GetSleepDiaryRepository());
+    try {
+      final dates = await getSleepDiaryRepository.getSleepDiaryDates();
+      setState(() {
+        sleepDiaryDates = dates;
+      });
+      print('sleepDiaryDates: $sleepDiaryDates');
+    } catch (e) {
+      setState(() {
+        sleepDiaryDates = [];
+      });
+    }
   }
 
   Future<void> initializeReminderNotification() async {
@@ -87,7 +104,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       initialDate: HomePage.today,
       firstDate: DateTime(2010),
-      lastDate: DateTime(2030),
+      lastDate: DateTime.now(),
       cancelText: 'Cancel',
       confirmText: 'OK',
       helpText: 'Select date',
@@ -195,12 +212,22 @@ class _HomePageState extends State<HomePage> {
           /// This way you can build custom containers for specific days only, leaving rest as default.
 
           // Example: every 15th of month, we have a flight, we can place an icon in the container like that:
-          if (day.day == 15) {
+
+          // chech if day have sleep diary data
+
+          // check if day in sleepDiaryDates
+          String formattedDay = DateFormat('EEEE, MMMM d, y').format(day);
+
+          if (sleepDiaryDates.contains(formattedDay.toString())) {
             return Center(
-              child: Image.asset(
-                'assets/images/skala2.png',
-                width: 40,
-                height: 40,
+              child: Text(
+                day.day.toString(),
+                style: TextStyle(
+                  color: Colors.green[400],
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  //     .bold,
+                ),
               ),
             );
           } else {
@@ -347,7 +374,7 @@ class _HomePageState extends State<HomePage> {
         () {
           reminderTime = value!;
           reminderRepository.updateReminderTime(value);
-          if(active){
+          if (active) {
             reminderRepository.onReminderNotification(value);
           }
         },
@@ -389,10 +416,9 @@ class _HomePageState extends State<HomePage> {
                   setState(() {
                     active = value;
                     reminderRepository.updateReminderIsActive(value);
-                    if(value){
+                    if (value) {
                       reminderRepository.onReminderNotification(reminderTime);
-                    }
-                    else{
+                    } else {
                       reminderRepository.offReminderNotification();
                     }
                   });

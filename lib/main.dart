@@ -92,58 +92,6 @@ class _MainPageState extends State<MainPage> {
 
     controller = PersistentTabController(initialIndex: 0);
 
-    // return Scaffold(
-    //   body: pages[selectedIndex],
-    //   bottomNavigationBar: PersistentTabView(
-    //     context,
-    //     controller: controller,
-    //     screens: _buildScreens(),
-    //     items: _navBarsItems(context),
-    //     confineInSafeArea: true,
-    //     backgroundColor: const Color.fromRGBO(38, 38, 66, 1),
-    //     handleAndroidBackButtonPress: true,
-    //     resizeToAvoidBottomInset: true,
-    //     stateManagement: true,
-    //     hideNavigationBarWhenKeyboardShows: true,
-    //     decoration: const NavBarDecoration(
-    //       borderRadius: BorderRadius.vertical(
-    //         top: Radius.circular(10),
-    //       ),
-    //       colorBehindNavBar: Colors.white,
-    //     ),
-    //     popAllScreensOnTapOfSelectedTab: true,
-    //     itemAnimationProperties: const ItemAnimationProperties(
-    //       duration: Duration(milliseconds: 200),
-    //       curve: Curves.ease,
-    //     ),
-    //     screenTransitionAnimation: const ScreenTransitionAnimation(
-    //       animateTabTransition: true,
-    //       curve: Curves.ease,
-    //       duration: Duration(milliseconds: 200),
-    //     ),
-    //     navBarStyle: NavBarStyle.style3,
-    //     onItemSelected: (final index) {
-    //       setState(() {
-    //         selectedIndex = index;
-    //       });
-    //     },
-    //     floatingActionButton: FloatingActionButton(
-    //       onPressed: () {
-    //         setState(() {
-    //           selectedIndex = 2;
-    //         });
-    //       },
-    //       child: const Icon(Icons.add),
-    //       shape: const RoundedRectangleBorder(
-    //         borderRadius: BorderRadius.all(
-    //           Radius.circular(50),
-    //         ),
-    //       ),
-
-    //     ),
-    //   ),
-    // );
-
     return Scaffold(
       body: pages[selectedIndex],
       extendBody: true,

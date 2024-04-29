@@ -44,4 +44,29 @@ class GetSleepDiaryRepository extends GetxController {
       return SleepDiaryModel.empty();
     }
   }
+
+  // function to check if the date have sleep diary data
+  Future<bool> checkSleepDiaryData(date) async {
+    final user = AuthenticationRepository.instance.authUser;
+    final String formattedDate = DateFormat.yMMMMEEEEd().format(date);
+
+    final snapshot = await _db
+        .collection('sleepDiaries')
+        .where('userId', isEqualTo: user!.uid)
+        .where('sleepDate', isEqualTo: formattedDate)
+        .get();
+
+    return snapshot.docs.isNotEmpty;
+  }
+
+  // get all date in sleep diary datas
+  Future<List<String>> getSleepDiaryDates() async {
+    final user = AuthenticationRepository.instance.authUser;
+    final snapshot = await _db
+        .collection('sleepDiaries')
+        .where('userId', isEqualTo: user!.uid)
+        .get();
+
+    return snapshot.docs.map((e) => e.data()['sleepDate'].toString()).toList();
+  }
 }

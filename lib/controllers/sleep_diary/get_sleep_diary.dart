@@ -9,20 +9,38 @@ class GetSleepDiaryController extends GetxController {
   Rx<SleepDiaryModel> sleepDiary = SleepDiaryModel.empty().obs;
   final getSleepDiaryRepository = Get.put(GetSleepDiaryRepository());
 
+  RxList sleepDiaryDates = [].obs;
+
   @override
   void onInit() {
     super.onInit();
     fetchSleepDiaryData(date);
+    getAllDates();
   }
 
   fetchSleepDiaryData(date) async {
     try {
       final sleepDiary = await getSleepDiaryRepository.fetchSleepDiary(date);
       this.sleepDiary(sleepDiary);
-      print('sleepdiary data: ${this.sleepDiary.value.toJson() == SleepDiaryModel.empty().toJson()}');
+      print(
+          'sleepdiary data: ${this.sleepDiary.value.toJson() == SleepDiaryModel.empty().toJson()}');
     } catch (e) {
       sleepDiary(SleepDiaryModel.empty());
       // print(e);
+    }
+  }
+
+  Future<bool> checkSleepDiaryData(date) async {
+    return await getSleepDiaryRepository.checkSleepDiaryData(date);
+  }
+
+  getAllDates() async {
+    try {
+      final dates = await getSleepDiaryRepository.getSleepDiaryDates();
+      sleepDiaryDates = dates as RxList;
+      print('sleepDiaryDates: $sleepDiaryDates');
+    } catch (e) {
+      sleepDiaryDates = [].obs;
     }
   }
 }
