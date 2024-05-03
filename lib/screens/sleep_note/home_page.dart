@@ -7,6 +7,7 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart';
+import 'package:sleep_diary_mobile/widgets/timepicker_theme.dart';
 import 'package:sleep_diary_mobile/repositories/reminder/reminder_repository.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/get_sleep_diary.dart';
 import 'package:sleep_diary_mobile/screens/profile/profile.dart';
@@ -375,8 +376,24 @@ class _HomePageState extends State<HomePage> {
   void _timePicker() {
     showTimePicker(
       context: context,
+      cancelText: 'Batal',
+      confirmText: 'Simpan',
       initialTime:
           TimeOfDay(hour: reminderTime.hour, minute: reminderTime.minute),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData(
+            timePickerTheme: _timePickerTheme,
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                  // backgroundColor: Colors.amber,
+                  // iconColor: Colors.white,
+                  ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     ).then((TimeOfDay? value) {
       if (value != null) {
         setState(() {
@@ -662,10 +679,68 @@ class PopUpMenu extends StatelessWidget {
   }
 }
 
+final _timePickerTheme= TimePickerThemeData(
+  //tombol cancel
+  cancelButtonStyle: ButtonStyle(
+    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+  ),
+  //tombol simpan
+  confirmButtonStyle: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(
+      const Color(0xFF5C6AC0),
+    ),
+    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+    shape: MaterialStateProperty.all<OutlinedBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+  ),
+  backgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+  hourMinuteShape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ),
+  dayPeriodBorderSide: const BorderSide(color: Colors.orange, width: 4),
+  dayPeriodColor: Colors.blueGrey.shade600,
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ),
+  dayPeriodTextColor: Colors.grey[100],
+  dayPeriodShape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ),
+  hourMinuteColor: MaterialStateColor.resolveWith((states) =>
+      states.contains(MaterialState.selected)
+          ? const Color.fromRGBO(38, 38, 66, 1)
+          : const Color.fromRGBO(38, 38, 66, 1)),
+  hourMinuteTextColor: MaterialStateColor.resolveWith(
+    (states) => states.contains(MaterialState.selected)
+        ? Colors.grey.shade200
+        : Colors.grey.shade200,
+  ),
+  dialHandColor: const Color(0xFF5C6AC0),
+  dialBackgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+  hourMinuteTextStyle: const TextStyle(
+      fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+  dayPeriodTextStyle: const TextStyle(
+      fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+  helpTextStyle: const TextStyle(
+      fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+  inputDecorationTheme: const InputDecorationTheme(
+    border: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.white),
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+    ),
+    contentPadding: EdgeInsets.all(0),
+  ),
+  dialTextColor: MaterialStateColor.resolveWith((states) =>
+      states.contains(MaterialState.selected) ? Colors.white : Colors.white),
+  entryModeIconColor: const Color(0xFF5C6AC0),
+);
+
 class TimeDifference {
   final int hour;
   final int minute;
-
   TimeDifference({required this.hour, required this.minute});
 }
 
