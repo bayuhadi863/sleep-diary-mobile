@@ -78,34 +78,82 @@ class _ProfilePageState extends State<ProfilePage> {
                 onTap: AuthenticationRepository.instance.isLoading.isTrue
                     ? null
                     : () async {
-                        // Tampilkan dialog konfirmasi
                         bool confirmLogout = await showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Konfirmasi Logout'),
-                              content: Text('Apakah Anda yakin ingin logout?'),
+                              backgroundColor:
+                                  const Color.fromRGBO(38, 38, 66, 1),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.asset(
+                                    'assets/images/logoutpopup.png',
+                                    width:
+                                        150,
+                                    height:
+                                        150,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  const Text(
+                                    'Apakah Anda yakin ingin logout?',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                               actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pop(false); // Batalkan logout
-                                  },
-                                  child: Text('Batal'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pop(true); // Lakukan logout
-                                  },
-                                  child: Text('Logout'),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                            width: 1.0, color: Colors.white),
+                                      ),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop(false);
+                                        },
+                                        child: const Text(
+                                          'Batal',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 14),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 215, 56, 45),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop(true);
+                                        },
+                                        child: const Text(
+                                          'Logout',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             );
                           },
                         );
-
-                        // Jika pengguna mengkonfirmasi logout
                         if (confirmLogout == true) {
                           await AuthenticationRepository.instance.logout();
                         }

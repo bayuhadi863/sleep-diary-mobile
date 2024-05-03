@@ -108,18 +108,18 @@ class OnBoardingPage extends StatelessWidget {
                       Text(
                         title,
                         style: const TextStyle(
-                          fontSize: 36.0, // Ukuran font 36
-                          fontWeight: FontWeight.bold, // Ketebalan teks bold
+                          fontSize: 36.0,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(
-                          height: 63.0), // Jarak antara title dan subtitle
+                          height: 63.0),
                       Text(
                         subtitle,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 14.0, // Ukuran font 36
-                          fontWeight: FontWeight.w400, // Ketebalan teks bold
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ],
