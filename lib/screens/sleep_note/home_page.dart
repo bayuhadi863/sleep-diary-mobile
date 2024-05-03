@@ -177,6 +177,7 @@ class _HomePageState extends State<HomePage> {
       constraints: const BoxConstraints(maxHeight: 360),
       decoration: BoxDecoration(
         color: const Color.fromRGBO(38, 38, 66, 1),
+        // color: Colors.white,
         borderRadius: BorderRadius.circular(15),
       ),
       child: CalendarCarousel<Event>(
