@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sleep_diary_mobile/widgets/timepicker_theme.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
@@ -30,7 +31,7 @@ Future<void> main() async {
   );
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  
+
   await GetStorage.init();
 
   tz.initializeTimeZones();
@@ -44,13 +45,15 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var _timePickerTheme;
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        timePickerTheme: _timePickerTheme,
         colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromRGBO(38, 38, 66, 1)),
         useMaterial3: true,
@@ -73,6 +76,7 @@ class MainPage extends StatefulWidget {
 
   @override
   State<MainPage> createState() => _MainPageState();
+  
 }
 
 class _MainPageState extends State<MainPage> {
@@ -114,8 +118,7 @@ class _MainPageState extends State<MainPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 30),
         height: 60,
         color: const Color.fromRGBO(38, 38, 66, 1),
         // shape: const CircularNotchedRectangle(),
@@ -128,7 +131,7 @@ class _MainPageState extends State<MainPage> {
               children: [
                 IconButton(
                   icon: Icon(
-                    CupertinoIcons.house_fill,
+                    Icons.home_filled,
                     color: selectedIndex == 0
                         ? const Color(0xFF5C6AC0)
                         : Colors.white,
@@ -189,7 +192,6 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ),
-      
     );
   }
 
@@ -207,7 +209,7 @@ class _MainPageState extends State<MainPage> {
   List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
     return [
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.house_fill),
+        icon: Icon(Icons.home_filled),
         activeColorPrimary: const Color(0xFF5C6AC0),
         inactiveColorPrimary: Colors.white,
       ),
@@ -237,4 +239,64 @@ class _MainPageState extends State<MainPage> {
       ),
     ];
   }
+  final _timePickerTheme = TimePickerThemeData(
+  //tombol cancel
+  cancelButtonStyle: ButtonStyle(
+    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+  ),
+  //tombol simpan
+  confirmButtonStyle: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(
+      const Color(0xFF5C6AC0),
+    ),
+    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+    shape: MaterialStateProperty.all<OutlinedBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+  ),
+  backgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+  hourMinuteShape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ),
+  dayPeriodBorderSide: const BorderSide(color: Colors.orange, width: 4),
+  dayPeriodColor: Colors.blueGrey.shade600,
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ),
+  dayPeriodTextColor: Colors.grey[100],
+  dayPeriodShape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ),
+  hourMinuteColor: MaterialStateColor.resolveWith((states) =>
+      states.contains(MaterialState.selected)
+          ? const Color.fromRGBO(38, 38, 66, 1)
+          : const Color.fromRGBO(38, 38, 66, 1)),
+  hourMinuteTextColor: MaterialStateColor.resolveWith(
+    (states) => states.contains(MaterialState.selected)
+        ? Colors.grey.shade200
+        : Colors.grey.shade200,
+  ),
+  dialHandColor: const Color(0xFF5C6AC0),
+  dialBackgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+  hourMinuteTextStyle: const TextStyle(
+      fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+  dayPeriodTextStyle: const TextStyle(
+      fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+  helpTextStyle: const TextStyle(
+      fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+  inputDecorationTheme: const InputDecorationTheme(
+    fillColor: Colors.white,
+    border: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.white),
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+    ),
+    contentPadding: EdgeInsets.all(0),
+  ),
+  dialTextColor: MaterialStateColor.resolveWith((states) =>
+      states.contains(MaterialState.selected) ? Colors.white : Colors.white),
+  entryModeIconColor: const Color(0xFF5C6AC0),
+);
+
 }
