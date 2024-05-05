@@ -39,7 +39,7 @@ class _StatistikPageState extends State<StatistikPage> {
           child: Column(
         children: [
           const SizedBox(
-            height: 700,
+            height: 600,
           ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 22),
