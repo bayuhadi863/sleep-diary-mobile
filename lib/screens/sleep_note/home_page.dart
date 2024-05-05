@@ -161,7 +161,25 @@ class _HomePageState extends State<HomePage> {
             ),
             _reminder(context),
             const SizedBox(
-              height: 13,
+              height: 8,
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text(
+                    'Catatan Tidur',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 8,
             ),
             _card(context),
             const SizedBox(
@@ -215,14 +233,6 @@ class _HomePageState extends State<HomePage> {
           bool isThisMonthDay,
           DateTime day,
         ) {
-          /// If you return null, [CalendarCarousel] will build container for current [day] with default function.
-          /// This way you can build custom containers for specific days only, leaving rest as default.
-
-          // Example: every 15th of month, we have a flight, we can place an icon in the container like that:
-
-          // chech if day have sleep diary data
-
-          // check if day in sleepDiaryDates
           String formattedDay = DateFormat('EEEE, MMMM d, y').format(day);
 
           if (sleepDiaryDates.contains(formattedDay.toString())) {
@@ -265,6 +275,7 @@ class _HomePageState extends State<HomePage> {
         iconColor: Colors.white,
         maxSelectedDate: DateTime.now(),
         inactiveDaysTextStyle: TextStyle(color: Colors.grey[700]),
+        inactiveWeekendTextStyle: TextStyle(color: Colors.grey[700]),
         isScrollable: false,
         showOnlyCurrentMonthDate: true,
 
@@ -272,61 +283,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  // Widget content() {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(20.0),
-  //     child: Column(
-  //       children: [
-  //         GestureDetector(
-  //           onTap: _selectDate,
-  //           child: RichText(
-  //             textAlign: TextAlign.center,
-  //             text: TextSpan(
-  //               children: <TextSpan>[
-  //                 const TextSpan(
-  //                   text: 'Catat Tidurmu!\n',
-  //                   style: TextStyle(
-  //                       color: Colors.white,
-  //                       fontSize: 26,
-  //                       fontWeight: FontWeight.bold),
-  //                 ),
-  //                 TextSpan(
-  //                   text: DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
-  //                   style: const TextStyle(color: Colors.white, fontSize: 14),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //         const SizedBox(
-  //           height: 20,
-  //         ),
-  //         Container(
-  //           decoration: BoxDecoration(
-  //             borderRadius: BorderRadius.circular(15.0),
-  //             border: Border.all(),
-  //             color: Colors.white,
-  //           ),
-  //           child: TableCalendar(
-  //             locale: "en_US",
-  //             rowHeight: 43,
-  //             headerStyle: const HeaderStyle(
-  //               formatButtonVisible: false,
-  //               titleCentered: true,
-  //             ),
-  //             availableGestures: AvailableGestures.all,
-  //             selectedDayPredicate: (day) => isSameDay(day, HomePage.today),
-  //             focusedDay: HomePage.today,
-  //             firstDay: DateTime.utc(2010, 10, 16),
-  //             lastDay: DateTime.utc(2030, 3, 14),
-  //             onDaySelected: _onDaySelected,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget _header() {
     final controller = Get.put(UserController());
@@ -506,126 +462,149 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const DetailCard()));
-                      },
-                      icon: const Icon(
-                        Icons.remove_red_eye_sharp,
-                        size: 16,
-                      ),
-                      color: Colors.white,
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const EditSleepPage()));
-                      },
-                      icon: const Icon(
-                        Icons.edit,
-                        size: 16,
-                      ),
-                      color: Colors.white,
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor:
-                                  const Color.fromRGBO(38, 38, 66, 1),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Image.asset(
-                                    'assets/images/deletepopup.png',
-                                    width: 150,
-                                    height: 150,
-                                    fit: BoxFit.cover,
+                HomePage.sleepDiaryController.sleepDiary.value.sleepDate != ''
+                    ? Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailCard(
+                                    sleepDiaryId: HomePage.sleepDiaryController
+                                        .sleepDiary.value.id!,
+                                    date: DateFormat.yMMMMEEEEd('id_ID')
+                                        .format(HomePage.today),
                                   ),
-                                  const SizedBox(height: 8),
-                                  const Text(
-                                    "Apakah Anda yakin ingin menghapus data?",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                              actions: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 12),
-                                      decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.circular(12),
-                                        border: Border.all(
-                                            width: 1.0, color: Colors.white),
-                                      ),
-                                      child: TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text(
-                                          "Batal",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 14,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 12),
-                                      decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 215, 56, 45),
-                                          borderRadius:
-                                              BorderRadius.circular(12)),
-                                      child: TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text(
-                                          "Hapus",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
                                 ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.delete,
-                        size: 16,
-                      ),
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
+                              );
+                            },
+                            child: const Icon(
+                              Icons.remove_red_eye_sharp,
+                              size: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const EditSleepPage(),
+                                ),
+                              );
+                            },
+                            child: const Icon(
+                              Icons.edit,
+                              size: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    backgroundColor:
+                                        const Color.fromRGBO(38, 38, 66, 1),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(14),
+                                    ),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/deletepopup.png',
+                                          width: 150,
+                                          height: 150,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        const SizedBox(height: 8),
+                                        const Text(
+                                          "Apakah Anda yakin ingin menghapus data?",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                    actions: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12),
+                                            decoration: BoxDecoration(
+                                              color: Colors.transparent,
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              border: Border.all(
+                                                  width: 1.0,
+                                                  color: Colors.white),
+                                            ),
+                                            child: TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                "Batal",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 14,
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12),
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromARGB(
+                                                    255, 215, 56, 45),
+                                                borderRadius:
+                                                    BorderRadius.circular(12)),
+                                            child: TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                "Hapus",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: const Icon(
+                              Icons.delete,
+                              size: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      )
+                    : Container(),
               ],
             ),
+            const SizedBox(height: 5),
             HomePage.sleepDiaryController.sleepDiary.value.sleepDate == ''
                 ? const Padding(
                     padding: EdgeInsets.symmetric(vertical: 40, horizontal: 5),

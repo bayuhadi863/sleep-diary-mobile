@@ -45,7 +45,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,6 @@ class MainPage extends StatefulWidget {
 
   @override
   State<MainPage> createState() => _MainPageState();
-  
 }
 
 class _MainPageState extends State<MainPage> {
@@ -90,6 +89,9 @@ class _MainPageState extends State<MainPage> {
   ];
 
   int selectedIndex = 0;
+
+  bool disabled = false;
+
   @override
   Widget build(BuildContext context) {
     PersistentTabController controller;
@@ -102,7 +104,29 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: Visibility(
         visible: MediaQuery.of(context).viewInsets.bottom == 0,
         child: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
+            if (disabled) {
+              return;
+            }
+            if (HomePage.sleepDiaryController.sleepDiary.value.sleepDate !=
+                '') {
+              setState(() {
+                disabled = true;
+              });
+
+              TLoaders.errorSnackBar(
+                  title: 'Gagal',
+                  message: 'Anda sudah mencatat tidur hari ini.');
+
+              await Future.delayed(const Duration(seconds: 3));
+
+              setState(() {
+                disabled = false;
+              });
+
+              return;
+            }
+
             setState(() {
               selectedIndex = 2;
             });
@@ -137,6 +161,21 @@ class _MainPageState extends State<MainPage> {
                         : Colors.white,
                   ),
                   onPressed: () {
+                    if (selectedIndex == 2) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => confirmDialog(
+                          context,
+                          () {
+                            setState(() {
+                              selectedIndex = 0;
+                            });
+                          },
+                        ),
+                      );
+
+                      return;
+                    }
                     setState(() {
                       selectedIndex = 0;
                     });
@@ -151,6 +190,21 @@ class _MainPageState extends State<MainPage> {
                         : Colors.white,
                   ),
                   onPressed: () {
+                    if (selectedIndex == 2) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => confirmDialog(
+                          context,
+                          () {
+                            setState(() {
+                              selectedIndex = 1;
+                            });
+                          },
+                        ),
+                      );
+
+                      return;
+                    }
                     setState(() {
                       selectedIndex = 1;
                     });
@@ -168,6 +222,21 @@ class _MainPageState extends State<MainPage> {
                         : Colors.white,
                   ),
                   onPressed: () {
+                    if (selectedIndex == 2) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => confirmDialog(
+                          context,
+                          () {
+                            setState(() {
+                              selectedIndex = 3;
+                            });
+                          },
+                        ),
+                      );
+
+                      return;
+                    }
                     setState(() {
                       selectedIndex = 3;
                     });
@@ -182,6 +251,21 @@ class _MainPageState extends State<MainPage> {
                         : Colors.white,
                   ),
                   onPressed: () {
+                    if (selectedIndex == 2) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => confirmDialog(
+                          context,
+                          () {
+                            setState(() {
+                              selectedIndex = 4;
+                            });
+                          },
+                        ),
+                      );
+
+                      return;
+                    }
                     setState(() {
                       selectedIndex = 4;
                     });
@@ -195,108 +279,135 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  List<Widget> _buildScreens() {
-    return [
-      const HomePage(),
-      const StatistikPage(),
-      // const AddSleepPage(),
-      const FaqPage(),
-      const ProfilePage(),
-      // const AddQuizPage(),
-    ];
-  }
-
-  List<PersistentBottomNavBarItem> _navBarsItems(BuildContext context) {
-    return [
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.home_filled),
-        activeColorPrimary: const Color(0xFF5C6AC0),
-        inactiveColorPrimary: Colors.white,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.chart_bar_square_fill),
-        activeColorPrimary: const Color(0xFF5C6AC0),
-        inactiveColorPrimary: Colors.white,
-      ),
-      // PersistentBottomNavBarItem(
-      //   icon: const Icon(
-      //     CupertinoIcons.plus,
-      //     color: Colors.white,
-      //   ),
-      //   activeColorPrimary: const Color(0xFF5C6AC0),
-      //   inactiveColorPrimary: Colors.white,
-
-      // ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.question_square_fill),
-        activeColorPrimary: const Color(0xFF5C6AC0),
-        inactiveColorPrimary: Colors.white,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.person_fill),
-        activeColorPrimary: const Color(0xFF5C6AC0),
-        inactiveColorPrimary: Colors.white,
-      ),
-    ];
-  }
   final _timePickerTheme = TimePickerThemeData(
-  //tombol cancel
-  cancelButtonStyle: ButtonStyle(
-    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-  ),
-  //tombol simpan
-  confirmButtonStyle: ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(
-      const Color(0xFF5C6AC0),
+    //tombol cancel
+    cancelButtonStyle: ButtonStyle(
+      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
     ),
-    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-    shape: MaterialStateProperty.all<OutlinedBorder>(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+    //tombol simpan
+    confirmButtonStyle: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color>(
+        const Color(0xFF5C6AC0),
+      ),
+      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+      shape: MaterialStateProperty.all<OutlinedBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
       ),
     ),
-  ),
-  backgroundColor: const Color.fromRGBO(38, 38, 66, 1),
-  hourMinuteShape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(8)),
-  ),
-  dayPeriodBorderSide: const BorderSide(color: Colors.orange, width: 4),
-  dayPeriodColor: Colors.blueGrey.shade600,
-  shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(8)),
-  ),
-  dayPeriodTextColor: Colors.grey[100],
-  dayPeriodShape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(8)),
-  ),
-  hourMinuteColor: MaterialStateColor.resolveWith((states) =>
-      states.contains(MaterialState.selected)
-          ? const Color.fromRGBO(38, 38, 66, 1)
-          : const Color.fromRGBO(38, 38, 66, 1)),
-  hourMinuteTextColor: MaterialStateColor.resolveWith(
-    (states) => states.contains(MaterialState.selected)
-        ? Colors.grey.shade200
-        : Colors.grey.shade200,
-  ),
-  dialHandColor: const Color(0xFF5C6AC0),
-  dialBackgroundColor: const Color.fromRGBO(38, 38, 66, 1),
-  hourMinuteTextStyle: const TextStyle(
-      fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-  dayPeriodTextStyle: const TextStyle(
-      fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
-  helpTextStyle: const TextStyle(
-      fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-  inputDecorationTheme: const InputDecorationTheme(
-    fillColor: Colors.white,
-    border: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.white),
+    backgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+    hourMinuteShape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)),
     ),
-    contentPadding: EdgeInsets.all(0),
-  ),
-  dialTextColor: MaterialStateColor.resolveWith((states) =>
-      states.contains(MaterialState.selected) ? Colors.white : Colors.white),
-  entryModeIconColor: const Color(0xFF5C6AC0),
-);
+    dayPeriodBorderSide: const BorderSide(color: Colors.orange, width: 4),
+    dayPeriodColor: Colors.blueGrey.shade600,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+    ),
+    dayPeriodTextColor: Colors.grey[100],
+    dayPeriodShape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+    ),
+    hourMinuteColor: MaterialStateColor.resolveWith((states) =>
+        states.contains(MaterialState.selected)
+            ? const Color.fromRGBO(38, 38, 66, 1)
+            : const Color.fromRGBO(38, 38, 66, 1)),
+    hourMinuteTextColor: MaterialStateColor.resolveWith(
+      (states) => states.contains(MaterialState.selected)
+          ? Colors.grey.shade200
+          : Colors.grey.shade200,
+    ),
+    dialHandColor: const Color(0xFF5C6AC0),
+    dialBackgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+    hourMinuteTextStyle: const TextStyle(
+        fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+    dayPeriodTextStyle: const TextStyle(
+        fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+    helpTextStyle: const TextStyle(
+        fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+    inputDecorationTheme: const InputDecorationTheme(
+      fillColor: Colors.white,
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white),
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
+      contentPadding: EdgeInsets.all(0),
+    ),
+    dialTextColor: MaterialStateColor.resolveWith((states) =>
+        states.contains(MaterialState.selected) ? Colors.white : Colors.white),
+    entryModeIconColor: const Color(0xFF5C6AC0),
+  );
+}
 
+Widget confirmDialog(BuildContext context, VoidCallback onConfirm) {
+  return AlertDialog(
+    backgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(14),
+    ),
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(
+          'assets/images/deletepopup.png',
+          width: 150,
+          height: 150,
+          fit: BoxFit.cover,
+        ),
+        const SizedBox(height: 8),
+        const Text(
+          "Apakah Anda yakin ingin keluar dari halaman ini? Data yang sudah diisi tidak akan tersimpan.",
+          style: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+    actions: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(width: 1.0, color: Colors.white),
+            ),
+            child: TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                "Batal",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 14,
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 215, 56, 45),
+                borderRadius: BorderRadius.circular(12)),
+            child: TextButton(
+              onPressed: () {
+                // Panggil fungsi onConfirm yang diterima dari luar
+                onConfirm();
+                // Tutup dialog setelah pemanggilan fungsi onConfirm
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                "Keluar",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
 }

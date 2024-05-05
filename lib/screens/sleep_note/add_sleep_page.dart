@@ -1,6 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/sleep_diary_repository.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
 
@@ -25,96 +29,174 @@ class _AddSleepPageState extends State<AddSleepPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 52,
-            ),
-            _date(),
-            const SizedBox(
-              height: 20,
-            ),
-            _addTime(),
-            const SizedBox(
-              height: 15,
-            ),
-            _scale(),
-            const SizedBox(
-              height: 20,
-            ),
-            _factors(),
-            const SizedBox(
-              height: 20,
-            ),
-            _desc(),
-            const SizedBox(
-              height: 20,
-            ),
-            GestureDetector(
-              onTap: isLoading
-                  ? null
-                  : () async {
-                      // Start Loading
-                      setState(() {
-                        isLoading = true;
-                      });
-
-                      final repository = SleepDiaryRepository(
-                          sleepDate: DateFormat.yMMMMEEEEd('en_US')
-                              .format(HomePage.today),
-                          hour1: (time1.value[0] < 10)
-                              ? "0${time1.value[0]}"
-                              : time1.value[0].toString(),
-                          minute1: (time1.value[1] < 10)
-                              ? "0${time1.value[1]}"
-                              : time1.value[1].toString(),
-                          hour2: (time2.value[0] < 10)
-                              ? "0${time2.value[0]}"
-                              : time2.value[0].toString(),
-                          minute2: (time2.value[1] < 10)
-                              ? "0${time2.value[1]}"
-                              : time2.value[1].toString(),
-                          scale: scale.value,
-                          factors: factors,
-                          description: description.text);
-
-                      await repository.createSleepDiary(context);
-
-                      // Stop Loading
-                      setState(() {
-                        isLoading = false;
-                      });
-                    },
-              child: Container(
-                height: 50,
-                width: 370,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  color: isLoading
-                      ? const Color.fromARGB(255, 255, 255, 255)
-                          .withOpacity(0.8)
-                      : const Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Center(
-                  child: isLoading
-                      ? const CircularProgressIndicator(
-                          color: Colors.black,
-                        )
-                      : const Text(
-                          "Simpan",
-                          style: TextStyle(color: Colors.black),
+    return WillPopScope(
+      onWillPop: () async {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/images/deletepopup.png',
+                    width: 150,
+                    height: 150,
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    "Apakah Anda yakin ingin keluar dari halaman ini? Data yang sudah diisi tidak akan tersimpan.",
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              actions: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(width: 1.0, color: Colors.white),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          "Batal",
+                          style: TextStyle(color: Colors.white),
                         ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 14,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 215, 56, 45),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextButton(
+                        onPressed: () {
+                          Get.offAll(() => const MainPage());
+                        },
+                        child: const Text(
+                          "Keluar",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
+        );
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 52,
+              ),
+              _date(),
+              const SizedBox(
+                height: 20,
+              ),
+              _addTime(),
+              const SizedBox(
+                height: 15,
+              ),
+              _scale(),
+              const SizedBox(
+                height: 20,
+              ),
+              _factors(),
+              const SizedBox(
+                height: 20,
+              ),
+              _desc(),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: isLoading
+                    ? null
+                    : () async {
+                        // Start Loading
+                        setState(() {
+                          isLoading = true;
+                        });
+
+                        final repository = SleepDiaryRepository(
+                            sleepDate: DateFormat.yMMMMEEEEd('en_US')
+                                .format(HomePage.today),
+                            hour1: (time1.value[0] < 10)
+                                ? "0${time1.value[0]}"
+                                : time1.value[0].toString(),
+                            minute1: (time1.value[1] < 10)
+                                ? "0${time1.value[1]}"
+                                : time1.value[1].toString(),
+                            hour2: (time2.value[0] < 10)
+                                ? "0${time2.value[0]}"
+                                : time2.value[0].toString(),
+                            minute2: (time2.value[1] < 10)
+                                ? "0${time2.value[1]}"
+                                : time2.value[1].toString(),
+                            scale: scale.value,
+                            factors: factors,
+                            description: description.text);
+
+                        await repository.createSleepDiary(context);
+
+                        // Stop Loading
+                        setState(() {
+                          isLoading = false;
+                        });
+                      },
+                child: Container(
+                  height: 50,
+                  width: 370,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: isLoading
+                        ? const Color.fromARGB(255, 255, 255, 255)
+                            .withOpacity(0.8)
+                        : const Color.fromARGB(255, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: isLoading
+                        ? const CircularProgressIndicator(
+                            color: Colors.black,
+                          )
+                        : const Text(
+                            "Simpan",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 80,
-            ),
-          ],
+              const SizedBox(
+                height: 80,
+              ),
+            ],
+          ),
         ),
       ),
     );

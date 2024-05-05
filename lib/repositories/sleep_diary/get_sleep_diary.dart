@@ -26,6 +26,7 @@ class GetSleepDiaryRepository extends GetxController {
         final data = snapshot.docs.first.data();
         // print('Data fetched: $data');
         return SleepDiaryModel(
+          id: snapshot.docs.first.id,
           userId: data['userId'],
           sleepDate: data['sleepDate'],
           sleepTime: data['sleepTime'],
@@ -68,5 +69,26 @@ class GetSleepDiaryRepository extends GetxController {
         .get();
 
     return snapshot.docs.map((e) => e.data()['sleepDate'].toString()).toList();
+  }
+
+  // get sleep diary by id
+  Future<SleepDiaryModel> fetchSleepDiaryById(String uid) async {
+    try {
+      final DocumentSnapshot documentSnapshot =
+          await _db.collection('sleepDiaries').doc(uid).get();
+      if (documentSnapshot.exists) {
+        return SleepDiaryModel.fromSnapshot(documentSnapshot);
+      } else {
+        throw SleepDiaryModel.empty();
+      }
+    } on FirebaseException catch (e) {
+      throw e.code;
+    } on FormatException catch (_) {
+      throw 'Format exeption error';
+    } on PlatformException catch (e) {
+      throw e.code;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
   }
 }
