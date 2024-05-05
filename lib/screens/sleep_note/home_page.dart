@@ -540,39 +540,76 @@ class _HomePageState extends State<HomePage> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              backgroundColor: Colors.white,
+                              backgroundColor:
+                                  const Color.fromRGBO(38, 38, 66, 1),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(14),
                               ),
-                              title: const Text("Konfirmasi"),
-                              content: const Text(
-                                  "Apakah Anda yakin ingin menghapus data?"),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.asset(
+                                    'assets/images/deletepopup.png',
+                                    width: 150,
+                                    height: 150,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  const Text(
+                                    "Apakah Anda yakin ingin menghapus data?",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                               actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text(
-                                    "Batal",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12),
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 215, 56, 45),
-                                      borderRadius: BorderRadius.circular(12)),
-                                  child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text(
-                                      "Hapus",
-                                      style: TextStyle(color: Colors.white),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12),
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                            width: 1.0, color: Colors.white),
+                                      ),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text(
+                                          "Batal",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    const SizedBox(
+                                      width: 14,
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12),
+                                      decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 215, 56, 45),
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text(
+                                          "Hapus",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             );
@@ -680,7 +717,7 @@ class PopUpMenu extends StatelessWidget {
   }
 }
 
-final _timePickerTheme= TimePickerThemeData(
+final _timePickerTheme = TimePickerThemeData(
   //tombol cancel
   cancelButtonStyle: ButtonStyle(
     foregroundColor: MaterialStateProperty.all<Color>(Colors.white),

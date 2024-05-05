@@ -78,18 +78,18 @@ class _SummaryPageState extends State<SummaryPage> {
                       const SizedBox(width: 10),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        child: Column(
+                        child: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(12.0),
+                              padding: EdgeInsets.all(12.0),
                               child: Text(
                                 'Rerata Durasi Tidur Mingguan',
                                 style: TextStyle(
                                     fontSize: 14, color: Colors.white),
                               ),
                             ),
-                            const Center(
+                            Center(
                               child: Padding(
                                 padding: EdgeInsets.only(top: 8.0, bottom: 30),
                                 child: Row(

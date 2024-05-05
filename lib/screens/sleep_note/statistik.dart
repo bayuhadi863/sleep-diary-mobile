@@ -70,7 +70,7 @@ class _StatistikPageState extends State<StatistikPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SummaryPage()));
+                              builder: (context) => const SummaryPage()));  
                     },
                   )
                 ],
