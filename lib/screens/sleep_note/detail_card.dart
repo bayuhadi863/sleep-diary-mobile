@@ -335,7 +335,7 @@ String getDurationText(TimeDifference duration) {
   if (duration.hour < 7 && duration.hour >= 6) {
     return 'Durasi tidurmu masih kurang dari durasi tidur yang disarankan, cobalah tidur sedikit lebih lama!';
   } else if (duration.hour > 9 && duration.hour <= 10) {
-    return 'Durasi tidurmu sedikit lebih lama dari durasi tidur yang disarankan, cobalah bangun sedikit lebih awal!';
+    return 'Durasi tidurmu sedikit melebihi durasi tidur yang disarankan, cobalah bangun sedikit lebih awal!';
   } else if (duration.hour >= 7 && duration.hour <= 9) {
     return 'Durasi tidurmu sudah sesuai durasi tidur yang disarankan, pertahankan!';
   } else if (duration.hour < 6) {

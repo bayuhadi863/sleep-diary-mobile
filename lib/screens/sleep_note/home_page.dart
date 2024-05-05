@@ -649,7 +649,7 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 12),
+                            horizontal: 12, vertical: 12),
                         decoration: BoxDecoration(
                           color: const Color.fromRGBO(255, 255, 255, 0.13),
                           borderRadius: BorderRadius.circular(11),
@@ -660,15 +660,63 @@ class _HomePageState extends State<HomePage> {
                             displayImageScale(HomePage
                                 .sleepDiaryController.sleepDiary.value.scale),
                             const SizedBox(width: 10),
-                            Expanded(
-                              child: displaySleepText(HomePage
-                                  .sleepDiaryController.sleepDiary.value.scale),
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          getSleepScaleText(HomePage
+                                              .sleepDiaryController
+                                              .sleepDiary
+                                              .value
+                                              .scale),
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          getDurationText(
+                                            calculateTimeDifference(
+                                                HomePage
+                                                    .sleepDiaryController
+                                                    .sleepDiary
+                                                    .value
+                                                    .wakeupTime,
+                                                HomePage
+                                                    .sleepDiaryController
+                                                    .sleepDiary
+                                                    .value
+                                                    .sleepTime),
+                                          ),
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
                     ],
-                  )
+                  ),
           ],
         ),
       ),
@@ -783,6 +831,22 @@ TimeDifference calculateTimeDifference(String wakeupTime, String sleepTime) {
   return TimeDifference(hour: hours, minute: minutes);
 }
 
+String getDurationText(TimeDifference duration) {
+  if (duration.hour < 7 && duration.hour >= 6) {
+    return 'Durasi tidurmu masih kurang dari durasi tidur yang disarankan.';
+  } else if (duration.hour > 9 && duration.hour <= 10) {
+    return 'Durasi tidurmu sedikit melebihi durasi tidur yang disarankan.';
+  } else if (duration.hour >= 7 && duration.hour <= 9) {
+    return 'Durasi tidurmu sudah sesuai dengan durasi tidur yang disarankan.';
+  } else if (duration.hour < 6) {
+    return 'Durasi tidurmu sangat kurang dari durasi tidur yang disarankan.';
+  } else if (duration.hour > 10) {
+    return 'Durasi tidurmu sangat melebihi durasi tidur yang disarankan.';
+  } else {
+    return 'Durasi tidurmu tidak valid, periksa kembali!';
+  }
+}
+
 Widget displayImageScale(int scale) {
   if (scale == 1) {
     return Image.asset(
@@ -817,52 +881,17 @@ Widget displayImageScale(int scale) {
   }
 }
 
-Widget displaySleepText(int scale) {
+String getSleepScaleText(int scale) {
   if (scale == 1) {
-    return const Text(
-      'Tidurmu sangat buruk, Perbaiki!',
-      style: TextStyle(
-        fontSize: 12,
-        color: Colors.white,
-        fontWeight: FontWeight.w600,
-      ),
-    );
+    return 'Kualitas tidurmu sangat buruk.';
   } else if (scale == 2) {
-    return const Text(
-      'Tidurmu buruk, Perbaiki!',
-      style: TextStyle(
-        fontSize: 12,
-        color: Colors.white,
-        fontWeight: FontWeight.w600,
-      ),
-    );
+    return 'Kualitas tidurmu buruk.';
   } else if (scale == 3) {
-    return const Text(
-      'Tidurmu cukup, Tingkatkan!',
-      style: TextStyle(
-        fontSize: 12,
-        color: Colors.white,
-        fontWeight: FontWeight.w600,
-      ),
-    );
+    return 'Kualitas tidurmu cukup.';
   } else if (scale == 4) {
-    return const Text(
-      'Tidurmu baik, Tingkatkan!',
-      style: TextStyle(
-        fontSize: 12,
-        color: Colors.white,
-        fontWeight: FontWeight.w600,
-      ),
-    );
+    return 'Kualitas tidurmu baik.';
   } else {
-    return const Text(
-      'Tidurmu sempurna, Pertahankan!',
-      style: TextStyle(
-        fontSize: 12,
-        color: Colors.white,
-        fontWeight: FontWeight.w600,
-      ),
-    );
+    return 'Kualitas tidurmu sempurna.';
   }
 }
 
