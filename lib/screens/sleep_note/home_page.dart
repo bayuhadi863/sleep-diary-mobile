@@ -398,26 +398,41 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                   color: const Color.fromRGBO(38, 38, 66, 1),
                   borderRadius: BorderRadius.circular(12)),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        active ? 'Reminder' : 'Aktifkan',
-                        style: TextStyle(
-                            color: active ? Colors.white : Colors.grey,
-                            fontSize: 10),
-                        textAlign: TextAlign.left,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            active ? 'Reminder' : 'Aktifkan',
+                            style: TextStyle(
+                                color: active ? Colors.white : Colors.grey,
+                                fontSize: 10),
+                            // textAlign: TextAlign.left,
+                          ),
+                        ],
                       ),
-                      Text(
-                        active ? 'Aktif' : 'Reminder',
-                        style: TextStyle(
-                            color: active ? Colors.white : Colors.grey,
-                            fontSize: 10),
-                        textAlign: TextAlign.left,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            active ? 'Aktif' : 'Reminder',
+                            style: TextStyle(
+                                color: active ? Colors.white : Colors.grey,
+                                fontSize: 10),
+                            // textAlign: TextAlign.left,
+                          ),
+                        ],
                       ),
                     ],
+                  ),
+                  const SizedBox(
+                    width: 5,
                   ),
                   Switch(
                     value: active,
