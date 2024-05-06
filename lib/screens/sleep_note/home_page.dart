@@ -193,7 +193,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
-      constraints: const BoxConstraints(maxHeight: 360),
+      constraints: const BoxConstraints(maxHeight: 392),
       decoration: BoxDecoration(
         color: const Color.fromRGBO(38, 38, 66, 1),
         // color: Colors.white,
@@ -253,7 +253,7 @@ class _HomePageState extends State<HomePage> {
         },
         weekFormat: false,
         // markedDatesMap: _markedDateMap,
-        height: 352.0,
+        height: 392.0,
         selectedDateTime: HomePage.today,
         daysHaveCircularBorder: true,
         thisMonthDayBorderColor: Colors.transparent,
@@ -385,10 +385,10 @@ class _HomePageState extends State<HomePage> {
               },
               child: Text(
                 '${reminderTime.hour.toString().padLeft(2, '0')} : ${reminderTime.minute.toString().padLeft(2, '0')}',
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
-                    color: Colors.white),
+                    color: active ? Colors.white : Colors.grey),
               ),
             ),
           ),
@@ -398,21 +398,39 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                   color: const Color.fromRGBO(38, 38, 66, 1),
                   borderRadius: BorderRadius.circular(12)),
-              // margin: const EdgeInsets.only(left: 12),
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-              child: Switch(
-                value: active,
-                onChanged: ((bool value) {
-                  setState(() {
-                    active = value;
-                    reminderRepository.updateReminderIsActive(value);
-                    if (value) {
-                      reminderRepository.onReminderNotification(reminderTime);
-                    } else {
-                      reminderRepository.offReminderNotification();
-                    }
-                  });
-                }),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        active ? 'Reminder' : 'Aktifkan',
+                        style: TextStyle(color: Colors.white, fontSize: 10),
+                        textAlign: TextAlign.left,
+                      ),
+                      Text(
+                        active ? 'Aktif' : 'Reminder',
+                        style: TextStyle(color: Colors.white, fontSize: 10),
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
+                  ),
+                  Switch(
+                    value: active,
+                    onChanged: ((bool value) {
+                      setState(() {
+                        active = value;
+                        reminderRepository.updateReminderIsActive(value);
+                        if (value) {
+                          reminderRepository
+                              .onReminderNotification(reminderTime);
+                        } else {
+                          reminderRepository.offReminderNotification();
+                        }
+                      });
+                    }),
+                  ),
+                ],
               ),
             ),
           )
