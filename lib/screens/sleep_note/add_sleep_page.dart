@@ -43,14 +43,14 @@ class _AddSleepPageState extends State<AddSleepPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset(
-                    'assets/images/deletepopup.png',
+                    'assets/images/popupad.png',
                     width: 150,
                     height: 150,
                     fit: BoxFit.cover,
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    "Apakah Anda yakin ingin keluar dari halaman ini? Data yang sudah diisi tidak akan tersimpan.",
+                    "Apakah Anda yakin ingin keluar dari halaman ini? Data yang belum tersimpan akan hilang",
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,

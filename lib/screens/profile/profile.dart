@@ -84,15 +84,16 @@ class _ProfilePageState extends State<ProfilePage> {
                             return AlertDialog(
                               backgroundColor:
                                   const Color.fromRGBO(38, 38, 66, 1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14),
+                              ),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Image.asset(
                                     'assets/images/logoutpopup.png',
-                                    width:
-                                        150,
-                                    height:
-                                        150,
+                                    width: 150,
+                                    height: 150,
                                     fit: BoxFit.cover,
                                   ),
                                   const SizedBox(height: 8),

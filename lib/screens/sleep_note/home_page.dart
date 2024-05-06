@@ -240,7 +240,7 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 day.day.toString(),
                 style: TextStyle(
-                  color: Colors.green[400],
+                  color: Colors.yellow[400],
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   //     .bold,
@@ -481,12 +481,12 @@ class _HomePageState extends State<HomePage> {
                             },
                             child: const Icon(
                               Icons.remove_red_eye_sharp,
-                              size: 16,
+                              size: 22,
                               color: Colors.white,
                             ),
                           ),
                           const SizedBox(
-                            width: 10,
+                            width: 14,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -499,12 +499,12 @@ class _HomePageState extends State<HomePage> {
                             },
                             child: const Icon(
                               Icons.edit,
-                              size: 16,
+                              size: 22,
                               color: Colors.white,
                             ),
                           ),
                           const SizedBox(
-                            width: 10,
+                            width: 14,
                           ),
                           GestureDetector(
                             onTap: () {
@@ -595,7 +595,7 @@ class _HomePageState extends State<HomePage> {
                             },
                             child: const Icon(
                               Icons.delete,
-                              size: 16,
+                              size: 22,
                               color: Colors.white,
                             ),
                           ),
