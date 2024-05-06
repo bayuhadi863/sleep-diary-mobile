@@ -405,12 +405,16 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Text(
                         active ? 'Reminder' : 'Aktifkan',
-                        style: TextStyle(color: Colors.white, fontSize: 10),
+                        style: TextStyle(
+                            color: active ? Colors.white : Colors.grey,
+                            fontSize: 10),
                         textAlign: TextAlign.left,
                       ),
                       Text(
                         active ? 'Aktif' : 'Reminder',
-                        style: TextStyle(color: Colors.white, fontSize: 10),
+                        style: TextStyle(
+                            color: active ? Colors.white : Colors.grey,
+                            fontSize: 10),
                         textAlign: TextAlign.left,
                       ),
                     ],
