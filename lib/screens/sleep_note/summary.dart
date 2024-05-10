@@ -124,7 +124,8 @@ class _SummaryPageState extends State<SummaryPage> {
                     color: const Color.fromRGBO(38, 38, 66, 1),
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -167,7 +168,8 @@ class _SummaryPageState extends State<SummaryPage> {
                     color: const Color.fromRGBO(38, 38, 66, 1),
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -220,7 +222,8 @@ class _SummaryPageState extends State<SummaryPage> {
                     color: const Color.fromRGBO(38, 38, 66, 1),
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   child: const Column(
                     children: [
                       SizedBox(height: 12),

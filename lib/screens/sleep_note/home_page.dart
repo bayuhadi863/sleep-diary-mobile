@@ -239,8 +239,8 @@ class _HomePageState extends State<HomePage> {
             return Center(
               child: Text(
                 day.day.toString(),
-                style: TextStyle(
-                  color: Colors.yellow[400],
+                style: const TextStyle(
+                  color: Color(0xFFFFD670),
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   //     .bold,
@@ -253,7 +253,7 @@ class _HomePageState extends State<HomePage> {
         },
         weekFormat: false,
         // markedDatesMap: _markedDateMap,
-        height: 392.0,
+        height: 352.0,
         selectedDateTime: HomePage.today,
         daysHaveCircularBorder: true,
         thisMonthDayBorderColor: Colors.transparent,
@@ -374,83 +374,70 @@ class _HomePageState extends State<HomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            decoration: BoxDecoration(
-                color: const Color.fromRGBO(38, 38, 66, 1),
-                borderRadius: BorderRadius.circular(12)),
-            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
-            child: GestureDetector(
-              onTap: () {
-                _timePicker();
-              },
-              child: Text(
-                '${reminderTime.hour.toString().padLeft(2, '0')} : ${reminderTime.minute.toString().padLeft(2, '0')}',
-                style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700,
-                    color: active ? Colors.white : Colors.grey),
-              ),
-            ),
-          ),
-          const SizedBox(width: 10),
           Expanded(
             child: Container(
               decoration: BoxDecoration(
                   color: const Color.fromRGBO(38, 38, 66, 1),
                   borderRadius: BorderRadius.circular(12)),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            active ? 'Reminder' : 'Aktifkan',
-                            style: TextStyle(
-                                color: active ? Colors.white : Colors.grey,
-                                fontSize: 10),
-                            // textAlign: TextAlign.left,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            active ? 'Aktif' : 'Reminder',
-                            style: TextStyle(
-                                color: active ? Colors.white : Colors.grey,
-                                fontSize: 10),
-                            // textAlign: TextAlign.left,
-                          ),
-                        ],
-                      ),
-                    ],
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    _timePicker();
+                  },
+                  child: Text(
+                    '${reminderTime.hour.toString().padLeft(2, '0')} : ${reminderTime.minute.toString().padLeft(2, '0')}',
+                    style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w700,
+                        color: active ? Colors.white : Colors.grey),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Switch(
-                    value: active,
-                    onChanged: ((bool value) {
-                      setState(() {
-                        active = value;
-                        reminderRepository.updateReminderIsActive(value);
-                        if (value) {
-                          reminderRepository
-                              .onReminderNotification(reminderTime);
-                        } else {
-                          reminderRepository.offReminderNotification();
-                        }
-                      });
-                    }),
-                  ),
-                ],
+                ),
               ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Container(
+            decoration: BoxDecoration(
+                color: const Color.fromRGBO(38, 38, 66, 1),
+                borderRadius: BorderRadius.circular(12)),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 45,
+                      child: Text(
+                        active ? 'Reminder Aktif' : 'Aktifkan Reminder',
+                        style: TextStyle(
+                            color: active ? Colors.white : Colors.grey,
+                            fontSize: 10),
+                        // textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Switch(
+                  value: active,
+                  onChanged: ((bool value) {
+                    setState(() {
+                      active = value;
+                      reminderRepository.updateReminderIsActive(value);
+                      if (value) {
+                        reminderRepository.onReminderNotification(reminderTime);
+                      } else {
+                        reminderRepository.offReminderNotification();
+                      }
+                    });
+                  }),
+                ),
+              ],
             ),
           )
         ],
