@@ -1,8 +1,15 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/sleep_diary_repository.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
+import 'package:sleep_diary_mobile/models/sleep_diary_mode.dart';
+import 'package:sleep_diary_mobile/repositories/sleep_diary/get_sleep_diary.dart';
 
 class EditSleepPage extends StatefulWidget {
   const EditSleepPage({super.key});
@@ -12,7 +19,8 @@ class EditSleepPage extends StatefulWidget {
 }
 
 class _EditSleepPageState extends State<EditSleepPage> {
-  TimeOfDay? time = const TimeOfDay(hour: 00, minute: 00);
+  // TimeOfDay? time = const TimeOfDay(hour: 00, minute: 00);
+  SleepDiaryModel? sleepDiary;
   ValueNotifier<List<int>> time1 = ValueNotifier<List<int>>([0, 0]);
   ValueNotifier<List<int>> time2 = ValueNotifier<List<int>>([0, 0]);
   ValueNotifier<int> scale = ValueNotifier<int>(0);
@@ -22,120 +30,247 @@ class _EditSleepPageState extends State<EditSleepPage> {
   TextEditingController description = TextEditingController();
 
   bool isLoading = false;
+  bool isChange = false;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSleepDiary();
+  }
+
+  void fetchSleepDiary() async {
+    sleepDiary = await GetSleepDiaryRepository().fetchSleepDiary(HomePage.today);
+    time1.value = [int.parse(sleepDiary!.sleepTime.split(":")[0]), int.parse(sleepDiary!.sleepTime.split(":")[1])];
+    time2.value = [int.parse(sleepDiary!.wakeupTime.split(":")[0]), int.parse(sleepDiary!.wakeupTime.split(":")[1])];
+    scale.value = sleepDiary!.scale;
+    sleepDiary!.factors.sort();
+    factors = [...sleepDiary!.factors];
+    for(int i = 0; i < sleepDiary!.factors.length; i++){
+      if(sleepDiary!.factors[i] == "lingkungan"){
+        selectedFactors.value[0] = true;
+      }
+      else if(sleepDiary!.factors[i] == "stress"){
+        selectedFactors.value[1] = true;
+      }
+      else if(sleepDiary!.factors[i] == "sakit"){
+        selectedFactors.value[2] = true;
+      }
+      else if(sleepDiary!.factors[i] == "gelisah"){
+        selectedFactors.value[3] = true;
+      }
+      else if(sleepDiary!.factors[i] == "terbangun"){
+        selectedFactors.value[4] = true;
+      }
+    }
+    description.text = sleepDiary!.description;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
-        title: Text(
-          DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
-          style: const TextStyle(
-              fontSize: 25, fontWeight: FontWeight.w800, color: Colors.white),
-        ),
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
+    return WillPopScope(
+      onWillPop: () async {
+        if(isChange){
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                backgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      'assets/images/popupad.png',
+                      width: 150,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      "Apakah Anda yakin ingin keluar dari halaman ini? Data yang belum tersimpan akan hilang",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                actions: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(width: 1.0, color: Colors.white),
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            "Batal",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 14,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 215, 56, 45),
+                            borderRadius: BorderRadius.circular(12)),
+                        child: TextButton(
+                          onPressed: () {
+                            Get.offAll(() => const MainPage());
+                          },
+                          child: const Text(
+                            "Keluar",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
             },
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
+          );
+        }
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
+          title: Text(
+            DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
+            style: const TextStyle(
+                fontSize: 25, fontWeight: FontWeight.w800, color: Colors.white),
+          ),
+          leading: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: IconButton(
+              onPressed: () {
+                if(isChange){
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => confirmDialog(
+                      context,
+                      () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  );
+                }
+                else{
+                  Get.offAll(() => const MainPage());
+                }
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
-      ),
-      backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            _date(),
-            const SizedBox(
-              height: 12,
-            ),
-            _addTime(),
-            const SizedBox(
-              height: 15,
-            ),
-            _scale(),
-            const SizedBox(
-              height: 20,
-            ),
-            _factors(),
-            const SizedBox(
-              height: 20,
-            ),
-            _desc(),
-            const SizedBox(
-              height: 20,
-            ),
-            GestureDetector(
-              onTap: isLoading
-                  ? null
-                  : () async {
-                      // Start Loading
-                      setState(() {
-                        isLoading = true;
-                      });
-
-                      final repository = SleepDiaryRepository(
-                          sleepDate: DateFormat.yMMMMEEEEd('en_US')
-                              .format(HomePage.today),
-                          hour1: (time1.value[0] < 10)
-                              ? "0${time1.value[0]}"
-                              : time1.value[0].toString(),
-                          minute1: (time1.value[1] < 10)
-                              ? "0${time1.value[1]}"
-                              : time1.value[1].toString(),
-                          hour2: (time2.value[0] < 10)
-                              ? "0${time2.value[0]}"
-                              : time2.value[0].toString(),
-                          minute2: (time2.value[1] < 10)
-                              ? "0${time2.value[1]}"
-                              : time2.value[1].toString(),
-                          scale: scale.value,
-                          factors: factors,
-                          description: description.text);
-
-                      await repository.createSleepDiary(context);
-
-                      // Stop Loading
-                      setState(() {
-                        isLoading = false;
-                      });
-                    },
-              child: Container(
-                height: 50,
-                width: 370,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  color: isLoading
-                      ? const Color.fromARGB(255, 255, 255, 255)
-                          .withOpacity(0.8)
-                      : const Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Center(
-                  child: isLoading
-                      ? const CircularProgressIndicator(
-                          color: Colors.black,
-                        )
-                      : const Text(
-                          "Update",
-                          style: TextStyle(color: Colors.black),
-                        ),
+        backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              _date(),
+              const SizedBox(
+                height: 12,
+              ),
+              _addTime(),
+              const SizedBox(
+                height: 15,
+              ),
+              _scale(),
+              const SizedBox(
+                height: 20,
+              ),
+              _factors(),
+              const SizedBox(
+                height: 20,
+              ),
+              _desc(),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: !isChange ? null 
+                : isLoading ? null
+                    : () async {
+                        // Start Loading
+                        setState(() {
+                          isLoading = true;
+                        });
+      
+                        final repository = SleepDiaryRepository(
+                            sleepDate: DateFormat.yMMMMEEEEd('en_US')
+                                .format(HomePage.today),
+                            hour1: (time1.value[0] < 10)
+                                ? "0${time1.value[0]}"
+                                : time1.value[0].toString(),
+                            minute1: (time1.value[1] < 10)
+                                ? "0${time1.value[1]}"
+                                : time1.value[1].toString(),
+                            hour2: (time2.value[0] < 10)
+                                ? "0${time2.value[0]}"
+                                : time2.value[0].toString(),
+                            minute2: (time2.value[1] < 10)
+                                ? "0${time2.value[1]}"
+                                : time2.value[1].toString(),
+                            scale: scale.value,
+                            factors: factors,
+                            description: description.text);
+      
+                        await repository.updateSleepDiary(context);
+      
+                        // Stop Loading
+                        setState(() {
+                          isLoading = false;
+                        });
+                      },
+                child: Container(
+                  height: 50,
+                  width: 370,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: isChange
+                        ? const Color.fromARGB(255, 255, 255, 255)
+                            .withOpacity(0.8)
+                        : const Color.fromARGB(255, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: isLoading
+                        ? const CircularProgressIndicator(
+                            color: Colors.black,
+                          )
+                        : Text(
+                            "Update",
+                            style: TextStyle(color: isChange ? Colors.black : Colors.grey),
+                          ),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            )
-          ],
+              const SizedBox(
+                height: 20,
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -200,6 +335,13 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         );
                         if (pickedTime != null) {
                           time1.value = [pickedTime.hour, pickedTime.minute];
+                          setState(() {
+                            isChange = pickedTime.hour != int.parse(sleepDiary!.sleepTime.split(":")[0]) || pickedTime.minute != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                              || scale.value != sleepDiary!.scale
+                              || !listEquals(factors, sleepDiary!.factors)
+                              || description.text != sleepDiary!.description;
+                          });
                         }
                       },
                       child: Row(
@@ -254,6 +396,13 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         );
                         if (pickedTime != null) {
                           time2.value = [pickedTime.hour, pickedTime.minute];
+                          setState(() {
+                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                              || pickedTime.hour != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || pickedTime.minute != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                              || scale.value != sleepDiary!.scale
+                              || !listEquals(factors, sleepDiary!.factors)
+                              || description.text != sleepDiary!.description;
+                          });
                         }
                       },
                       child: Row(
@@ -331,6 +480,15 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         splashColor: Colors.black26,
                         onTap: () {
                           scale.value = 1;
+                          print("Faktor: ${listEquals(factors, sleepDiary!.factors)}");
+                          print("${factors} : ${sleepDiary!.factors}");
+                          setState(() {
+                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                              || 1 != sleepDiary!.scale
+                              || !listEquals(factors, sleepDiary!.factors)
+                              || description.text != sleepDiary!.description;
+                          });
                           print(scale);
                         },
                         child: Ink.image(
@@ -362,7 +520,17 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         splashColor: Colors.black26,
                         onTap: () {
                           scale.value = 2;
+                          print("Faktor: ${listEquals(factors, sleepDiary!.factors)}");
+                          print("${factors} : ${sleepDiary!.factors}");
+                          setState(() {
+                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                              || 2 != sleepDiary!.scale
+                              || !listEquals(factors, sleepDiary!.factors)
+                              || description.text != sleepDiary!.description;
+                          });
                           print(scale);
+                          
                         },
                         child: Ink.image(
                           image:
@@ -393,6 +561,15 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         splashColor: Colors.black26,
                         onTap: () {
                           scale.value = 3;
+                          print("Faktor: ${listEquals(factors, sleepDiary!.factors)}");
+                          print("${factors} : ${sleepDiary!.factors}");
+                          setState(() {
+                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                              || 3 != sleepDiary!.scale
+                              || !listEquals(factors, sleepDiary!.factors)
+                              || description.text != sleepDiary!.description;
+                          });
                           print(scale);
                         },
                         child: Ink.image(
@@ -433,6 +610,17 @@ class _EditSleepPageState extends State<EditSleepPage> {
                             false
                           ];
                           factors.clear();
+                          print("Faktor: ${listEquals(factors, sleepDiary!.factors)}");
+                          print("${factors} : ${sleepDiary!.factors}");
+
+                          setState(() {
+                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                              || 4 != sleepDiary!.scale
+                              || !listEquals(factors, sleepDiary!.factors)
+                              || description.text != sleepDiary!.description;
+                          });
+
                         },
                         child: Ink.image(
                           image:
@@ -472,6 +660,17 @@ class _EditSleepPageState extends State<EditSleepPage> {
                             false
                           ];
                           factors.clear();
+                          print("Faktor: ${listEquals(factors, sleepDiary!.factors)}");
+                          print("${factors} : ${sleepDiary!.factors}");
+
+                          setState(() {
+                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                              || 5 != sleepDiary!.scale
+                              || !listEquals(factors, sleepDiary!.factors)
+                              || description.text != sleepDiary!.description;
+                          });
+
                         },
                         child: Ink.image(
                             image: const AssetImage(
@@ -549,9 +748,19 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                       factors.remove("lingkungan");
                                       selectedFactors.value[0] = false;
                                     }
+                                    factors.sort();
                                     print(factors);
                                     print(selectedFactors);
                                     selectedFactors.notifyListeners();
+
+                                    setState(() {
+                                      isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                                        || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                                        || scale.value != sleepDiary!.scale
+                                        || !listEquals(factors, sleepDiary!.factors)
+                                        || description.text != sleepDiary!.description;
+                                    });
+
                                   },
                                   child: Container(
                                       child: Column(
@@ -592,9 +801,19 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                       factors.remove("stress");
                                       selectedFactors.value[1] = false;
                                     }
+                                    factors.sort();
                                     print(factors);
                                     print(selectedFactors);
                                     selectedFactors.notifyListeners();
+
+                                    setState(() {
+                                      isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                                        || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                                        || scale.value != sleepDiary!.scale
+                                        || !listEquals(factors, sleepDiary!.factors)
+                                        || description.text != sleepDiary!.description;
+                                    });
+
                                   },
                                   child: Container(
                                       child: Column(
@@ -635,9 +854,19 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                       factors.remove("sakit");
                                       selectedFactors.value[2] = false;
                                     }
+                                    factors.sort();
                                     print(factors);
                                     print(selectedFactors);
                                     selectedFactors.notifyListeners();
+
+                                    setState(() {
+                                      isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                                        || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                                        || scale.value != sleepDiary!.scale
+                                        || !listEquals(factors, sleepDiary!.factors)
+                                        || description.text != sleepDiary!.description;
+                                    });
+
                                   },
                                   child: Container(
                                       child: Column(
@@ -676,9 +905,19 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                       factors.remove("gelisah");
                                       selectedFactors.value[3] = false;
                                     }
+                                    factors.sort();
                                     print(factors);
                                     print(selectedFactors);
                                     selectedFactors.notifyListeners();
+
+                                    setState(() {
+                                      isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                                        || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                                        || scale.value != sleepDiary!.scale
+                                        || !listEquals(factors, sleepDiary!.factors)
+                                        || description.text != sleepDiary!.description;
+                                    });
+
                                   },
                                   child: Container(
                                       child: Column(
@@ -719,9 +958,19 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                       factors.remove("terbangun");
                                       selectedFactors.value[4] = false;
                                     }
+                                    factors.sort();
                                     print(factors);
                                     print(selectedFactors);
                                     selectedFactors.notifyListeners();
+
+                                    setState(() {
+                                      isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                                        || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                                        || scale.value != sleepDiary!.scale
+                                        || !listEquals(factors, sleepDiary!.factors)
+                                        || description.text != sleepDiary!.description;
+                                    });
+
                                   },
                                   child: Container(
                                       child: Column(
@@ -850,6 +1099,15 @@ class _EditSleepPageState extends State<EditSleepPage> {
             const SizedBox(height: 1),
             Expanded(
               child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
+                      || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
+                      || scale.value != sleepDiary!.scale
+                      || !listEquals(factors, sleepDiary!.factors)
+                      || value != sleepDiary!.description;
+                  });
+                },
                 controller: description,
                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(

@@ -86,6 +86,9 @@ class ReminderRepository {
   }
 
   Future<void> onReminderNotification(TimeOfDay time) async {
+
+    offReminderNotification();
+
     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'SleepDiary', 'Jangan Lupa Tidur',
         importance: Importance.max,
