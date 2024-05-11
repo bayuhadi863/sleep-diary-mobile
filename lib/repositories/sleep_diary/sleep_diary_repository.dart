@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/models/sleep_diary_mode.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -108,11 +110,70 @@ class SleepDiaryRepository {
       HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
 
       // Redirect ke Home Page
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const MainPage()));
+      Get.offAll(() => const MainPage());
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => const MainPage()));
     } catch (error) {
       print('Error: $error');
       throw 'Error $error';
+    }
+  }
+
+  Future<void> updateSleepDiary(BuildContext context) async {
+
+    String sleepTime = "$hour1:$minute1";
+    String wakeupTime = "$hour2:$minute2";
+
+    final editedSleepDiary = SleepDiaryModel(
+      userId: FirebaseAuth.instance.currentUser!.uid,
+      sleepDate: sleepDate,
+      sleepTime: sleepTime,
+      wakeupTime: wakeupTime,
+      scale: scale,
+      factors: factors,
+      description: description
+    );
+    
+    try {
+      final sleepDiary = await FirebaseFirestore.instance
+        .collection('sleepDiaries')
+        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .where('sleepDate', isEqualTo: sleepDate)
+        .get();
+
+      await sleepDiary.docs.first.reference.update(editedSleepDiary.toJson());
+
+      TLoaders.successSnackBar(title: 'Selamat!', message: 'Anda berhasil memperbarui catatan tidur Anda.');
+
+      HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
+
+      Get.offAll(() => const MainPage());
+    } 
+    catch (error) {
+      throw 'Error $error';
+    }
+  }
+
+  static Future<void> deleteSleepDiary() async {
+    try {
+      final sleepDiary = await FirebaseFirestore.instance.collection('sleepDiaries')
+        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .where('sleepDate', isEqualTo: DateFormat.yMMMMEEEEd('en_US').format(HomePage.today))
+        .get();
+
+      for (var doc in sleepDiary.docs) {
+        await doc.reference.delete();
+      }
+      
+      TLoaders.successSnackBar(title: 'Selamat!', message: 'Anda berhasil menghapus catatan tidur Anda.');
+
+      HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
+
+      Get.offAll(() => const MainPage());
+
+    } 
+    catch (e) {
+      throw 'Error: $e';
     }
   }
 

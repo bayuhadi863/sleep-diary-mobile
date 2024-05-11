@@ -7,6 +7,7 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart';
+import 'package:sleep_diary_mobile/repositories/sleep_diary/sleep_diary_repository.dart';
 import 'package:sleep_diary_mobile/widgets/timepicker_theme.dart';
 import 'package:sleep_diary_mobile/repositories/reminder/reminder_repository.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/get_sleep_diary.dart';
@@ -601,7 +602,7 @@ class _HomePageState extends State<HomePage> {
                                                     BorderRadius.circular(12)),
                                             child: TextButton(
                                               onPressed: () {
-                                                Navigator.of(context).pop();
+                                                SleepDiaryRepository.deleteSleepDiary();
                                               },
                                               child: const Text(
                                                 "Hapus",
