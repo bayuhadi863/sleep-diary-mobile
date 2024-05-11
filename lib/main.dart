@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromRGBO(38, 38, 66, 1)),
         useMaterial3: true,
+        canvasColor: const Color.fromRGBO(38, 38, 66, 1),
       ),
       debugShowCheckedModeBanner: false,
       home: const Scaffold(
