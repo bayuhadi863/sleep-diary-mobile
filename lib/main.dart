@@ -337,6 +337,7 @@ class _MainPageState extends State<MainPage> {
     dialTextColor: MaterialStateColor.resolveWith((states) =>
         states.contains(MaterialState.selected) ? Colors.white : Colors.white),
     entryModeIconColor: const Color(0xFF5C6AC0),
+    
   );
 }
 
