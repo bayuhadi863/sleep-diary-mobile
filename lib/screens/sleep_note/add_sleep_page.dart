@@ -26,6 +26,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
   TextEditingController description = TextEditingController();
 
   bool isLoading = false;
+  bool disabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -135,9 +136,14 @@ class _AddSleepPageState extends State<AddSleepPage> {
                 height: 20,
               ),
               GestureDetector(
-                onTap: isLoading
+                onTap: isLoading || disabled
                     ? null
                     : () async {
+                        // Disable Button
+                        setState(() {
+                          disabled = true;
+                        });
+
                         // Start Loading
                         setState(() {
                           isLoading = true;
@@ -168,6 +174,16 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         setState(() {
                           isLoading = false;
                         });
+
+                        // wait 3 seconds
+                        await Future.delayed(const Duration(seconds: 3));
+
+                        // Enable Button
+                        if (mounted) {
+                          setState(() {
+                            disabled = false;
+                          });
+                        }
                       },
                 child: Container(
                   height: 50,

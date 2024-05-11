@@ -407,16 +407,20 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: 45,
-                      child: Text(
-                        active ? 'Reminder Aktif' : 'Aktifkan Reminder',
-                        style: TextStyle(
-                            color: active ? Colors.white : Colors.grey,
-                            fontSize: 10),
-                        // textAlign: TextAlign.left,
+                    Text(
+                      active ? 'Reminder' : 'Aktifkan',
+                      style: TextStyle(
+                        color: active ? Colors.white : Colors.grey,
+                        fontSize: 10,
+                      ),
+                    ),
+                    Text(
+                      'Aktif',
+                      style: TextStyle(
+                        color: active ? Colors.white : Colors.grey,
+                        fontSize: 10,
                       ),
                     ),
                   ],
@@ -602,7 +606,8 @@ class _HomePageState extends State<HomePage> {
                                                     BorderRadius.circular(12)),
                                             child: TextButton(
                                               onPressed: () {
-                                                SleepDiaryRepository.deleteSleepDiary();
+                                                SleepDiaryRepository
+                                                    .deleteSleepDiary();
                                               },
                                               child: const Text(
                                                 "Hapus",
