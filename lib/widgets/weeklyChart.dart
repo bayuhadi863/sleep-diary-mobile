@@ -13,14 +13,14 @@ class _WeeklyChartState extends State<WeeklyChart> {
   @override
   Widget build(BuildContext context) {
     final List<ChartData> chartData = [
-      ChartData(0, 0),
-      ChartData(1, 3),
-      ChartData(2, 2),
-      ChartData(3, 3),
-      ChartData(4, 4),
-      ChartData(5, 5),
-      ChartData(6, 4),
-      ChartData(7, 4)
+      // ChartData(0, 0),
+      // ChartData(1, 3),
+      // ChartData(2, 2),
+      // ChartData(3, 3),
+      // ChartData(4, 4),
+      // ChartData(5, 5),
+      // ChartData(6, 4),
+      // ChartData(7, 4)
     ];
 
     return Scaffold(
@@ -37,6 +37,10 @@ class _WeeklyChartState extends State<WeeklyChart> {
                 dotData: FlDotData(show: true),
               ),
             ],
+            minX: 0,
+            maxX: 8,
+            minY: 0,
+            maxY: 6,
             borderData: FlBorderData(
               border: const Border(
                 bottom: BorderSide(),
@@ -83,6 +87,8 @@ class _WeeklyChartState extends State<WeeklyChart> {
             case 7:
               text = 'Sat';
               break;
+            case 8:
+              text = '  ';
             default:
               text = '';
               break;
@@ -111,8 +117,10 @@ class _WeeklyChartState extends State<WeeklyChart> {
             case 5:
               imageWidget = Image.asset('assets/images/skalabulan5.png');
               break;
+            case 6:
+              imageWidget = const SizedBox();
             default:
-              imageWidget = SizedBox();
+              imageWidget = const SizedBox();
               break;
           }
           return imageWidget;

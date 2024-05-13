@@ -10,19 +10,10 @@ class MonthlyChart extends StatefulWidget {
 }
 
 class _MonthlyChartState extends State<MonthlyChart> {
+  List<ChartData> chartData = [];
+
   @override
   Widget build(BuildContext context) {
-    final List<ChartData> chartData = [
-      ChartData(0, 0),
-      ChartData(1, 3),
-      ChartData(2, 2),
-      ChartData(3, 3),
-      ChartData(4, 4),
-      ChartData(5, 5),
-      ChartData(6, 4),
-      ChartData(7, 4)
-    ];
-
     return Scaffold(
       body: Center(
         child: LineChart(
@@ -37,6 +28,10 @@ class _MonthlyChartState extends State<MonthlyChart> {
                 dotData: FlDotData(show: true),
               ),
             ],
+            minX: 0,
+            // maxX: ,
+            minY: 0,
+            maxY: 6,
             borderData: FlBorderData(
               border: const Border(
                 bottom: BorderSide(),
@@ -95,6 +90,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
             case 5:
               imageWidget = Image.asset('assets/images/skalabulan5.png');
               break;
+              case 6: imageWidget = SizedBox();
             default:
               imageWidget = SizedBox();
               break;

@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get_state_manager/src/simple/get_widget_cache.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/last_week_summary.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/monthly_summary.dart';
+import 'package:sleep_diary_mobile/screens/sleep_note/monthly_summary.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/summary.dart';
 import 'package:sleep_diary_mobile/widgets/monthlyChart.dart';
 import 'package:sleep_diary_mobile/widgets/weeklyChart.dart';
@@ -118,16 +119,19 @@ class _StatistikPageState extends State<StatistikPage> {
             const SizedBox(
               height: 20,
             ),
-            Container(
-              padding: EdgeInsets.all(10),
-              // margin: EdgeInsets.all(20),
-              decoration: BoxDecoration(),
-              child: SizedBox(
-                height: 250,
-                child: Visibility(
-                  visible: _selectedItem == 'Per Minggu',
-                  replacement: MonthlyChart(),
-                  child: WeeklyChart(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                // margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(border: Border.all()),
+                child: SizedBox(
+                  height: 250,
+                  child: Visibility(
+                    visible: _selectedItem == 'Per Minggu',
+                    replacement: MonthlyChart(),
+                    child: WeeklyChart(),
+                  ),
                 ),
               ),
             ),
@@ -153,7 +157,7 @@ class _StatistikPageState extends State<StatistikPage> {
 
   Widget dropdowns(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         // Container(
         //   decoration: BoxDecoration(
@@ -175,6 +179,9 @@ class _StatistikPageState extends State<StatistikPage> {
               borderRadius: BorderRadius.circular(8)),
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: monthDropdown(context),
+        ),
+        SizedBox(
+          width: 15,
         ),
         Container(
           decoration: BoxDecoration(
@@ -303,26 +310,60 @@ class _StatistikPageState extends State<StatistikPage> {
         decoration: BoxDecoration(
             color: const Color.fromRGBO(38, 38, 66, 1),
             borderRadius: BorderRadius.circular(8)),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Kesimpulan",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
+            Visibility(
+              visible: _selectedItem == 'Per Minggu',
+              replacement: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Kesimpulan Bulanan",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.white,
+                  )
+                ],
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Kesimpulan Mingguan",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.white,
+                  )
+                ],
+              ),
             )
           ],
         ),
       ),
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const SummaryPage()));
+     onTap: () {
+        // Navigate to different page based on the selected item
+        if (_selectedItem == 'Per Minggu') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SummaryPage()),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MonthlySummaryPage()),
+          );
+        }
       },
     );
   }
