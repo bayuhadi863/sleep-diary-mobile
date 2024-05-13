@@ -310,48 +310,43 @@ class _StatistikPageState extends State<StatistikPage> {
         decoration: BoxDecoration(
             color: const Color.fromRGBO(38, 38, 66, 1),
             borderRadius: BorderRadius.circular(8)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Visibility(
-              visible: _selectedItem == 'Per Minggu',
-              replacement: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Kesimpulan Bulanan",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
+        child: Visibility(
+          visible: _selectedItem == 'Per Minggu',
+          replacement: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Kesimpulan Bulanan",
+                style: TextStyle(
                     color: Colors.white,
-                  )
-                ],
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
               ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Kesimpulan Mingguan",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
+              Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+              )
+            ],
+          ),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Kesimpulan Mingguan",
+                style: TextStyle(
                     color: Colors.white,
-                  )
-                ],
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
               ),
-            )
-          ],
+              Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+              )
+            ],
+          ),
         ),
       ),
-     onTap: () {
+      onTap: () {
         // Navigate to different page based on the selected item
         if (_selectedItem == 'Per Minggu') {
           Navigator.push(
