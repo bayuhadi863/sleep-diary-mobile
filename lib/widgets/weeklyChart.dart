@@ -36,7 +36,7 @@ class _WeeklyChartState extends State<WeeklyChart> {
                     .map((chartData) =>
                         FlSpot(chartData.x.toDouble(), chartData.y))
                     .toList(),
-                isCurved: false,
+                isCurved: true,
                 dotData: FlDotData(show: true),
                 color: const Color.fromRGBO(38, 38, 66, 1),
               ),

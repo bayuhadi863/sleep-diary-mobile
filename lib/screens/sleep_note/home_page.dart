@@ -417,7 +417,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Text(
-                      'Aktif',
+                      active ? 'Aktif' : 'Reminder',
                       style: TextStyle(
                         color: active ? Colors.white : Colors.grey,
                         fontSize: 10,
