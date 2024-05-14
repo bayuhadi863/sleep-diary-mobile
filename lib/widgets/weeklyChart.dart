@@ -14,13 +14,13 @@ class _WeeklyChartState extends State<WeeklyChart> {
   Widget build(BuildContext context) {
     final List<ChartData> chartData = [
       // ChartData(0, 0),
-      // ChartData(1, 3),
+      ChartData(1, 3),
       // ChartData(2, 2),
-      // ChartData(3, 3),
-      // ChartData(4, 4),
-      // ChartData(5, 5),
-      // ChartData(6, 4),
-      // ChartData(7, 4)
+      ChartData(3, 3),
+      ChartData(4, 4),
+      ChartData(5, 5),
+      ChartData(6, 4),
+      ChartData(7, 4)
     ];
 
     return Scaffold(
@@ -67,25 +67,25 @@ class _WeeklyChartState extends State<WeeklyChart> {
           String text = '';
           switch (value.toInt()) {
             case 1:
-              text = 'Sun';
+              text = 'Min';
               break;
             case 2:
-              text = 'Mon';
+              text = 'Sen';
               break;
             case 3:
-              text = 'Tue';
+              text = 'Sel';
               break;
             case 4:
-              text = 'Wed';
+              text = 'Rab';
               break;
             case 5:
-              text = 'Thu';
+              text = 'Kam';
               break;
             case 6:
-              text = 'Fri';
+              text = 'Jum';
               break;
             case 7:
-              text = 'Sat';
+              text = 'Sab';
               break;
             case 8:
               text = '  ';

@@ -51,7 +51,7 @@ class _FaqPageState extends State<FaqPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Berapa normalnya waktu tidur?",
+                            "Apa itu SleepDiary?",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 12,
@@ -67,7 +67,7 @@ class _FaqPageState extends State<FaqPage> {
                       padding: const EdgeInsets.only(
                           bottom: 26, left: 20, right: 12),
                       child: Text(
-                        "Waktu tidur yang disarankan untuk orang dewasa adalah antara 7-9 jam per malam.",
+                        "Aplikasi SleepDiary adalah teman tidur Anda yang setia, dirancang untuk membantu Anda memantau dan mencatat kualitas tidur Anda dari waktu ke waktu. aplikasi ini memungkinkan pengguna untuk meningkatkan kualitas tidur mereka.",
                         style: TextStyle(fontSize: 12, color: Colors.white),
                       ),
                     ),
@@ -101,7 +101,7 @@ class _FaqPageState extends State<FaqPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Berapa normalnya waktu tidur?",
+                            "Apa fitur utama Aplikasi SleepDiary?",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 12,
@@ -117,7 +117,10 @@ class _FaqPageState extends State<FaqPage> {
                       padding: const EdgeInsets.only(
                           bottom: 26, left: 20, right: 12),
                       child: Text(
-                        "Waktu tidur yang disarankan untuk orang dewasa adalah antara 7-9 jam per malam.",
+                        "Fitur-fitur utama dalam Aplikasi SleepDiary mencakup:\n"
+                        "1. Grafik analisis pola tidur: Menampilkan pola tidur pengguna dalam bentuk grafik untuk mempermudah pemantauan dan pemahaman.\n"
+                        "2. Reminder tidur: Memberikan pengingat kepada pengguna untuk tidur sesuai jadwal yang diinginkan.\n"
+                        "3. Pemantauan kualitas tidur: Memungkinkan pengguna untuk mencatat dan melacak kualitas tidur mereka dari waktu ke waktu.",
                         style: TextStyle(fontSize: 12, color: Colors.white),
                       ),
                     ),

@@ -45,6 +45,7 @@ class _StatistikPageState extends State<StatistikPage> {
   int? _selectedYear;
   // String? _selectedWeekly;
   List<int> lastWeekSleepScale = [];
+  List<int> currentWeekSleepScale = [];
 
 
   // Hanya untuk uji coba backend, boleh dihapus kalau mau dihapus
@@ -60,14 +61,16 @@ class _StatistikPageState extends State<StatistikPage> {
 
   // Hanya untuk uji coba backend, boleh dihapus kalau mau dihapus
   void testingSummary() async {
-    await LastWeekSummary().getLastWeekSleepTimeAverage();
-    await LastWeekSummary().getLastWeekScaleAverage();
-    await LastWeekSummary().getLastWeekScale();
-    await LastWeekSummary().getLastWeekFactors();
-    await MonthlySummary().getMonthlySleepTimeAverage(2, 2024);
-    await MonthlySummary().getMonthlyScaleAverage(2, 2024);
-    await MonthlySummary().getMonthlyScale(2, 2024);
-    await MonthlySummary().getMonthlyFactors(2, 2024);
+    // await LastWeekSummary().getLastWeekSleepTimeAverage();
+    // await LastWeekSummary().getLastWeekScaleAverage();
+    // await LastWeekSummary().getLastWeekScale();
+    // await LastWeekSummary().getLastWeekFactors();
+    // await MonthlySummary().getMonthlySleepTimeAverage(2, 2024);
+    // await MonthlySummary().getMonthlyScaleAverage(2, 2024);
+    // await MonthlySummary().getMonthlyScale(2, 2024);
+    // await MonthlySummary().getMonthlyFactors(2, 2024);
+    lastWeekSleepScale = await LastWeekSummary().getLastWeekScale();
+    
   }
 
   @override
