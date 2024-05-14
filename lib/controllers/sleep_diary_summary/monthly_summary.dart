@@ -62,7 +62,7 @@ class MonthlySummary {
       }
     }
 
-    print("Faktor ${month} ${year}: ${monthlyFactors}");
+    print("Faktor $month $year: $monthlyFactors");
 
     return monthlyFactors;
   }

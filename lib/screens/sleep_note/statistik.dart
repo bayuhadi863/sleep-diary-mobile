@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_state_manager/src/simple/get_widget_cache.dart';
+import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/current_week_summary.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/last_week_summary.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/monthly_summary.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/monthly_summary.dart';
@@ -11,6 +12,7 @@ import 'package:sleep_diary_mobile/screens/sleep_note/summary.dart';
 import 'package:sleep_diary_mobile/widgets/monthlyChart.dart';
 import 'package:sleep_diary_mobile/widgets/weeklyChart.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 const List<String> list = <String>['Per Minggu', 'Per Bulan'];
 const List<String> week = <String>['Minggu ini', 'Minggu lalu'];
@@ -28,8 +30,30 @@ const List<String> month = <String>[
   'November',
   'Desember'
 ];
+
+const Map<String, int> monthNumber = {
+  'Januari': 1,
+  'Februari': 2,
+  'Maret': 3,
+  'April': 4,
+  'Mei': 5,
+  'Juni': 6,
+  'Juli': 7,
+  'Agustus': 8,
+  'September': 9,
+  'Oktober': 10,
+  'November': 11,
+  'Desember': 12
+};
+
 List<int> year = List<int>.generate(3, (int index) => 2023 + index);
 // const List<String> weekly = <String>[];
+
+class ChartData {
+  ChartData(this.x, this.y);
+  final int x;
+  final double y;
+}
 
 class StatistikPage extends StatefulWidget {
   const StatistikPage({super.key});
@@ -43,6 +67,12 @@ class _StatistikPageState extends State<StatistikPage> {
   String? _selectedWeek = 'Minggu ini';
   String? _selectedMonth;
   int? _selectedYear;
+
+  List<int> lastWeekScales = [0, 0, 0, 0, 0, 0, 0];
+  List<int> currentWeekScales = [0, 0, 0, 0, 0, 0, 0];
+  List<int> monthlyScales = [];
+  List<ChartData> chartData = [];
+  bool isFetchLoading = false;
   // String? _selectedWeekly;
 
   // Hanya untuk uji coba backend, boleh dihapus kalau mau dihapus
@@ -53,7 +83,110 @@ class _StatistikPageState extends State<StatistikPage> {
     // Set _selectedMonth to the current month
     _selectedMonth = month[now.month - 1];
     _selectedYear = now.year;
-    testingSummary();
+    // testingSummary();
+    fetchStatisticData();
+  }
+
+  void getMonthlyScale() async {
+    // loading
+    setState(() {
+      isFetchLoading = true;
+    });
+
+    final monthlyScalesData = await MonthlySummary()
+        .getMonthlyScale(monthNumber[_selectedMonth]!, _selectedYear!);
+
+    print(monthlyScalesData);
+
+    setState(() {
+      monthlyScales = monthlyScalesData;
+    });
+
+    setState(() {
+      chartData = [];
+    });
+
+    for (int i = 0; i < monthlyScalesData.length; i++) {
+      if (monthlyScalesData[i] != 0) {
+        chartData.add(ChartData(i + 1, monthlyScalesData[i].toDouble()));
+      }
+    }
+
+    // loading stop
+    setState(() {
+      isFetchLoading = false;
+    });
+
+    print("chartData ${chartData.length}");
+  }
+
+  void getLastWeekScales() async {
+    // loading
+    setState(() {
+      isFetchLoading = true;
+    });
+
+    final lastWeekScalesData = await LastWeekSummary().getLastWeekScale();
+
+    setState(() {
+      lastWeekScales = lastWeekScalesData;
+    });
+
+    setState(() {
+      chartData = [];
+    });
+
+    for (int i = 0; i < 7; i++) {
+      if (lastWeekScales[i] != 0) {
+        chartData.add(ChartData(i + 1, lastWeekScales[i].toDouble()));
+      }
+    }
+
+    // loading stop
+    setState(() {
+      isFetchLoading = false;
+    });
+  }
+
+  void getCurrentWeekScales() async {
+    // loading
+    setState(() {
+      isFetchLoading = true;
+    });
+
+    final currentWeekScalesData =
+        await CurrentWeekSummary().getCurrentWeekScale();
+
+    setState(() {
+      currentWeekScales = currentWeekScalesData;
+    });
+
+    setState(() {
+      chartData = [];
+    });
+
+    for (int i = 0; i < 7; i++) {
+      if (currentWeekScales[i] != 0) {
+        chartData.add(ChartData(i + 1, currentWeekScales[i].toDouble()));
+      }
+    }
+
+    // loading stop
+    setState(() {
+      isFetchLoading = false;
+    });
+  }
+
+  void fetchStatisticData() {
+    if (_selectedItem == 'Per Minggu') {
+      if (_selectedWeek == 'Minggu ini') {
+        getCurrentWeekScales();
+      } else {
+        getLastWeekScales();
+      }
+    } else {
+      getMonthlyScale();
+    }
   }
 
   // Hanya untuk uji coba backend, boleh dihapus kalau mau dihapus
@@ -133,8 +266,17 @@ class _StatistikPageState extends State<StatistikPage> {
                   height: 250,
                   child: Visibility(
                     visible: _selectedItem == 'Per Minggu',
-                    replacement: MonthlyChart(),
-                    child: WeeklyChart(),
+                    replacement: isFetchLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : MonthlyChart(
+                            monthlyScales: monthlyScales,
+                            chartData: chartData,
+                          ),
+                    child: isFetchLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : WeeklyChart(
+                            statisticChartData: chartData,
+                          ),
                   ),
                 ),
               ),
@@ -219,6 +361,8 @@ class _StatistikPageState extends State<StatistikPage> {
               setState(() {
                 _selectedItem = newValue;
               });
+
+              fetchStatisticData();
             },
           ),
         ),
@@ -246,6 +390,8 @@ class _StatistikPageState extends State<StatistikPage> {
               setState(() {
                 _selectedWeek = newValue;
               });
+
+              fetchStatisticData();
             },
           ),
         ),
@@ -273,6 +419,8 @@ class _StatistikPageState extends State<StatistikPage> {
               setState(() {
                 _selectedMonth = newValue;
               });
+
+              fetchStatisticData();
             },
           ),
         ),
@@ -300,6 +448,8 @@ class _StatistikPageState extends State<StatistikPage> {
               setState(() {
                 _selectedYear = newValue;
               });
+
+              fetchStatisticData();
             },
           ),
         ),
@@ -355,12 +505,20 @@ class _StatistikPageState extends State<StatistikPage> {
         if (_selectedItem == 'Per Minggu') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SummaryPage()),
+            MaterialPageRoute(
+                builder: (context) => SummaryPage(
+                      selectedWeek: _selectedWeek!,
+                    )),
           );
         } else {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MonthlySummaryPage()),
+            MaterialPageRoute(
+              builder: (context) => MonthlySummaryPage(
+                month: monthNumber[_selectedMonth]!,
+                year: _selectedYear!,
+              ),
+            ),
           );
         }
       },

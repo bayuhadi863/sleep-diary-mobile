@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class MonthlySummaryPage extends StatefulWidget {
-  const MonthlySummaryPage({Key? key}) : super(key: key);
+  final int month;
+  final int year;
+  const MonthlySummaryPage({super.key, required this.month, required this.year});
 
   @override
   State<MonthlySummaryPage> createState() => _MonthlySummaryState();
@@ -11,6 +13,8 @@ class MonthlySummaryPage extends StatefulWidget {
 class _MonthlySummaryState extends State<MonthlySummaryPage> {
   late List<FactorData> _chartData = [];
   late TooltipBehavior _tooltipBehavior;
+
+  String sleepTimeAverage = '0 Jam';
 
   @override
   void initState() {

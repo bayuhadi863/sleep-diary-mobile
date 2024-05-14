@@ -2,7 +2,6 @@ import 'package:sleep_diary_mobile/models/sleep_diary_mode.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/get_sleep_diary.dart';
 
 class CurrentWeekSummary {
-  
   DateTime today = DateTime.now();
   late int todayInNum = today.weekday % 7;
 
@@ -12,9 +11,10 @@ class CurrentWeekSummary {
     // print("Minggu Ini adalah ${lastWeekDates}");
 
     List<int> currentWeekScales = [0, 0, 0, 0, 0, 0, 0];
-    
-    for (int i = 0; i <= todayInNum; i) {
-      SleepDiaryModel currentWeekSleepDiary = await GetSleepDiaryRepository().fetchSleepDiary(today.subtract(Duration(days: i)));
+
+    for (int i = 0; i <= todayInNum; i++) {
+      SleepDiaryModel currentWeekSleepDiary = await GetSleepDiaryRepository()
+          .fetchSleepDiary(today.subtract(Duration(days: i)));
       currentWeekScales[todayInNum - i] = currentWeekSleepDiary.scale;
     }
 
@@ -30,13 +30,13 @@ class CurrentWeekSummary {
     double sum = 0;
 
     for (var i = 0; i < 7; i++) {
-      if(currentWeekScales[i] != 0){
+      if (currentWeekScales[i] != 0) {
         sum += currentWeekScales[i];
         amount++;
       }
     }
 
-    if(amount == 0){
+    if (amount == 0) {
       // print("Rata-Rata Skala Minggu Lalu: 0");
       return 0;
     }
@@ -48,7 +48,7 @@ class CurrentWeekSummary {
 
   Future<Map<String, int>> getCurrentWeekFactors() async {
     Map<String, int> currentWeekFactors = {
-      "lingkungan" : 0,
+      "lingkungan": 0,
       "stress": 0,
       "sakit": 0,
       "gelisah": 0,
@@ -56,9 +56,11 @@ class CurrentWeekSummary {
     };
 
     for (var i = 0; i <= todayInNum; i++) {
-      SleepDiaryModel currentWeekSleepDiary = await GetSleepDiaryRepository().fetchSleepDiary(today.subtract(Duration(days: i)));
+      SleepDiaryModel currentWeekSleepDiary = await GetSleepDiaryRepository()
+          .fetchSleepDiary(today.subtract(Duration(days: i)));
       for (var j = 0; j < currentWeekSleepDiary.factors.length; j++) {
-        currentWeekFactors[currentWeekSleepDiary.factors[j]] = currentWeekFactors[currentWeekSleepDiary.factors[j]]! + 1;
+        currentWeekFactors[currentWeekSleepDiary.factors[j]] =
+            currentWeekFactors[currentWeekSleepDiary.factors[j]]! + 1;
       }
     }
 
@@ -72,15 +74,17 @@ class CurrentWeekSummary {
     int sumSleepTime = 0;
 
     for (var i = 0; i <= todayInNum; i++) {
-      SleepDiaryModel currentWeekSleepDiary = await GetSleepDiaryRepository().fetchSleepDiary(today.subtract(Duration(days: i)));
-      if(currentWeekSleepDiary.scale != 0){
+      SleepDiaryModel currentWeekSleepDiary = await GetSleepDiaryRepository()
+          .fetchSleepDiary(today.subtract(Duration(days: i)));
+      if (currentWeekSleepDiary.scale != 0) {
         amount++;
-        TimeDifference sleepTime = calculateTimeDifference(currentWeekSleepDiary.wakeupTime, currentWeekSleepDiary.sleepTime);
+        TimeDifference sleepTime = calculateTimeDifference(
+            currentWeekSleepDiary.wakeupTime, currentWeekSleepDiary.sleepTime);
         sumSleepTime = 60 * sleepTime.hour + sleepTime.minute;
       }
     }
 
-    if(amount == 0 ){
+    if (amount == 0) {
       // print("0 Jam, 0 Menit");
       return "0 Jam, 0 Menit";
     }
