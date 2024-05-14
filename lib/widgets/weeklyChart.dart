@@ -13,9 +13,9 @@ class _WeeklyChartState extends State<WeeklyChart> {
   @override
   Widget build(BuildContext context) {
     final List<ChartData> chartData = [
-      // ChartData(0, 0),
+      ChartData(0, 0),
       ChartData(1, 3),
-      // ChartData(2, 2),
+      ChartData(2, 2),
       ChartData(3, 3),
       ChartData(4, 4),
       ChartData(5, 5),
@@ -27,6 +27,9 @@ class _WeeklyChartState extends State<WeeklyChart> {
       body: Center(
         child: LineChart(
           LineChartData(
+            lineTouchData: LineTouchData(
+                touchTooltipData:
+                    LineTouchTooltipData(tooltipBgColor: Colors.indigo[100])),
             lineBarsData: [
               LineChartBarData(
                 spots: chartData
@@ -35,6 +38,7 @@ class _WeeklyChartState extends State<WeeklyChart> {
                     .toList(),
                 isCurved: false,
                 dotData: FlDotData(show: true),
+                color: const Color.fromRGBO(38, 38, 66, 1),
               ),
             ],
             minX: 0,
