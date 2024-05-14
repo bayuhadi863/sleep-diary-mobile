@@ -28,7 +28,7 @@ const List<String> month = <String>[
   'November',
   'Desember'
 ];
-List<int> year = List<int>.generate(5, (int index) => 2020 + index);
+List<int> year = List<int>.generate(3, (int index) => 2023 + index);
 // const List<String> weekly = <String>[];
 
 class StatistikPage extends StatefulWidget {
@@ -40,7 +40,7 @@ class StatistikPage extends StatefulWidget {
 
 class _StatistikPageState extends State<StatistikPage> {
   String? _selectedItem = 'Per Minggu';
-  String? _selectedWeek;
+  String? _selectedWeek = 'Minggu ini';
   String? _selectedMonth;
   int? _selectedYear;
   // String? _selectedWeekly;
@@ -51,6 +51,10 @@ class _StatistikPageState extends State<StatistikPage> {
   @override
   void initState() {
     super.initState();
+    DateTime now = DateTime.now();
+    // Set _selectedMonth to the current month
+    _selectedMonth = month[now.month - 1];
+    _selectedYear = now.year;
     testingSummary();
   }
 
