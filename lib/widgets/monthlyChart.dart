@@ -18,6 +18,11 @@ class _MonthlyChartState extends State<MonthlyChart> {
       body: Center(
         child: LineChart(
           LineChartData(
+            lineTouchData: LineTouchData(
+              touchTooltipData: LineTouchTooltipData(
+                tooltipBgColor: Colors.indigo[100],
+              ),
+            ),
             lineBarsData: [
               LineChartBarData(
                 spots: chartData
@@ -26,6 +31,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
                     .toList(),
                 isCurved: false,
                 dotData: FlDotData(show: true),
+                color: const Color.fromRGBO(38, 38, 66, 1),
               ),
             ],
             minX: 0,
@@ -90,7 +96,8 @@ class _MonthlyChartState extends State<MonthlyChart> {
             case 5:
               imageWidget = Image.asset('assets/images/skalabulan5.png');
               break;
-              case 6: imageWidget = SizedBox();
+            case 6:
+              imageWidget = SizedBox();
             default:
               imageWidget = SizedBox();
               break;
