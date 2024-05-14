@@ -44,6 +44,8 @@ class _StatistikPageState extends State<StatistikPage> {
   String? _selectedMonth;
   int? _selectedYear;
   // String? _selectedWeekly;
+  List<int> lastWeekSleepScale = [];
+
 
   // Hanya untuk uji coba backend, boleh dihapus kalau mau dihapus
   @override
