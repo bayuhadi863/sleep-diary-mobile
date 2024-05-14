@@ -102,7 +102,7 @@ class ReminderRepository {
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
-        'Ceritanya Cuman Reminder Bang, Tapi Kurang 5 Menit',
+        '5 Menit sebelum waktu tidur tiba',
         'Jangan Lupa untuk Membersihkan Badan dan Kasur Supaya Tidur Lebih Nyaman',
         tz.TZDateTime(
             tz.local,
@@ -120,8 +120,8 @@ class ReminderRepository {
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
         1,
-        'Ceritanya Cuman Reminder Bang',
-        'Bang Tidur Bang',
+        'Waktu tidur telah tiba',
+        'Selamat Tidur, Semoga Mimpimu Indah',
         tz.TZDateTime(tz.local, DateTime.now().year, DateTime.now().month,
             DateTime.now().day, time.hour, time.minute),
         notificationDetails,

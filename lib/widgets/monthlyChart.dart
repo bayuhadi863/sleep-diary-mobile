@@ -50,41 +50,42 @@ class _MonthlyChartState extends State<MonthlyChart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: SizedBox(
-          width: widget.monthlyScales.length * 30.0,
-          child: LineChart(
-            LineChartData(
-              lineBarsData: [
-                LineChartBarData(
-                  spots: widget.chartData
+      body: Center(
+        child: LineChart(
+          LineChartData(
+            lineTouchData: LineTouchData(
+              touchTooltipData: LineTouchTooltipData(
+                tooltipBgColor: Colors.indigo[100],
+              ),
+            ),
+            lineBarsData: [
+              LineChartBarData(
+                spots: widget.chartData
                       .map((chartData) =>
                           FlSpot(chartData.x.toDouble(), chartData.y))
                       .toList(),
-                  isCurved: true,
-                  dotData: FlDotData(show: true),
-                ),
-              ],
-              minX: 0,
-              maxX: widget.monthlyScales.length.toDouble() + 1,
-              minY: 0,
-              maxY: 6,
-              borderData: FlBorderData(
-                border: const Border(
-                  bottom: BorderSide(),
-                  left: BorderSide(),
-                ),
+                isCurved: true,
+                dotData: FlDotData(show: true),
+                color: const Color.fromRGBO(38, 38, 66, 1),
               ),
-              gridData: FlGridData(show: false),
-              titlesData: FlTitlesData(
-                bottomTitles: AxisTitles(sideTitles: _bottomTitles),
-                leftTitles: AxisTitles(sideTitles: _leftTitles),
-                topTitles:
-                    AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                rightTitles:
-                    AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            ],
+            minX: 0,
+            maxX: widget.monthlyScales.length.toDouble() + 1,
+            minY: 0,
+            maxY: 6,
+            borderData: FlBorderData(
+              border: const Border(
+                bottom: BorderSide(),
+                left: BorderSide(),
               ),
+            ),
+            gridData: FlGridData(show: false),
+            titlesData: FlTitlesData(
+              bottomTitles: AxisTitles(sideTitles: _bottomTitles),
+              leftTitles: AxisTitles(sideTitles: _leftTitles),
+              topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              rightTitles:
+                  AxisTitles(sideTitles: SideTitles(showTitles: false)),
             ),
           ),
         ),

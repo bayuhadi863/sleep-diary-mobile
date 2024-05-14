@@ -20,10 +20,15 @@ class WeeklyChart extends StatefulWidget {
 class _WeeklyChartState extends State<WeeklyChart> {
   @override
   Widget build(BuildContext context) {
+    
+
     return Scaffold(
       body: Center(
         child: LineChart(
           LineChartData(
+            lineTouchData: LineTouchData(
+                touchTooltipData:
+                    LineTouchTooltipData(tooltipBgColor: Colors.indigo[100])),
             lineBarsData: [
               LineChartBarData(
                 spots: widget.statisticChartData
@@ -32,6 +37,7 @@ class _WeeklyChartState extends State<WeeklyChart> {
                     .toList(),
                 isCurved: true,
                 dotData: FlDotData(show: true),
+                color: const Color.fromRGBO(38, 38, 66, 1),
               ),
             ],
             minX: 0,

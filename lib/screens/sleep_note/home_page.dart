@@ -318,7 +318,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  "Tentukan Prioritas Tidurmu",
+                  "Optimalkan Waktu Tidurmu",
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -417,7 +417,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Text(
-                      'Aktif',
+                      active ? 'Aktif' : 'Reminder',
                       style: TextStyle(
                         color: active ? Colors.white : Colors.grey,
                         fontSize: 10,
