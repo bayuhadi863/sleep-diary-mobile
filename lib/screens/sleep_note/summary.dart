@@ -38,9 +38,11 @@ class _SummaryPageState extends State<SummaryPage> {
         ? await CurrentWeekSummary().getCurrentWeekSleepTimeAverage()
         : await LastWeekSummary().getLastWeekSleepTimeAverage();
 
-    setState(() {
-      this.sleepTimeAverage = sleepTimeAverage;
-    });
+    if (mounted) {
+      setState(() {
+        this.sleepTimeAverage = sleepTimeAverage;
+      });
+    }
   }
 
   Future<void> getScaleAverage() async {
@@ -48,9 +50,11 @@ class _SummaryPageState extends State<SummaryPage> {
         ? await CurrentWeekSummary().getCurrentWeekScaleAverage()
         : await LastWeekSummary().getLastWeekScaleAverage();
 
-    setState(() {
-      this.scaleAverage = scaleAverage;
-    });
+    if (mounted) {
+      setState(() {
+        this.scaleAverage = scaleAverage;
+      });
+    }
   }
 
   Future<void> getFactors() async {
@@ -58,29 +62,34 @@ class _SummaryPageState extends State<SummaryPage> {
         ? await CurrentWeekSummary().getCurrentWeekFactors()
         : await LastWeekSummary().getLastWeekFactors();
 
-    setState(() {
-      this.factors = factors;
-    });
+    if (mounted) {
+      setState(() {
+        this.factors = factors;
+      });
 
-    setState(() {
-      _chartData = getChartData();
-    });
+      setState(() {
+        _chartData = getChartData();
+      });
+    }
 
     // print(this.factors);
   }
 
   void getSummary() async {
-    setState(() {
-      isLoading = true;
-    });
-
+    if (mounted) {
+      setState(() {
+        isLoading = true;
+      });
+    }
     await getSleepTimeAverage();
     await getScaleAverage();
     await getFactors();
 
-    setState(() {
-      isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override

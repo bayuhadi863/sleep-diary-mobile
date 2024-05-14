@@ -80,7 +80,7 @@ class CurrentWeekSummary {
         amount++;
         TimeDifference sleepTime = calculateTimeDifference(
             currentWeekSleepDiary.wakeupTime, currentWeekSleepDiary.sleepTime);
-        sumSleepTime = 60 * sleepTime.hour + sleepTime.minute;
+        sumSleepTime += 60 * sleepTime.hour + sleepTime.minute;
       }
     }
 

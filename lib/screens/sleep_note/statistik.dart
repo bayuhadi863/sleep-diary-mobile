@@ -77,7 +77,6 @@ class _StatistikPageState extends State<StatistikPage> {
   List<int> lastWeekSleepScale = [];
   List<int> currentWeekSleepScale = [];
 
-
   // Hanya untuk uji coba backend, boleh dihapus kalau mau dihapus
   @override
   void initState() {
@@ -92,22 +91,24 @@ class _StatistikPageState extends State<StatistikPage> {
 
   void getMonthlyScale() async {
     // loading
-    setState(() {
-      isFetchLoading = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFetchLoading = true;
+      });
+    }
 
     final monthlyScalesData = await MonthlySummary()
         .getMonthlyScale(monthNumber[_selectedMonth]!, _selectedYear!);
 
-    print(monthlyScalesData);
+    if (mounted) {
+      setState(() {
+        monthlyScales = monthlyScalesData;
+      });
 
-    setState(() {
-      monthlyScales = monthlyScalesData;
-    });
-
-    setState(() {
-      chartData = [];
-    });
+      setState(() {
+        chartData = [];
+      });
+    }
 
     for (int i = 0; i < monthlyScalesData.length; i++) {
       if (monthlyScalesData[i] != 0) {
@@ -116,28 +117,30 @@ class _StatistikPageState extends State<StatistikPage> {
     }
 
     // loading stop
-    setState(() {
-      isFetchLoading = false;
-    });
-
-    print("chartData ${chartData.length}");
+    if (mounted) {
+      setState(() {
+        isFetchLoading = false;
+      });
+    }
   }
 
   void getLastWeekScales() async {
     // loading
-    setState(() {
-      isFetchLoading = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFetchLoading = true;
+      });
 
-    final lastWeekScalesData = await LastWeekSummary().getLastWeekScale();
+      final lastWeekScalesData = await LastWeekSummary().getLastWeekScale();
 
-    setState(() {
-      lastWeekScales = lastWeekScalesData;
-    });
+      setState(() {
+        lastWeekScales = lastWeekScalesData;
+      });
 
-    setState(() {
-      chartData = [];
-    });
+      setState(() {
+        chartData = [];
+      });
+    }
 
     for (int i = 0; i < 7; i++) {
       if (lastWeekScales[i] != 0) {
@@ -146,27 +149,33 @@ class _StatistikPageState extends State<StatistikPage> {
     }
 
     // loading stop
-    setState(() {
-      isFetchLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isFetchLoading = false;
+      });
+    }
   }
 
   void getCurrentWeekScales() async {
     // loading
-    setState(() {
-      isFetchLoading = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFetchLoading = true;
+      });
+    }
 
     final currentWeekScalesData =
         await CurrentWeekSummary().getCurrentWeekScale();
 
-    setState(() {
-      currentWeekScales = currentWeekScalesData;
-    });
+    if (mounted) {
+      setState(() {
+        currentWeekScales = currentWeekScalesData;
+      });
 
-    setState(() {
-      chartData = [];
-    });
+      setState(() {
+        chartData = [];
+      });
+    }
 
     for (int i = 0; i < 7; i++) {
       if (currentWeekScales[i] != 0) {
@@ -175,9 +184,11 @@ class _StatistikPageState extends State<StatistikPage> {
     }
 
     // loading stop
-    setState(() {
-      isFetchLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isFetchLoading = false;
+      });
+    }
   }
 
   void fetchStatisticData() {
@@ -190,20 +201,6 @@ class _StatistikPageState extends State<StatistikPage> {
     } else {
       getMonthlyScale();
     }
-  }
-
-  // Hanya untuk uji coba backend, boleh dihapus kalau mau dihapus
-  void testingSummary() async {
-    // await LastWeekSummary().getLastWeekSleepTimeAverage();
-    // await LastWeekSummary().getLastWeekScaleAverage();
-    // await LastWeekSummary().getLastWeekScale();
-    // await LastWeekSummary().getLastWeekFactors();
-    // await MonthlySummary().getMonthlySleepTimeAverage(2, 2024);
-    // await MonthlySummary().getMonthlyScaleAverage(2, 2024);
-    // await MonthlySummary().getMonthlyScale(2, 2024);
-    // await MonthlySummary().getMonthlyFactors(2, 2024);
-    lastWeekSleepScale = await LastWeekSummary().getLastWeekScale();
-    
   }
 
   @override
@@ -522,6 +519,7 @@ class _StatistikPageState extends State<StatistikPage> {
               builder: (context) => MonthlySummaryPage(
                 month: monthNumber[_selectedMonth]!,
                 year: _selectedYear!,
+                textMonth: _selectedMonth!,
               ),
             ),
           );

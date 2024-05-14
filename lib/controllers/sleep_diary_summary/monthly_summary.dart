@@ -3,22 +3,21 @@ import 'package:sleep_diary_mobile/models/sleep_diary_mode.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/get_sleep_diary.dart';
 
 class MonthlySummary {
-  
   Future<List<int>> getMonthlyScale(int month, int year) async {
-
     List<int> monthlyScales = [0];
 
-    for(int i = 1; i < DateUtils.getDaysInMonth(year, month); i++){
+    for (int i = 1; i < DateUtils.getDaysInMonth(year, month); i++) {
       monthlyScales.add(0);
     }
-    
+
     for (int i = 0; i < DateUtils.getDaysInMonth(year, month); i++) {
-      SleepDiaryModel lastWeekSleepDiary = await GetSleepDiaryRepository().fetchSleepDiary(DateTime(year, month, i + 1));
+      SleepDiaryModel lastWeekSleepDiary = await GetSleepDiaryRepository()
+          .fetchSleepDiary(DateTime(year, month, i + 1));
       monthlyScales[i] = lastWeekSleepDiary.scale;
     }
 
-    print("Jumlah Skala : ${monthlyScales.length}");
-    print("Skala ${month} ${year}: ${monthlyScales}");
+    // print("Jumlah Skala : ${monthlyScales.length}");
+    // print("Skala ${month} ${year}: ${monthlyScales}");
 
     return monthlyScales;
   }
@@ -30,25 +29,25 @@ class MonthlySummary {
     double sum = 0;
 
     for (var i = 0; i < DateUtils.getDaysInMonth(year, month); i++) {
-      if(monthlyScales[i] != 0){
+      if (monthlyScales[i] != 0) {
         sum += monthlyScales[i];
         amount++;
       }
     }
 
-    if(amount == 0){
-      print("Rata-Rata Skala ${month} ${year}: 0");
+    if (amount == 0) {
+      // print("Rata-Rata Skala ${month} ${year}: 0");
       return 0;
     }
 
-    print("Rata-Rata Skala ${month} ${year}: ${sum / amount}");
+    // print("Rata-Rata Skala ${month} ${year}: ${sum / amount}");
 
     return sum / amount;
   }
 
   Future<Map<String, int>> getMonthlyFactors(int month, int year) async {
     Map<String, int> monthlyFactors = {
-      "lingkungan" : 0,
+      "lingkungan": 0,
       "stress": 0,
       "sakit": 0,
       "gelisah": 0,
@@ -56,13 +55,15 @@ class MonthlySummary {
     };
 
     for (var i = 0; i < DateUtils.getDaysInMonth(year, month); i++) {
-      SleepDiaryModel monthlySleepDiary = await GetSleepDiaryRepository().fetchSleepDiary(DateTime(year, month, i + 1));
+      SleepDiaryModel monthlySleepDiary = await GetSleepDiaryRepository()
+          .fetchSleepDiary(DateTime(year, month, i + 1));
       for (var j = 0; j < monthlySleepDiary.factors.length; j++) {
-        monthlyFactors[monthlySleepDiary.factors[j]] = monthlyFactors[monthlySleepDiary.factors[j]]! + 1;
+        monthlyFactors[monthlySleepDiary.factors[j]] =
+            monthlyFactors[monthlySleepDiary.factors[j]]! + 1;
       }
     }
 
-    print("Faktor $month $year: $monthlyFactors");
+    // print("Faktor $month $year: $monthlyFactors");
 
     return monthlyFactors;
   }
@@ -72,22 +73,25 @@ class MonthlySummary {
     int sumSleepTime = 0;
 
     for (var i = 0; i < DateUtils.getDaysInMonth(year, month); i++) {
-      SleepDiaryModel monthlySleepDiary = await GetSleepDiaryRepository().fetchSleepDiary(DateTime(year, month, i + 1));
-      if(monthlySleepDiary.scale != 0){
+      SleepDiaryModel monthlySleepDiary = await GetSleepDiaryRepository()
+          .fetchSleepDiary(DateTime(year, month, i + 1));
+      if (monthlySleepDiary.scale != 0) {
         amount++;
-        TimeDifference sleepTime = calculateTimeDifference(monthlySleepDiary.wakeupTime, monthlySleepDiary.sleepTime);
-        sumSleepTime = 60 * sleepTime.hour + sleepTime.minute;
+        TimeDifference sleepTime = calculateTimeDifference(
+            monthlySleepDiary.wakeupTime, monthlySleepDiary.sleepTime);
+        sumSleepTime += 60 * sleepTime.hour + sleepTime.minute;
       }
     }
 
-    if(amount == 0 ){
-      print("0 Jam, 0 Menit");
+    if (amount == 0) {
+      // print("0 Jam, 0 Menit");
       return "0 Jam, 0 Menit";
     }
 
     int averageSleepTime = (sumSleepTime / amount).round();
 
-    print("${(averageSleepTime / 60).round()} Jam, ${averageSleepTime % 60} Menit");
+    // print(
+    //     "${(averageSleepTime / 60).round()} Jam, ${averageSleepTime % 60} Menit");
 
     return "${(averageSleepTime / 60).round()} Jam, ${averageSleepTime % 60} Menit";
   }

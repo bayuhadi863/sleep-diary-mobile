@@ -39,26 +39,29 @@ class _EditSleepPageState extends State<EditSleepPage> {
   }
 
   void fetchSleepDiary() async {
-    sleepDiary = await GetSleepDiaryRepository().fetchSleepDiary(HomePage.today);
-    time1.value = [int.parse(sleepDiary!.sleepTime.split(":")[0]), int.parse(sleepDiary!.sleepTime.split(":")[1])];
-    time2.value = [int.parse(sleepDiary!.wakeupTime.split(":")[0]), int.parse(sleepDiary!.wakeupTime.split(":")[1])];
+    sleepDiary =
+        await GetSleepDiaryRepository().fetchSleepDiary(HomePage.today);
+    time1.value = [
+      int.parse(sleepDiary!.sleepTime.split(":")[0]),
+      int.parse(sleepDiary!.sleepTime.split(":")[1])
+    ];
+    time2.value = [
+      int.parse(sleepDiary!.wakeupTime.split(":")[0]),
+      int.parse(sleepDiary!.wakeupTime.split(":")[1])
+    ];
     scale.value = sleepDiary!.scale;
     sleepDiary!.factors.sort();
     factors = [...sleepDiary!.factors];
-    for(int i = 0; i < sleepDiary!.factors.length; i++){
-      if(sleepDiary!.factors[i] == "lingkungan"){
+    for (int i = 0; i < sleepDiary!.factors.length; i++) {
+      if (sleepDiary!.factors[i] == "lingkungan") {
         selectedFactors.value[0] = true;
-      }
-      else if(sleepDiary!.factors[i] == "stress"){
+      } else if (sleepDiary!.factors[i] == "stress") {
         selectedFactors.value[1] = true;
-      }
-      else if(sleepDiary!.factors[i] == "sakit"){
+      } else if (sleepDiary!.factors[i] == "sakit") {
         selectedFactors.value[2] = true;
-      }
-      else if(sleepDiary!.factors[i] == "gelisah"){
+      } else if (sleepDiary!.factors[i] == "gelisah") {
         selectedFactors.value[3] = true;
-      }
-      else if(sleepDiary!.factors[i] == "terbangun"){
+      } else if (sleepDiary!.factors[i] == "terbangun") {
         selectedFactors.value[4] = true;
       }
     }
@@ -69,7 +72,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if(isChange || description.text.trim() == ""){
+        if (isChange || description.text.trim() == "") {
           showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -159,7 +162,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: IconButton(
               onPressed: () {
-                if(isChange || description.text.trim() == ""){
+                if (isChange || description.text.trim() == "") {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) => confirmDialog(
@@ -169,8 +172,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                       },
                     ),
                   );
-                }
-                else{
+                } else {
                   Get.offAll(() => const MainPage());
                 }
               },
@@ -209,40 +211,42 @@ class _EditSleepPageState extends State<EditSleepPage> {
                 height: 20,
               ),
               GestureDetector(
-                onTap: !isChange ? null 
-                : isLoading ? null
-                    : () async {
-                        // Start Loading
-                        setState(() {
-                          isLoading = true;
-                        });
-      
-                        final repository = SleepDiaryRepository(
-                            sleepDate: DateFormat.yMMMMEEEEd('en_US')
-                                .format(HomePage.today),
-                            hour1: (time1.value[0] < 10)
-                                ? "0${time1.value[0]}"
-                                : time1.value[0].toString(),
-                            minute1: (time1.value[1] < 10)
-                                ? "0${time1.value[1]}"
-                                : time1.value[1].toString(),
-                            hour2: (time2.value[0] < 10)
-                                ? "0${time2.value[0]}"
-                                : time2.value[0].toString(),
-                            minute2: (time2.value[1] < 10)
-                                ? "0${time2.value[1]}"
-                                : time2.value[1].toString(),
-                            scale: scale.value,
-                            factors: factors,
-                            description: description.text);
-      
-                        await repository.updateSleepDiary(context);
-      
-                        // Stop Loading
-                        setState(() {
-                          isLoading = false;
-                        });
-                      },
+                onTap: !isChange
+                    ? null
+                    : isLoading
+                        ? null
+                        : () async {
+                            // Start Loading
+                            setState(() {
+                              isLoading = true;
+                            });
+
+                            final repository = SleepDiaryRepository(
+                                sleepDate: DateFormat.yMMMMEEEEd('en_US')
+                                    .format(HomePage.today),
+                                hour1: (time1.value[0] < 10)
+                                    ? "0${time1.value[0]}"
+                                    : time1.value[0].toString(),
+                                minute1: (time1.value[1] < 10)
+                                    ? "0${time1.value[1]}"
+                                    : time1.value[1].toString(),
+                                hour2: (time2.value[0] < 10)
+                                    ? "0${time2.value[0]}"
+                                    : time2.value[0].toString(),
+                                minute2: (time2.value[1] < 10)
+                                    ? "0${time2.value[1]}"
+                                    : time2.value[1].toString(),
+                                scale: scale.value,
+                                factors: factors,
+                                description: description.text);
+
+                            await repository.updateSleepDiary(context);
+
+                            // Stop Loading
+                            setState(() {
+                              isLoading = false;
+                            });
+                          },
                 child: Container(
                   height: 50,
                   width: 370,
@@ -261,7 +265,8 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           )
                         : Text(
                             "Update",
-                            style: TextStyle(color: isChange ? Colors.black : Colors.grey),
+                            style: TextStyle(
+                                color: isChange ? Colors.black : Colors.grey),
                           ),
                   ),
                 ),
@@ -336,11 +341,24 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         if (pickedTime != null) {
                           time1.value = [pickedTime.hour, pickedTime.minute];
                           setState(() {
-                            isChange = pickedTime.hour != int.parse(sleepDiary!.sleepTime.split(":")[0]) || pickedTime.minute != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                              || scale.value != sleepDiary!.scale
-                              || !listEquals(factors, sleepDiary!.factors)
-                              || (description.text != sleepDiary!.description && description.text.trim() != "");
+                            isChange = (pickedTime.hour !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[0]) ||
+                                pickedTime.minute !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[1]) ||
+                                time2.value[0] !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[0]) ||
+                                time2.value[1] !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[1]) ||
+                                scale.value != sleepDiary!.scale  ||
+                                !listEquals(factors, sleepDiary!.factors) ||
+                                (description.text != sleepDiary!.description &&
+                                    description.text.trim() != "")) &&
+                                    ((scale.value < 4 && factors.isNotEmpty) ||
+                                        scale.value >= 4);
                           });
                         }
                       },
@@ -397,11 +415,24 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         if (pickedTime != null) {
                           time2.value = [pickedTime.hour, pickedTime.minute];
                           setState(() {
-                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                              || pickedTime.hour != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || pickedTime.minute != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                              || scale.value != sleepDiary!.scale
-                              || !listEquals(factors, sleepDiary!.factors)
-                              || (description.text != sleepDiary!.description && description.text.trim() != "");
+                            isChange = (time1.value[0] !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[0]) ||
+                                time1.value[1] !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[1]) ||
+                                pickedTime.hour !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[0]) ||
+                                pickedTime.minute !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[1]) ||
+                                scale.value != sleepDiary!.scale  ||
+                                !listEquals(factors, sleepDiary!.factors) ||
+                                (description.text != sleepDiary!.description &&
+                                    description.text.trim() != "")) &&
+                                    ((scale.value < 4 && factors.isNotEmpty) ||
+                                        scale.value >= 4);
                           });
                         }
                       },
@@ -480,14 +511,28 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         splashColor: Colors.black26,
                         onTap: () {
                           scale.value = 1;
-                          print("Faktor: ${listEquals(factors, sleepDiary!.factors)}");
+                          print(
+                              "Faktor: ${listEquals(factors, sleepDiary!.factors)}");
                           print("${factors} : ${sleepDiary!.factors}");
                           setState(() {
-                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                              || 1 != sleepDiary!.scale
-                              || !listEquals(factors, sleepDiary!.factors)
-                              || (description.text != sleepDiary!.description && description.text.trim() != "");
+                            isChange = (time1.value[0] !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[0]) ||
+                                time1.value[1] !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[1]) ||
+                                time2.value[0] !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[0]) ||
+                                time2.value[1] !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[1]) ||
+                                1 != sleepDiary!.scale  ||
+                                !listEquals(factors, sleepDiary!.factors) ||
+                                (description.text != sleepDiary!.description &&
+                                    description.text.trim() != "")) &&
+                                    ((1 < 4 && factors.isNotEmpty) ||
+                                        1 >= 4);
                           });
                           print(scale);
                         },
@@ -520,17 +565,30 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         splashColor: Colors.black26,
                         onTap: () {
                           scale.value = 2;
-                          print("Faktor: ${listEquals(factors, sleepDiary!.factors)}");
+                          print(
+                              "Faktor: ${listEquals(factors, sleepDiary!.factors)}");
                           print("${factors} : ${sleepDiary!.factors}");
                           setState(() {
-                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                              || 2 != sleepDiary!.scale
-                              || !listEquals(factors, sleepDiary!.factors)
-                              || (description.text != sleepDiary!.description && description.text.trim() != "");
+                            isChange = (time1.value[0] !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[0]) ||
+                                time1.value[1] !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[1]) ||
+                                time2.value[0] !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[0]) ||
+                                time2.value[1] !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[1]) ||
+                                2 != sleepDiary!.scale  ||
+                                !listEquals(factors, sleepDiary!.factors) ||
+                                (description.text != sleepDiary!.description &&
+                                    description.text.trim() != "")) &&
+                                    ((2 < 4 && factors.isNotEmpty) ||
+                                        2 >= 4);
                           });
                           print(scale);
-                          
                         },
                         child: Ink.image(
                           image:
@@ -561,14 +619,25 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         splashColor: Colors.black26,
                         onTap: () {
                           scale.value = 3;
-                          print("Faktor: ${listEquals(factors, sleepDiary!.factors)}");
+                          print(
+                              "Faktor: ${listEquals(factors, sleepDiary!.factors)}");
                           print("${factors} : ${sleepDiary!.factors}");
                           setState(() {
-                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                              || 3 != sleepDiary!.scale
-                              || !listEquals(factors, sleepDiary!.factors)
-                              || (description.text != sleepDiary!.description && description.text.trim() != "");
+                            isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
+                                          time1.value[1] !=
+                                              int.parse(sleepDiary!.sleepTime
+                                                  .split(":")[1]) ||
+                                          time2.value[0] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[0]) ||
+                                          time2.value[1] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[1]) ||
+                                          scale.value != sleepDiary!.scale ||
+                                          !listEquals(factors, sleepDiary!.factors) ||
+                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
+                                    ((3 < 4 && factors.isNotEmpty) ||
+                                        3 >= 4);
                           });
                           print(scale);
                         },
@@ -610,17 +679,30 @@ class _EditSleepPageState extends State<EditSleepPage> {
                             false
                           ];
                           factors.clear();
-                          print("Faktor: ${listEquals(factors, sleepDiary!.factors)}");
+                          print(
+                              "Faktor: ${listEquals(factors, sleepDiary!.factors)}");
                           print("${factors} : ${sleepDiary!.factors}");
 
                           setState(() {
-                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                              || 4 != sleepDiary!.scale
-                              || !listEquals(factors, sleepDiary!.factors)
-                              || (description.text != sleepDiary!.description && description.text.trim() != "");
+                            isChange = (time1.value[0] !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[0]) ||
+                                time1.value[1] !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[1]) ||
+                                time2.value[0] !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[0]) ||
+                                time2.value[1] !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[1]) ||
+                                4 != sleepDiary!.scale ||
+                                !listEquals(factors, sleepDiary!.factors) ||
+                                (description.text != sleepDiary!.description &&
+                                    description.text.trim() != "")) &&
+                                    ((4 < 4 && factors.isNotEmpty) ||
+                                        4 >= 4);
                           });
-
                         },
                         child: Ink.image(
                           image:
@@ -660,17 +742,30 @@ class _EditSleepPageState extends State<EditSleepPage> {
                             false
                           ];
                           factors.clear();
-                          print("Faktor: ${listEquals(factors, sleepDiary!.factors)}");
+                          print(
+                              "Faktor: ${listEquals(factors, sleepDiary!.factors)}");
                           print("${factors} : ${sleepDiary!.factors}");
 
                           setState(() {
-                            isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                              || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                              || 5 != sleepDiary!.scale
-                              || !listEquals(factors, sleepDiary!.factors)
-                              || (description.text != sleepDiary!.description && description.text.trim() != "");
+                            isChange = (time1.value[0] !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[0]) ||
+                                time1.value[1] !=
+                                    int.parse(
+                                        sleepDiary!.sleepTime.split(":")[1]) ||
+                                time2.value[0] !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[0]) ||
+                                time2.value[1] !=
+                                    int.parse(
+                                        sleepDiary!.wakeupTime.split(":")[1]) ||
+                                5 != sleepDiary!.scale ||
+                                !listEquals(factors, sleepDiary!.factors) ||
+                                (description.text != sleepDiary!.description &&
+                                    description.text.trim() != "")) &&
+                                    ((5 < 4 && factors.isNotEmpty) ||
+                                        5 >= 4);
                           });
-
                         },
                         child: Ink.image(
                             image: const AssetImage(
@@ -754,13 +849,22 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     selectedFactors.notifyListeners();
 
                                     setState(() {
-                                      isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                                        || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                                        || scale.value != sleepDiary!.scale
-                                        || !listEquals(factors, sleepDiary!.factors)
-                                        || (description.text != sleepDiary!.description && description.text.trim() != "");
+                                      isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
+                                          time1.value[1] !=
+                                              int.parse(sleepDiary!.sleepTime
+                                                  .split(":")[1]) ||
+                                          time2.value[0] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[0]) ||
+                                          time2.value[1] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[1]) ||
+                                          scale.value != sleepDiary!.scale ||
+                                          !listEquals(factors, sleepDiary!.factors) ||
+                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
+                                    ((scale.value < 4 && factors.isNotEmpty) ||
+                                        scale.value >= 4);
                                     });
-
                                   },
                                   child: Container(
                                       child: Column(
@@ -807,13 +911,22 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     selectedFactors.notifyListeners();
 
                                     setState(() {
-                                      isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                                        || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                                        || scale.value != sleepDiary!.scale
-                                        || !listEquals(factors, sleepDiary!.factors)
-                                        || (description.text != sleepDiary!.description && description.text.trim() != "");
+                                      isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
+                                          time1.value[1] !=
+                                              int.parse(sleepDiary!.sleepTime
+                                                  .split(":")[1]) ||
+                                          time2.value[0] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[0]) ||
+                                          time2.value[1] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[1]) ||
+                                          scale.value != sleepDiary!.scale ||
+                                          !listEquals(factors, sleepDiary!.factors) ||
+                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
+                                    ((scale.value < 4 && factors.isNotEmpty) ||
+                                        scale.value >= 4);
                                     });
-
                                   },
                                   child: Container(
                                       child: Column(
@@ -860,13 +973,22 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     selectedFactors.notifyListeners();
 
                                     setState(() {
-                                      isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                                        || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                                        || scale.value != sleepDiary!.scale
-                                        || !listEquals(factors, sleepDiary!.factors)
-                                        || (description.text != sleepDiary!.description && description.text.trim() != "");
+                                      isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
+                                          time1.value[1] !=
+                                              int.parse(sleepDiary!.sleepTime
+                                                  .split(":")[1]) ||
+                                          time2.value[0] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[0]) ||
+                                          time2.value[1] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[1]) ||
+                                          scale.value != sleepDiary!.scale ||
+                                          !listEquals(factors, sleepDiary!.factors) ||
+                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
+                                    ((scale.value < 4 && factors.isNotEmpty) ||
+                                        scale.value >= 4);
                                     });
-
                                   },
                                   child: Container(
                                       child: Column(
@@ -911,13 +1033,22 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     selectedFactors.notifyListeners();
 
                                     setState(() {
-                                      isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                                        || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                                        || scale.value != sleepDiary!.scale
-                                        || !listEquals(factors, sleepDiary!.factors)
-                                        || (description.text != sleepDiary!.description && description.text.trim() != "");
+                                     isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
+                                          time1.value[1] !=
+                                              int.parse(sleepDiary!.sleepTime
+                                                  .split(":")[1]) ||
+                                          time2.value[0] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[0]) ||
+                                          time2.value[1] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[1]) ||
+                                          scale.value != sleepDiary!.scale ||
+                                          !listEquals(factors, sleepDiary!.factors) ||
+                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
+                                    ((scale.value < 4 && factors.isNotEmpty) ||
+                                        scale.value >= 4);
                                     });
-
                                   },
                                   child: Container(
                                       child: Column(
@@ -964,13 +1095,22 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     selectedFactors.notifyListeners();
 
                                     setState(() {
-                                      isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                                        || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                                        || scale.value != sleepDiary!.scale
-                                        || !listEquals(factors, sleepDiary!.factors)
-                                        || (description.text != sleepDiary!.description && description.text.trim() != "");
+                                      isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
+                                          time1.value[1] !=
+                                              int.parse(sleepDiary!.sleepTime
+                                                  .split(":")[1]) ||
+                                          time2.value[0] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[0]) ||
+                                          time2.value[1] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[1]) ||
+                                          scale.value != sleepDiary!.scale ||
+                                          !listEquals(factors, sleepDiary!.factors) ||
+                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
+                                    ((scale.value < 4 && factors.isNotEmpty) ||
+                                        scale.value >= 4);
                                     });
-
                                   },
                                   child: Container(
                                       child: Column(
@@ -1101,11 +1241,21 @@ class _EditSleepPageState extends State<EditSleepPage> {
               child: TextField(
                 onChanged: (value) {
                   setState(() {
-                    isChange = time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) || time1.value[1] != int.parse(sleepDiary!.sleepTime.split(":")[1])
-                      || time2.value[0] != int.parse(sleepDiary!.wakeupTime.split(":")[0]) || time2.value[1] != int.parse(sleepDiary!.wakeupTime.split(":")[1])
-                      || scale.value != sleepDiary!.scale
-                      || !listEquals(factors, sleepDiary!.factors)
-                      || (value != sleepDiary!.description && value.trim() != "");
+                    isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
+                                          time1.value[1] !=
+                                              int.parse(sleepDiary!.sleepTime
+                                                  .split(":")[1]) ||
+                                          time2.value[0] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[0]) ||
+                                          time2.value[1] !=
+                                              int.parse(sleepDiary!.wakeupTime
+                                                  .split(":")[1]) ||
+                                          scale.value != sleepDiary!.scale ||
+                                          !listEquals(factors, sleepDiary!.factors) ||
+                                          (value != sleepDiary!.description && value.trim() != "")) &&
+                                    ((scale.value < 4 && factors.isNotEmpty) ||
+                                        scale.value >= 4);
                   });
                 },
                 controller: description,
