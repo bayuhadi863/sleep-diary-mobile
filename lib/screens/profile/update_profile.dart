@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:sleep_diary_mobile/controllers/profile/edit_profile_controller.dart';
+import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({super.key});
@@ -10,6 +14,11 @@ class UpdateProfile extends StatefulWidget {
 class _UpdateProfileState extends State<UpdateProfile> {
   @override
   Widget build(BuildContext context) {
+    final EditProfileController editProfileController =
+        Get.put(EditProfileController());
+
+    final UserController userController = Get.put(UserController());
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -50,7 +59,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: TextFormField(
-                  style: const TextStyle(color: Color(0xFF080A23)),
+                  controller: editProfileController.name,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: const Color.fromRGBO(38, 38, 66, 1),
@@ -69,24 +79,48 @@ class _UpdateProfileState extends State<UpdateProfile> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 24),
-                padding: const EdgeInsets.all(8.0),
-                height: 60,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 116, 177, 228),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Text(
-                    "Simpan",
-                    style: TextStyle(color: Colors.white),
+              Obx(() {
+                final loading = editProfileController.isLoading.value;
+
+                return GestureDetector(
+                  onTap: () async {
+                    if (loading) return;
+
+                    await editProfileController
+                        .editProfile(editProfileController.name.text);
+
+                    Navigator.pop(context);
+
+                    userController.fetchUserRecord();
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 24),
+                    padding: const EdgeInsets.all(8.0),
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: loading
+                          // 1 == 1
+                          ? Colors.grey[400]!
+                          : const Color.fromARGB(255, 116, 177, 228),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: loading
+                          // 1 == 1
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              "Simpan",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              }),
             ],
           ),
         ),

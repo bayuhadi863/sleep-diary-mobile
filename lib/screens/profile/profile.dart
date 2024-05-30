@@ -32,22 +32,32 @@ class _ProfilePageState extends State<ProfilePage> {
               backgroundColor: Colors.transparent,
               backgroundImage: AssetImage('assets/images/profile.png'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Obx(
-              () => Text(controller.user.value.name,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
+              () => Text(
+                controller.user.value.name,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 7,
             ),
             Obx(
-              () => Text(controller.user.value.email,
-                  style: const TextStyle(color: Colors.white, fontSize: 14)),
+              () => Text(
+                controller.user.value.email,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(height: 100),
             GestureDetector(

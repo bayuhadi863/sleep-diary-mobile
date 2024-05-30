@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,6 +9,7 @@ class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final currentUser = FirebaseAuth.instance.currentUser!;
 
   /// Function to save user data to Firestore
   Future<void> saveUserRecord(UserModel user) async {
@@ -26,12 +28,30 @@ class UserRepository extends GetxController {
 
   Future<UserModel> fetchUserDetails() async {
     try {
-      final documentSnapshot = await _db.collection("users").doc(AuthenticationRepository.instance.authUser?.uid).get();
+      final documentSnapshot = await _db
+          .collection("users")
+          .doc(AuthenticationRepository.instance.authUser?.uid)
+          .get();
       if (documentSnapshot.exists) {
         return UserModel.fromSnapshot(documentSnapshot);
       } else {
         throw UserModel.empty();
       }
+    } on FirebaseException catch (e) {
+      throw e.code;
+    } on FormatException catch (_) {
+      throw 'Format exeption error';
+    } on PlatformException catch (e) {
+      throw e.code;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  // edit user name by id
+  Future<void> editUserName(String name) async {
+    try {
+      await _db.collection("users").doc(currentUser.uid).update({'name': name});
     } on FirebaseException catch (e) {
       throw e.code;
     } on FormatException catch (_) {

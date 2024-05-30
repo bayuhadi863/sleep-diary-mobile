@@ -33,7 +33,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // final String formattedDate = DateFormat('dd MMMM yyyy').format(DateTime.now());
-  DateTime selectedDate = DateTime.now();
+  // DateTime selectedDate = DateTime.now();
+  DateTime selectedDate = DateTime(2023, 1, 1);
   late TimeOfDay reminderTime = const TimeOfDay(hour: 0, minute: 0);
   late bool active = false;
   final reminderRepository = ReminderRepository();
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: HomePage.today,
-      firstDate: DateTime(2010),
+      firstDate: DateTime(2023, 1, 1),
       lastDate: DateTime.now(),
       cancelText: 'Cancel',
       confirmText: 'OK',
@@ -123,7 +124,10 @@ class _HomePageState extends State<HomePage> {
     }
 
     setState(() {
+      // set calendar changed to selected date
+
       HomePage.today = picked;
+      // selectedDate = picked;
       HomePage.sleepDiaryController.fetchSleepDiaryData(picked);
     });
   }
@@ -214,6 +218,8 @@ class _HomePageState extends State<HomePage> {
               return;
             }
             HomePage.today = date;
+
+            // selectedDate = date;
             HomePage.sleepDiaryController.fetchSleepDiaryData(date);
           });
         },
@@ -253,9 +259,25 @@ class _HomePageState extends State<HomePage> {
           }
         },
         weekFormat: false,
+        // onCalendarChanged: (DateTime date) {
+        //   this.setState(() {
+        //     selectedDate = date;
+        //     _currentMonth = DateFormat.yMMM().format(_targetDateTime);
+        //   });
+        // },
+        onDayLongPressed: (DateTime date) {
+          print('long pressed date $date');
+        },
+        // onDayLongPressed: (day) {
+        //   print('long pressed $day');
+        // },
+        pageSnapping: true,
+        shouldShowTransform: true,
+        targetDateTime: HomePage.today,
         // markedDatesMap: _markedDateMap,
         height: 352.0,
         selectedDateTime: HomePage.today,
+        // selectedDateTime: DateTime(2023, 1, 1),
         daysHaveCircularBorder: true,
         thisMonthDayBorderColor: Colors.transparent,
         headerMargin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
@@ -272,12 +294,13 @@ class _HomePageState extends State<HomePage> {
         headerTitleTouchable: true,
         onHeaderTitlePressed: () => _selectDate(),
         headerTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-        pageScrollPhysics: const NeverScrollableScrollPhysics(),
+        // pageScrollPhysics: const NeverScrollableScrollPhysics(),
         iconColor: Colors.white,
         maxSelectedDate: DateTime.now(),
+        minSelectedDate: DateTime(2023, 1, 1),
         inactiveDaysTextStyle: TextStyle(color: Colors.grey[700]),
         inactiveWeekendTextStyle: TextStyle(color: Colors.grey[700]),
-        isScrollable: false,
+        // isScrollable: true,
         showOnlyCurrentMonthDate: true,
 
         /// null for not rendering any border, true for circular border, false for rectangular border
@@ -300,6 +323,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
+                width: MediaQuery.of(context).size.width * 0.65,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
                 child: Column(
@@ -309,9 +333,12 @@ class _HomePageState extends State<HomePage> {
                       () => Text(
                         "Halo, ${controller.user.value.name.split(' ')[0]}!",
                         style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -335,7 +362,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Positioned(
-          left: 260,
+          // left: 260,
+          left: MediaQuery.of(context).size.width * 0.59,
           top: 20,
           child: Image.asset(
             'assets/images/1.png',
