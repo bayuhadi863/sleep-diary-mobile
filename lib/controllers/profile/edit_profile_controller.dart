@@ -8,8 +8,30 @@ class EditProfileController extends GetxController {
   static EditProfileController get instance => Get.find();
 
   final RxBool isLoading = false.obs;
+  final RxBool fetchLoading = false.obs;
 
   final name = TextEditingController();
+
+  @override
+  void onInit() {
+    super.onInit();
+    getUserProfile();
+  }
+
+  void getUserProfile() async {
+    try {
+      fetchLoading(true);
+
+      final UserRepository userRepository = Get.put(UserRepository());
+      final user = await userRepository.fetchUserDetails();
+      name.text = user.name;
+
+      fetchLoading(false);
+    } catch (e) {
+      fetchLoading(false);
+      TLoaders.errorSnackBar(title: "Gagal fetch data!", message: e.toString());
+    }
+  }
 
   Future<void> editProfile(String name) async {
     try {
@@ -21,7 +43,6 @@ class EditProfileController extends GetxController {
       isLoading(false);
       TLoaders.successSnackBar(
           title: "Berhasil!", message: "Nama berhasil diubah!");
-
     } catch (e) {
       isLoading(false);
       TLoaders.errorSnackBar(title: "Gagal edit nama!", message: e.toString());
