@@ -742,11 +742,7 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       Flexible(
                                         child: Text(
-                                          getSleepScaleText(HomePage
-                                              .sleepDiaryController
-                                              .sleepDiary
-                                              .value
-                                              .scale),
+                                          "${getSleepScaleText(HomePage.sleepDiaryController.sleepDiary.value.scale)}${getConjunction(calculateTimeDifference(HomePage.sleepDiaryController.sleepDiary.value.wakeupTime, HomePage.sleepDiaryController.sleepDiary.value.sleepTime), HomePage.sleepDiaryController.sleepDiary.value.scale)}",
                                           style: const TextStyle(
                                             fontSize: 12,
                                             color: Colors.white,
@@ -905,6 +901,33 @@ TimeDifference calculateTimeDifference(String wakeupTime, String sleepTime) {
   return TimeDifference(hour: hours, minute: minutes);
 }
 
+String getConjunction(TimeDifference duration, int scale) {
+  bool isDurationGood = false;
+  bool isScaleGood = false;
+
+  if (duration.hour >= 7 && duration.hour <= 9) {
+    isDurationGood = true;
+  }
+
+  if (scale >= 3) {
+    isScaleGood = true;
+  }
+
+  if ((isDurationGood && isScaleGood) || (!isDurationGood && !isScaleGood)) {
+    return ' dan';
+  }
+
+  if (isDurationGood && !isScaleGood) {
+    return ', tetapi';
+  }
+
+  if (!isDurationGood && isScaleGood) {
+    return ', namun';
+  }
+
+  return 'dan';
+}
+
 String getDurationText(TimeDifference duration) {
   if (duration.hour < 7 && duration.hour >= 6) {
     return 'Durasi tidurmu masih kurang dari durasi tidur yang disarankan.';
@@ -957,15 +980,15 @@ Widget displayImageScale(int scale) {
 
 String getSleepScaleText(int scale) {
   if (scale == 1) {
-    return 'Kualitas tidurmu sangat buruk.';
+    return 'Kualitas tidurmu sangat buruk';
   } else if (scale == 2) {
-    return 'Kualitas tidurmu buruk.';
+    return 'Kualitas tidurmu buruk';
   } else if (scale == 3) {
-    return 'Kualitas tidurmu cukup.';
+    return 'Kualitas tidurmu cukup';
   } else if (scale == 4) {
-    return 'Kualitas tidurmu baik.';
+    return 'Kualitas tidurmu baik';
   } else {
-    return 'Kualitas tidurmu sempurna.';
+    return 'Kualitas tidurmu sempurna';
   }
 }
 

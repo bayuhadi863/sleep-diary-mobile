@@ -11,6 +11,7 @@ class GetSleepDiaryController extends GetxController {
 
   RxList sleepDiaryDates = [].obs;
 
+
   @override
   void onInit() {
     super.onInit();
