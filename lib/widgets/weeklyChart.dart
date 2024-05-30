@@ -6,7 +6,6 @@ import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/last_week_sum
 import 'package:sleep_diary_mobile/screens/sleep_note/statistik.dart';
 
 class WeeklyChart extends StatefulWidget {
-  
   final List<ChartData> statisticChartData;
   const WeeklyChart({
     super.key,
@@ -20,43 +19,57 @@ class WeeklyChart extends StatefulWidget {
 class _WeeklyChartState extends State<WeeklyChart> {
   @override
   Widget build(BuildContext context) {
-    
-
     return Scaffold(
       body: Center(
-        child: LineChart(
-          LineChartData(
-            lineTouchData: LineTouchData(
-                touchTooltipData:
-                    LineTouchTooltipData(tooltipBgColor: Colors.indigo[100])),
-            lineBarsData: [
-              LineChartBarData(
-                spots: widget.statisticChartData
-                    .map((chartData) =>
-                        FlSpot(chartData.x.toDouble(), chartData.y))
-                    .toList(),
-                isCurved: true,
-                dotData: FlDotData(show: true),
-                color: const Color.fromRGBO(38, 38, 66, 1),
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color.fromRGBO(38, 38, 66, 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: LineChart(
+            LineChartData(
+              backgroundColor: Colors.transparent,
+              lineTouchData: LineTouchData(
+                  touchTooltipData:
+                      LineTouchTooltipData(tooltipBgColor: Colors.indigo[100])),
+              lineBarsData: [
+                LineChartBarData(
+                  spots: widget.statisticChartData
+                      .map((chartData) =>
+                          FlSpot(chartData.x.toDouble(), chartData.y))
+                      .toList(),
+                  isCurved: true,
+                  dotData: FlDotData(show: true),
+                  color: Colors.white,
+                ),
+              ],
+              minX: 0,
+              maxX: 8,
+              minY: 0,
+              maxY: 6,
+              borderData: FlBorderData(
+                show: false,
               ),
-            ],
-            minX: 0,
-            maxX: 8,
-            minY: 0,
-            maxY: 6,
-            borderData: FlBorderData(
-              border: const Border(
-                bottom: BorderSide(),
-                left: BorderSide(),
+              gridData: FlGridData(
+                show: true,
+                horizontalInterval: 1.0,
+                drawVerticalLine: false,
+                getDrawingHorizontalLine: (value) {
+                  return FlLine(
+                    color: Colors.white.withOpacity(0.2),
+                    strokeWidth: 1,
+                    dashArray: [5, 4],
+                  );
+                },
               ),
-            ),
-            gridData: FlGridData(show: false),
-            titlesData: FlTitlesData(
-              bottomTitles: AxisTitles(sideTitles: _bottomTitles),
-              leftTitles: AxisTitles(sideTitles: _leftTitles),
-              topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-              rightTitles:
-                  AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              titlesData: FlTitlesData(
+                bottomTitles: AxisTitles(sideTitles: _bottomTitles),
+                leftTitles: AxisTitles(sideTitles: _leftTitles),
+                topTitles:
+                    AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                rightTitles:
+                    AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              ),
             ),
           ),
         ),
@@ -96,7 +109,10 @@ class _WeeklyChartState extends State<WeeklyChart> {
               text = '';
               break;
           }
-          return Text(text);
+          return Text(
+            text,
+            style: const TextStyle(color: Colors.white),
+          );
         },
       );
 

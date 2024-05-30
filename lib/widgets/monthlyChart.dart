@@ -21,42 +21,58 @@ class _MonthlyChartState extends State<MonthlyChart> {
         scrollDirection: Axis.horizontal,
         child: SizedBox(
           width: widget.monthlyScales.length.toDouble() * 30.0,
-          child: LineChart(
-            LineChartData(
-              lineTouchData: LineTouchData(
-                touchTooltipData: LineTouchTooltipData(
-                  tooltipBgColor: Colors.indigo[100],
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(38, 38, 66, 1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LineChart(
+                LineChartData(
+                  backgroundColor: Colors.transparent,
+                  lineTouchData: LineTouchData(
+                    touchTooltipData: LineTouchTooltipData(
+                      tooltipBgColor: Colors.indigo[100],
+                    ),
+                  ),
+                  lineBarsData: [
+                    LineChartBarData(
+                      spots: widget.chartData
+                          .map((chartData) =>
+                              FlSpot(chartData.x.toDouble(), chartData.y))
+                          .toList(),
+                      isCurved: true,
+                      dotData: FlDotData(show: true),
+                      color: Colors.white,
+                    ),
+                  ],
+                  minX: 0,
+                  maxX: widget.monthlyScales.length.toDouble() + 1,
+                  minY: 0,
+                  maxY: 6,
+                  borderData: FlBorderData(show: false),
+                  gridData: FlGridData(
+                    show: true,
+                    horizontalInterval: 1.0,
+                    drawVerticalLine: false,
+                    getDrawingHorizontalLine: (value) {
+                      return FlLine(
+                        color: Colors.white.withOpacity(0.2),
+                        strokeWidth: 1,
+                        dashArray: [5, 4],
+                      );
+                    },
+                  ),
+                  titlesData: FlTitlesData(
+                    bottomTitles: AxisTitles(sideTitles: _bottomTitles),
+                    leftTitles: AxisTitles(sideTitles: _leftTitles),
+                    topTitles:
+                        AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    rightTitles:
+                        AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  ),
                 ),
-              ),
-              lineBarsData: [
-                LineChartBarData(
-                  spots: widget.chartData
-                      .map((chartData) =>
-                          FlSpot(chartData.x.toDouble(), chartData.y))
-                      .toList(),
-                  isCurved: true,
-                  dotData: FlDotData(show: true),
-                  color: const Color.fromRGBO(38, 38, 66, 1),
-                ),
-              ],
-              minX: 0,
-              maxX: widget.monthlyScales.length.toDouble() + 1,
-              minY: 0,
-              maxY: 6,
-              borderData: FlBorderData(
-                border: const Border(
-                  bottom: BorderSide(),
-                  left: BorderSide(),
-                ),
-              ),
-              gridData: FlGridData(show: false),
-              titlesData: FlTitlesData(
-                bottomTitles: AxisTitles(sideTitles: _bottomTitles),
-                leftTitles: AxisTitles(sideTitles: _leftTitles),
-                topTitles:
-                    AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                rightTitles:
-                    AxisTitles(sideTitles: SideTitles(showTitles: false)),
               ),
             ),
           ),
@@ -74,7 +90,10 @@ class _MonthlyChartState extends State<MonthlyChart> {
             if (value > widget.monthlyScales.length) {
               return Text('');
             }
-            return Text(value.toInt().toString());
+            return Text(
+              value.toInt().toString(),
+              style: const TextStyle(color: Colors.white),
+            );
           } else {
             // Otherwise, return an empty Text widget (or handle it as needed)
             return Text('');
