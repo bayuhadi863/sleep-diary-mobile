@@ -27,6 +27,7 @@ class _DetailCardState extends State<DetailCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -39,15 +40,12 @@ class _DetailCardState extends State<DetailCard> {
             Navigator.pop(context);
           },
         ),
-        title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 22.0),
-          child: Text(
-            widget.date,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
+        title: Text(
+          widget.date,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

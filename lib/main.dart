@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sleep_diary_mobile/widgets/timepicker_theme.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -24,6 +25,9 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 Future<void> main() async {
   final WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then(
@@ -338,7 +342,6 @@ class _MainPageState extends State<MainPage> {
     dialTextColor: MaterialStateColor.resolveWith((states) =>
         states.contains(MaterialState.selected) ? Colors.white : Colors.white),
     entryModeIconColor: const Color(0xFF5C6AC0),
-    
   );
 }
 

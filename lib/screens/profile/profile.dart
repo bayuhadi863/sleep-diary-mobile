@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
+import 'package:sleep_diary_mobile/screens/profile/update_profile.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -26,52 +28,52 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 52,
             ),
             const CircleAvatar(
-              radius: 60,
+              radius: 80,
               backgroundColor: Colors.transparent,
               backgroundImage: AssetImage('assets/images/profile.png'),
             ),
-            const SizedBox(height: 40),
-            Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF262642),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: ListTile(
-                title: const Text(
-                  "Nama Lengkap",
-                  style: TextStyle(color: Colors.white),
-                ),
-                subtitle: Obx(
-                  () => Text(controller.user.value.name,
-                      style: const TextStyle(color: Colors.white)),
-                ),
-                leading: const Icon(CupertinoIcons.person, color: Colors.white),
-                tileColor: Colors.transparent,
-              ),
-            ),
-            const SizedBox(
+            SizedBox(
               height: 20,
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF262642),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: ListTile(
-                title: const Text(
-                  "Email",
-                  style: TextStyle(color: Colors.white),
+            Obx(
+              () => Text(controller.user.value.name,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold)),
+            ),
+            SizedBox(
+              height: 7,
+            ),
+            Obx(
+              () => Text(controller.user.value.email,
+                  style: const TextStyle(color: Colors.white, fontSize: 14)),
+            ),
+            const SizedBox(height: 100),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UpdateProfile()));
+              },
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                height: 60,
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(38, 38, 66, 1),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                subtitle: Obx(
-                  () => Text(controller.user.value.email,
-                      style: const TextStyle(color: Colors.white)),
+                child: Center(
+                  child: Text(
+                    "Edit Profile",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
-                leading: const Icon(CupertinoIcons.mail, color: Colors.white),
-                tileColor: Colors.transparent,
               ),
             ),
-            const SizedBox(
-              height: 200,
+            SizedBox(
+              height: 20,
             ),
             Obx(
               () => GestureDetector(

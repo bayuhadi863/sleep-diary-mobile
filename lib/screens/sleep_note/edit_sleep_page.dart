@@ -151,6 +151,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           surfaceTintColor: Colors.transparent,
           backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
           title: Text(

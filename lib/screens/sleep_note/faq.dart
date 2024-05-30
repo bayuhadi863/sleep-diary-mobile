@@ -12,20 +12,47 @@ class _FaqPageState extends State<FaqPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
-        title: const Center(
-          child: Text(
-            'FAQ',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 20),
+            Stack(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(
+                      top: 70, bottom: 50, left: 20, right: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: const Color.fromRGBO(38, 38, 66, 1),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 11),
+                        child: const Text(
+                          'FAQs',
+                          style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  left: 248,
+                  top: 10,
+                  child: Image.asset(
+                    'assets/images/Group2291.png',
+                    width: 160,
+                    height: 160,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
             CustomExpansionTile(
               title: "Apa itu SleepDiary?",
               content:
@@ -73,11 +100,14 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 26),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
-        color: isExpanded ? Colors.white : const Color(0xFF262642),
-        border: Border.all(width: 1.0, color: Colors.transparent),
+        color: const Color(0xFF262642),
+        border: Border.all(
+          width: 1.0,
+          color: Colors.transparent,
+        ),
       ),
       child: Theme(
         data: ThemeData(
@@ -85,11 +115,18 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
           highlightColor: Colors.transparent,
         ),
         child: ExpansionTile(
-          iconColor: isExpanded ? Colors.black : Colors.white,
+          iconColor: Colors.white,
           collapsedIconColor: Colors.white,
+          backgroundColor: const Color(0xFF262642),
+          collapsedBackgroundColor: const Color(0xFF262642),
           shape: Border(),
           title: Row(
             children: [
+              Container(
+                width: 5,
+                height: 50,
+                color: isExpanded ? Colors.white : Colors.transparent,
+              ),
               SizedBox(width: 8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +134,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                   Text(
                     widget.title,
                     style: TextStyle(
-                      color: isExpanded ? Colors.black : Colors.white,
+                      color: Colors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
@@ -113,7 +150,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                 widget.content,
                 style: TextStyle(
                   fontSize: 12,
-                  color: isExpanded ? Colors.black : Colors.white,
+                  color: Colors.white,
                 ),
                 textAlign: TextAlign.justify,
               ),

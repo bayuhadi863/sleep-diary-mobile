@@ -287,47 +287,63 @@ class _HomePageState extends State<HomePage> {
 
   Widget _header() {
     final controller = Get.put(UserController());
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: const Color.fromRGBO(8, 10, 35, 1),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Image.asset(
-              'assets/images/ikon.png',
-              fit: BoxFit.cover,
-            ),
+    return Stack(
+      children: [
+        Container(
+          margin:
+              const EdgeInsets.only(top: 50, bottom: 50, left: 20, right: 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: const Color.fromRGBO(38, 38, 66, 1),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Obx(
-                  () => Text(
-                    "Halo, ${controller.user.value.name.split(' ')[0]}!",
-                    style: const TextStyle(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Obx(
+                      () => Text(
+                        "Halo, ${controller.user.value.name.split(' ')[0]}!",
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      "Optimalkan Waktu Tidurmu",
+                      style: TextStyle(
+                        fontSize: 13,
                         color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10),
-                const Text(
-                  "Optimalkan Waktu Tidurmu",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
+              ),
+              // Expanded(
+              //   child: Image.asset(
+              //     'assets/images/1.png',
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
+            ],
           ),
-        ],
-      ),
+        ),
+        Positioned(
+          left: 260,
+          top: 20,
+          child: Image.asset(
+            'assets/images/1.png',
+            width: 138,
+            height: 138,
+          ),
+        ),
+      ],
     );
   }
 
