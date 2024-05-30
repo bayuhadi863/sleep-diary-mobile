@@ -33,6 +33,9 @@ class SignupController extends GetxController {
         return;
       }
 
+      // wait 5 seconds
+      // await Future.delayed(const Duration(seconds: 5));
+
       // Register user in the Firebase Authentication & Save user data in the firestore
       final userCredential = await AuthenticationRepository.instance
           .registerWithEmailAndPassword(

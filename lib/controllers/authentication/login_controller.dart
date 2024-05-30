@@ -30,6 +30,9 @@ class LoginController extends GetxController {
         return;
       }
 
+      // wait 5 seconds
+      // await Future.delayed(const Duration(seconds: 5));
+
       // Login user using email & password
       final userCredential = await AuthenticationRepository.instance
           .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
