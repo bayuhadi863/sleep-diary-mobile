@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/profile/edit_profile_controller.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 
@@ -34,9 +35,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title: Text(
           'Update Profile',
-          style: TextStyle(
+          style: GoogleFonts.poppins(
             color: Colors.white,
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -60,12 +61,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: TextFormField(
                   controller: editProfileController.name,
-                  style: const TextStyle(color: Colors.white),
+                  style: GoogleFonts.poppins(color: Colors.white),
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: const Color.fromRGBO(38, 38, 66, 1),
                     labelText: 'Name',
-                    labelStyle: const TextStyle(color: Colors.white),
+                    labelStyle: GoogleFonts.poppins(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(11),
                       borderSide: BorderSide.none,
@@ -104,7 +105,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       color: loading
                           // 1 == 1
                           ? Colors.grey[400]!
-                          : const Color.fromARGB(255, 116, 177, 228),
+                          : Color.fromARGB(255, 100, 163, 214),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -115,7 +116,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                             )
                           : Text(
                               "Simpan",
-                              style: TextStyle(color: Colors.white),
+                              style: GoogleFonts.poppins(color: Colors.white),
                             ),
                     ),
                   ),
