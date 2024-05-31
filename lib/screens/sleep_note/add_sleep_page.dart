@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:sleep_diary_mobile/main.dart';
@@ -50,9 +51,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                     fit: BoxFit.cover,
                   ),
                   const SizedBox(height: 8),
-                  const Text(
+                  Text(
                     "Apakah Anda yakin ingin keluar dari halaman ini? Data yang belum tersimpan akan hilang",
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
@@ -75,9 +76,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: const Text(
+                        child: Text(
                           "Batal",
-                          style: TextStyle(color: Colors.white),
+                          style: GoogleFonts.poppins(color: Colors.white),
                         ),
                       ),
                     ),
@@ -93,9 +94,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         onPressed: () {
                           Get.offAll(() => const MainPage());
                         },
-                        child: const Text(
+                        child: Text(
                           "Keluar",
-                          style: TextStyle(color: Colors.white),
+                          style: GoogleFonts.poppins(color: Colors.white),
                         ),
                       ),
                     ),
@@ -194,16 +195,16 @@ class _AddSleepPageState extends State<AddSleepPage> {
                         ? const Color.fromARGB(255, 255, 255, 255)
                             .withOpacity(0.8)
                         : const Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                   child: Center(
                     child: isLoading
                         ? const CircularProgressIndicator(
                             color: Colors.black,
                           )
-                        : const Text(
+                        : Text(
                             "Simpan",
-                            style: TextStyle(color: Colors.black),
+                            style: GoogleFonts.poppins(color: Colors.black),
                           ),
                   ),
                 ),
@@ -228,14 +229,14 @@ class _AddSleepPageState extends State<AddSleepPage> {
               children: [
                 Text(
                   DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
-                  style: const TextStyle(
+                  style: GoogleFonts.poppins(
                       fontSize: 25,
                       fontWeight: FontWeight.w800,
                       color: Colors.white),
                 ),
-                const Text(
+                Text(
                   "SleepDiary",
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w300,
                       color: Colors.white),
@@ -251,18 +252,18 @@ class _AddSleepPageState extends State<AddSleepPage> {
       aspectRatio: 336 / 130,
       child: Column(
         children: [
-          const Text("Catat Tidurmu",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          Text("Catat Tidurmu",
+              style: GoogleFonts.poppins(
+                  color: Colors.white, fontWeight: FontWeight.bold)),
           const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
                 children: [
-                  const Text(
+                  Text(
                     'Tidur',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 14,
                       color: Colors.white,
                     ),
@@ -295,7 +296,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                             builder: (context, value, child) {
                               return Text(
                                 '${value[0].toString().padLeft(2, '0')}:${value[1].toString().padLeft(2, '0')}',
-                                style: const TextStyle(
+                                style: GoogleFonts.poppins(
                                   fontSize: 30,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white,
@@ -314,9 +315,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
               ),
               Column(
                 children: [
-                  const Text(
+                  Text(
                     'Bangun',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 14,
                       color: Colors.white,
                     ),
@@ -349,7 +350,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                             builder: (context, value, child) {
                               return Text(
                                 '${value[0].toString().padLeft(2, '0')}:${value[1].toString().padLeft(2, '0')}',
-                                style: const TextStyle(
+                                style: GoogleFonts.poppins(
                                   fontSize: 30,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white,
@@ -385,10 +386,10 @@ class _AddSleepPageState extends State<AddSleepPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
                   "Bagaimana kualitas tidurmu?",
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
@@ -604,12 +605,12 @@ class _AddSleepPageState extends State<AddSleepPage> {
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.white24),
                 child: Column(children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         "Faktor",
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                             color: Colors.white),
@@ -655,9 +656,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                                                   Colors.transparent,
                                                   BlendMode.color)),
                                       const SizedBox(height: 5),
-                                      const Text(
+                                      Text(
                                         "Lingkungan",
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
@@ -698,9 +699,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                                                   Colors.transparent,
                                                   BlendMode.color)),
                                       const SizedBox(height: 5),
-                                      const Text(
+                                      Text(
                                         "Stress",
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
@@ -741,9 +742,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                                                   Colors.transparent,
                                                   BlendMode.color)),
                                       const SizedBox(height: 5),
-                                      const Text(
+                                      Text(
                                         "Sakit",
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                             color: Colors.white, fontSize: 12),
                                       ),
                                     ],
@@ -782,9 +783,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                                                   Colors.transparent,
                                                   BlendMode.color)),
                                       const SizedBox(height: 5),
-                                      const Text(
+                                      Text(
                                         "Gelisah",
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
@@ -826,9 +827,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                                                 BlendMode.color),
                                       ),
                                       const SizedBox(height: 5),
-                                      const Text(
+                                      Text(
                                         "Terbangun",
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
@@ -853,22 +854,23 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   color: Colors.white24,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Good Job!',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                           fontSize: 24,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       'Tingkatkan',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: GoogleFonts.poppins(
+                          fontSize: 20, color: Colors.white),
                     ),
                   ],
                 ),
@@ -887,22 +889,23 @@ class _AddSleepPageState extends State<AddSleepPage> {
                   color: Colors.white24,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Perfect!',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                           fontSize: 24,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       'Pertahankan',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: GoogleFonts.poppins(
+                          fontSize: 20, color: Colors.white),
                     ),
                   ],
                 ),
@@ -925,9 +928,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Ceritakan tidurmu",
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
@@ -937,7 +940,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
             Expanded(
               child: TextField(
                 controller: description,
-                style: const TextStyle(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.white),
                 decoration: const InputDecoration(
                   filled: true,
                   fillColor: Colors.transparent,
@@ -957,7 +960,14 @@ class _AddSleepPageState extends State<AddSleepPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
             title: const Text("Detail Informasi"),
+            titleTextStyle: GoogleFonts.poppins(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
             content: SingleChildScrollView(
               child: Column(
                 children: [
@@ -978,16 +988,17 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text(
+                              child: Text(
                                 "Sangat Buruk",
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Tidur sangat buruk dan tidak memuaskan. Merasa sangat lelah dan tidak segar saat bangun pagi.',
                               textAlign: TextAlign.justify,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.poppins(fontSize: 12),
                             ),
                           ],
                         ),
@@ -1012,16 +1023,17 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text(
+                              child: Text(
                                 "Buruk",
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Tidur kurang baik, tetapi tidak seburuk skala 1. Merasa lelah atau kurang segar saat bangun pagi.',
                               textAlign: TextAlign.justify,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.poppins(fontSize: 12),
                             ),
                           ],
                         ),
@@ -1046,16 +1058,17 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text(
+                              child: Text(
                                 "Cukup",
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Tidur relatif stabil tanpa terlalu banyak gangguan. Bangun pagi dengan segar, tetapi masih ada kelelahan.',
                               textAlign: TextAlign.justify,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.poppins(fontSize: 12),
                             ),
                           ],
                         ),
@@ -1080,16 +1093,17 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text(
+                              child: Text(
                                 "Baik",
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Tidur sangat baik dan nyenyak sepanjang malam. Bangun pagi dengan perasaan segar dan bertenaga.',
                               textAlign: TextAlign.justify,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.poppins(fontSize: 12),
                             ),
                           ],
                         ),
@@ -1114,16 +1128,17 @@ class _AddSleepPageState extends State<AddSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text(
+                              child: Text(
                                 "Sangat Baik",
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Tidur sangat luar biasa, sangat nyenyak dan puas. Bangun pagi dengan perasaan segar bersemangat dan penuh energi.',
                               textAlign: TextAlign.justify,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.poppins(fontSize: 12),
                             ),
                           ],
                         ),
@@ -1141,15 +1156,20 @@ class _AddSleepPageState extends State<AddSleepPage> {
                     Navigator.of(context).pop();
                   },
                   style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                    ),
                     backgroundColor: MaterialStateProperty.all<Color>(
                       const Color.fromARGB(102, 28, 237, 226),
                     ),
                     minimumSize: MaterialStateProperty.all(
                         const Size(double.infinity, 50)),
                   ),
-                  child: const Text(
+                  child: Text(
                     "Mengerti",
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       color: Colors.white,
                     ),
                   ),
