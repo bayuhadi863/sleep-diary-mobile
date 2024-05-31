@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/current_week_summary.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/last_week_summary.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -96,6 +97,7 @@ class _SummaryPageState extends State<SummaryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -108,15 +110,12 @@ class _SummaryPageState extends State<SummaryPage> {
             Navigator.pop(context);
           },
         ),
-        title: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 22.0),
-          child: Text(
-            "Kesimpulan Mingguan",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
+        title: Text(
+          "Kesimpulan Mingguan",
+          style: GoogleFonts.poppins(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -126,11 +125,22 @@ class _SummaryPageState extends State<SummaryPage> {
               child: CircularProgressIndicator(),
             )
           : scaleAverage.round() == 0
-              ? const Center(
-                  child: Text(
-                    "Tidak ada data.",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
+              ? Center(
+                  child: Column(children: [
+                    const SizedBox(
+                      height: 300,
+                    ),
+                    Image.asset(
+                      'assets/images/hayo.png',
+                      width: 80,
+                      height: 80,
+                    ),
+                    Text(
+                      "Hayo, Ketahuan belum isi minggu ini ...",
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontSize: 14),
+                    )
+                  ]),
                 )
               : SingleChildScrollView(
                   child: Column(
@@ -141,8 +151,8 @@ class _SummaryPageState extends State<SummaryPage> {
                       ),
                       Text(
                         widget.selectedWeek,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 14),
+                        style: GoogleFonts.poppins(
+                            color: Colors.white, fontSize: 14),
                       ),
                       const SizedBox(height: 10),
                       Column(
@@ -167,11 +177,11 @@ class _SummaryPageState extends State<SummaryPage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Padding(
-                                        padding: EdgeInsets.all(12.0),
+                                      Padding(
+                                        padding: const EdgeInsets.all(12.0),
                                         child: Text(
                                           'Rerata Durasi Tidur Mingguan',
-                                          style: TextStyle(
+                                          style: GoogleFonts.poppins(
                                               fontSize: 14,
                                               color: Colors.white),
                                         ),
@@ -190,7 +200,7 @@ class _SummaryPageState extends State<SummaryPage> {
                                               const SizedBox(width: 5),
                                               Text(
                                                 sleepTimeAverage,
-                                                style: const TextStyle(
+                                                style: GoogleFonts.poppins(
                                                   color: Colors.white,
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,
@@ -219,10 +229,10 @@ class _SummaryPageState extends State<SummaryPage> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text(
+                                  Text(
                                     "Rerata Skala Kualitas Tidur",
-                                    style: TextStyle(
-                                      fontSize: 20,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -230,14 +240,14 @@ class _SummaryPageState extends State<SummaryPage> {
                                   const SizedBox(height: 20),
                                   Image.asset(
                                     'assets/images/skalabulan${scaleAverage.round()}.png',
-                                    width: 190,
-                                    height: 190,
+                                    width: 180,
+                                    height: 180,
                                     fit: BoxFit.cover,
                                   ),
                                   Text(
                                     getSleepScaleText(scaleAverage.round()),
-                                    style: const TextStyle(
-                                      fontSize: 16,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -262,10 +272,10 @@ class _SummaryPageState extends State<SummaryPage> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text(
+                                  Text(
                                     "Faktor Penganggu Tidur",
-                                    style: TextStyle(
-                                      fontSize: 20,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -305,43 +315,43 @@ class _SummaryPageState extends State<SummaryPage> {
                               ),
                             ),
                           ),
-                          // Container(
-                          //   width: 370,
-                          //   decoration: BoxDecoration(
-                          //     color: const Color.fromRGBO(38, 38, 66, 1),
-                          //     borderRadius: BorderRadius.circular(14),
-                          //   ),
-                          //   margin: const EdgeInsets.symmetric(
-                          //       vertical: 10, horizontal: 20),
-                          //   child: const Column(
-                          //     children: [
-                          //       SizedBox(height: 12),
-                          //       Text(
-                          //         "Saran yang Mungkin Membantu",
-                          //         style: TextStyle(
-                          //           color: Colors.white,
-                          //           fontSize: 16,
-                          //           fontWeight: FontWeight.bold,
-                          //         ),
-                          //       ),
-                          //       SizedBox(height: 10),
-                          //       Padding(
-                          //         padding: EdgeInsets.all(12.0),
-                          //         child: Text(
-                          //           "Bergaul Bang",
-                          //           style: TextStyle(
-                          //             color: Colors.white,
-                          //             fontSize: 14,
-                          //           ),
-                          //           textAlign: TextAlign.justify,
-                          //         ),
-                          //       ),
-                          const SizedBox(
-                            height: 20,
-                          )
-                          //     ],
-                          //   ),
-                          // ),
+                          Container(
+                            width: 370,
+                            decoration: BoxDecoration(
+                              color: const Color.fromRGBO(38, 38, 66, 1),
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 12),
+                                Text(
+                                  "Saran yang Mungkin Membantu",
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    "Bergaul Bang",
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                    ),
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ],

@@ -600,9 +600,9 @@ class _HomePageState extends State<HomePage> {
                                           fit: BoxFit.cover,
                                         ),
                                         const SizedBox(height: 8),
-                                        const Text(
+                                        Text(
                                           "Apakah Anda yakin ingin menghapus data?",
-                                          style: TextStyle(
+                                          style: GoogleFonts.poppins(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white),

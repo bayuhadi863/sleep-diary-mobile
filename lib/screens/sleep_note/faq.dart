@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FaqPage extends StatefulWidget {
   const FaqPage({super.key});
@@ -30,9 +31,9 @@ class _FaqPageState extends State<FaqPage> {
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 11),
-                        child: const Text(
+                        child: Text(
                           'FAQs',
-                          style: TextStyle(
+                          style: GoogleFonts.poppins(
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
@@ -52,27 +53,27 @@ class _FaqPageState extends State<FaqPage> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
-            CustomExpansionTile(
+            const SizedBox(height: 10),
+            const CustomExpansionTile(
               title: "Apa itu SleepDiary?",
               content:
                   "Aplikasi SleepDiary adalah teman tidur Anda yang setia, dirancang untuk membantu Anda memantau dan mencatat kualitas tidur Anda dari waktu ke waktu. aplikasi ini memungkinkan pengguna untuk meningkatkan kualitas tidur mereka.",
             ),
-            SizedBox(height: 20),
-            CustomExpansionTile(
+            const SizedBox(height: 20),
+            const CustomExpansionTile(
               title: "Apa fitur utama Aplikasi SleepDiary?",
               content: "Fitur-fitur utama dalam Aplikasi SleepDiary mencakup:\n"
                   "1. Grafik analisis pola tidur: Menampilkan pola tidur pengguna dalam bentuk grafik untuk mempermudah pemantauan dan pemahaman.\n"
                   "2. Reminder tidur: Memberikan pengingat kepada pengguna untuk tidur sesuai jadwal yang diinginkan.\n"
                   "3. Pemantauan kualitas tidur: Memungkinkan pengguna untuk mencatat dan melacak kualitas tidur mereka dari waktu ke waktu.",
             ),
-            SizedBox(height: 20),
-            CustomExpansionTile(
+            const SizedBox(height: 20),
+            const CustomExpansionTile(
               title: "Berapa normalnya waktu tidur?",
               content:
                   "Waktu tidur yang disarankan untuk orang dewasa adalah antara 7-9 jam per hari.",
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -87,8 +88,8 @@ class CustomExpansionTile extends StatefulWidget {
   const CustomExpansionTile({
     required this.title,
     required this.content,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _CustomExpansionTileState createState() => _CustomExpansionTileState();
@@ -119,7 +120,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
           collapsedIconColor: Colors.white,
           backgroundColor: const Color(0xFF262642),
           collapsedBackgroundColor: const Color(0xFF262642),
-          shape: Border(),
+          shape: const Border(),
           title: Row(
             children: [
               Container(
@@ -127,13 +128,13 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                 height: 50,
                 color: isExpanded ? Colors.white : Colors.transparent,
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     widget.title,
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
@@ -148,7 +149,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
               padding: const EdgeInsets.only(bottom: 26, left: 20, right: 12),
               child: Text(
                 widget.content,
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: Colors.white,
                 ),

@@ -258,7 +258,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         ? const Color.fromARGB(255, 255, 255, 255)
                             .withOpacity(0.8)
                         : const Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                   child: Center(
                     child: isLoading
@@ -326,7 +326,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                   const SizedBox(height: 10),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(14),
                       color: Colors.white24,
                     ),
                     padding:
@@ -400,7 +400,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                   const SizedBox(height: 10),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(14),
                       color: Colors.white24,
                     ),
                     padding:
@@ -474,7 +474,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: Colors.white24),
+          borderRadius: BorderRadius.circular(14), color: Colors.white24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -814,10 +814,10 @@ class _EditSleepPageState extends State<EditSleepPage> {
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(14),
                     color: Colors.white24),
                 child: Column(children: [
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
@@ -1238,7 +1238,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(14),
           color: Colors.white24,
         ),
         padding: const EdgeInsets.all(10),
@@ -1279,7 +1279,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                   });
                 },
                 controller: description,
-                style:  GoogleFonts.poppins(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.white),
                 decoration: const InputDecoration(
                   filled: true,
                   fillColor: Colors.transparent,
@@ -1320,13 +1320,14 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child:  Text(
+                              child: Text(
                                 "Sangat Buruk",
                                 textAlign: TextAlign.left,
-                                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                             Text(
+                            Text(
                               'Tidur sangat buruk dan tidak memuaskan. Merasa sangat lelah dan tidak segar saat bangun pagi.',
                               textAlign: TextAlign.justify,
                               style: GoogleFonts.poppins(fontSize: 12),
@@ -1354,13 +1355,14 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child:  Text(
+                              child: Text(
                                 "Buruk",
                                 textAlign: TextAlign.left,
-                                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                             Text(
+                            Text(
                               'Tidur kurang baik, tetapi tidak seburuk skala 1. Merasa lelah atau kurang segar saat bangun pagi.',
                               textAlign: TextAlign.justify,
                               style: GoogleFonts.poppins(fontSize: 12),
@@ -1388,13 +1390,14 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child:  Text(
+                              child: Text(
                                 "Cukup",
                                 textAlign: TextAlign.left,
-                                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                             Text(
+                            Text(
                               'Tidur relatif stabil tanpa terlalu banyak gangguan. Bangun pagi dengan segar, tetapi masih ada kelelahan.',
                               textAlign: TextAlign.justify,
                               style: GoogleFonts.poppins(fontSize: 12),
@@ -1422,13 +1425,14 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child:  Text(
+                              child: Text(
                                 "Baik",
                                 textAlign: TextAlign.left,
-                                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                             Text(
+                            Text(
                               'Tidur sangat baik dan nyenyak sepanjang malam. Bangun pagi dengan perasaan segar dan bertenaga.',
                               textAlign: TextAlign.justify,
                               style: GoogleFonts.poppins(fontSize: 12),
@@ -1456,13 +1460,14 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child:  Text(
+                              child: Text(
                                 "Sangat Baik",
                                 textAlign: TextAlign.left,
-                                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                             Text(
+                            Text(
                               'Tidur sangat luar biasa, sangat nyenyak dan puas. Bangun pagi dengan perasaan segar bersemangat dan penuh energi.',
                               textAlign: TextAlign.justify,
                               style: GoogleFonts.poppins(fontSize: 12),
@@ -1489,7 +1494,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                     minimumSize: MaterialStateProperty.all(
                         const Size(double.infinity, 50)),
                   ),
-                  child:  Text(
+                  child: Text(
                     "Mengerti",
                     style: GoogleFonts.poppins(
                       color: Colors.white,
