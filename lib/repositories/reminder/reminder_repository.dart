@@ -86,7 +86,6 @@ class ReminderRepository {
   }
 
   Future<void> onReminderNotification(TimeOfDay time) async {
-
     offReminderNotification();
 
     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
@@ -102,8 +101,8 @@ class ReminderRepository {
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
-        '5 Menit sebelum waktu tidur tiba',
-        'Jangan Lupa untuk Membersihkan Badan dan Kasur Supaya Tidur Lebih Nyaman',
+        '5 Menit Sebelum Waktu Tidur Tiba',
+        'Matikan perangkat elektronik dan bersiaplah untuk tidur.',
         tz.TZDateTime(
             tz.local,
             DateTime.now().year,
@@ -120,8 +119,8 @@ class ReminderRepository {
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
         1,
-        'Waktu tidur telah tiba',
-        'Selamat Tidur, Semoga Mimpimu Indah',
+        'Waktu Tidur Telah Tiba',
+        'Selamat tidur, semoga mimpimu indah',
         tz.TZDateTime(tz.local, DateTime.now().year, DateTime.now().month,
             DateTime.now().day, time.hour, time.minute),
         notificationDetails,
