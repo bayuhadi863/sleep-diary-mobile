@@ -92,7 +92,10 @@ class ReminderRepository {
         'SleepDiary', 'Jangan Lupa Tidur',
         importance: Importance.max,
         priority: Priority.max,
-        icon: '@mipmap/launcher_icon');
+        icon: '@mipmap/launcher_icon',
+        playSound: true,
+        sound: RawResourceAndroidNotificationSound("sleep_diary_sound")
+      );
 
     const iOSPlatformChannelSpecifics = DarwinNotificationDetails();
     const notificationDetails = NotificationDetails(
