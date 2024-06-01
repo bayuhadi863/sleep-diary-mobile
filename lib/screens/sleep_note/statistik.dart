@@ -238,7 +238,7 @@ class _StatistikPageState extends State<StatistikPage> {
                     decoration: BoxDecoration(
                         color: const Color.fromRGBO(38, 38, 66, 1),
                         borderRadius: BorderRadius.circular(8)),
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: dropdown(context)),
                 Visibility(
                   visible: _selectedItem == 'Per Minggu',
@@ -247,7 +247,7 @@ class _StatistikPageState extends State<StatistikPage> {
                       decoration: BoxDecoration(
                           color: const Color.fromRGBO(38, 38, 66, 1),
                           borderRadius: BorderRadius.circular(8)),
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: weekDropdown(context)),
                 )
               ],
@@ -324,7 +324,7 @@ class _StatistikPageState extends State<StatistikPage> {
           decoration: BoxDecoration(
               color: const Color.fromRGBO(38, 38, 66, 1),
               borderRadius: BorderRadius.circular(8)),
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: monthDropdown(context),
         ),
         const SizedBox(
@@ -334,7 +334,7 @@ class _StatistikPageState extends State<StatistikPage> {
           decoration: BoxDecoration(
               color: const Color.fromRGBO(38, 38, 66, 1),
               borderRadius: BorderRadius.circular(8)),
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: yearDropdown(context),
         ),
       ],
