@@ -17,6 +17,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: SizedBox(
@@ -24,16 +25,16 @@ class _MonthlyChartState extends State<MonthlyChart> {
           child: Container(
             decoration: BoxDecoration(
               color: const Color.fromRGBO(38, 38, 66, 1),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: LineChart(
                 LineChartData(
                   backgroundColor: Colors.transparent,
                   lineTouchData: LineTouchData(
                     touchTooltipData: LineTouchTooltipData(
-                      tooltipBgColor: Colors.indigo[100],
+                      tooltipBgColor: Colors.white,
                     ),
                   ),
                   lineBarsData: [
@@ -42,9 +43,9 @@ class _MonthlyChartState extends State<MonthlyChart> {
                           .map((chartData) =>
                               FlSpot(chartData.x.toDouble(), chartData.y))
                           .toList(),
-                      isCurved: true,
+                      isCurved: false,
                       dotData: FlDotData(show: true),
-                      color: Colors.white,
+                      color: const Color(0xFFFFD670),
                     ),
                   ],
                   minX: 0,
@@ -88,7 +89,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
           if (value % 1 == 0 && value != 0) {
             // If it's an integer, return it as a Text widget
             if (value > widget.monthlyScales.length) {
-              return Text('');
+              return const Text('');
             }
             return Text(
               value.toInt().toString(),
@@ -96,7 +97,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
             );
           } else {
             // Otherwise, return an empty Text widget (or handle it as needed)
-            return Text('');
+            return const Text('');
           }
         },
       );
@@ -104,7 +105,7 @@ class _MonthlyChartState extends State<MonthlyChart> {
   SideTitles get _leftTitles => SideTitles(
         showTitles: true,
         getTitlesWidget: (value, meta) {
-          Widget imageWidget = SizedBox();
+          Widget imageWidget = const SizedBox();
           switch (value.toInt()) {
             case 1:
               imageWidget = Image.asset(
@@ -126,9 +127,9 @@ class _MonthlyChartState extends State<MonthlyChart> {
               imageWidget = Image.asset('assets/images/skalabulan5.png');
               break;
             case 6:
-              imageWidget = SizedBox();
+              imageWidget = const SizedBox();
             default:
-              imageWidget = SizedBox();
+              imageWidget = const SizedBox();
               break;
           }
           return imageWidget;

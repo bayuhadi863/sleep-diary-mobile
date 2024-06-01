@@ -244,6 +244,7 @@ class _SummaryPageState extends State<SummaryPage> {
                                     height: 180,
                                     fit: BoxFit.cover,
                                   ),
+                                  const SizedBox(height: 20),
                                   Text(
                                     getSleepScaleText(scaleAverage.round()),
                                     style: GoogleFonts.poppins(
@@ -354,6 +355,9 @@ class _SummaryPageState extends State<SummaryPage> {
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 20,
+                      )
                     ],
                   ),
                 ),

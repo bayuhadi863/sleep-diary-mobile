@@ -29,6 +29,7 @@ class _FaqPageState extends State<FaqPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
+                        width: MediaQuery.of(context).size.width * 0.65,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 11),
                         child: Text(
@@ -43,7 +44,7 @@ class _FaqPageState extends State<FaqPage> {
                   ),
                 ),
                 Positioned(
-                  left: 248,
+                  left: MediaQuery.of(context).size.width * 0.56,
                   top: 10,
                   child: Image.asset(
                     'assets/images/Group2291.png',

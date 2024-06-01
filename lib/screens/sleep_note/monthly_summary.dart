@@ -359,6 +359,9 @@ class _MonthlySummaryState extends State<MonthlySummaryPage> {
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 20,
+                      )
                     ],
                   ),
                 ),
