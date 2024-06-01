@@ -89,13 +89,12 @@ class ReminderRepository {
     offReminderNotification();
 
     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'SleepDiary', 'Jangan Lupa Tidur',
+        'SleepDiary2', 'Jangan Lupa Tidur',
         importance: Importance.max,
         priority: Priority.max,
         icon: '@mipmap/launcher_icon',
         playSound: true,
-        sound: RawResourceAndroidNotificationSound("sleep_diary_sound")
-      );
+        sound: RawResourceAndroidNotificationSound("sleep_diary_sound"));
 
     const iOSPlatformChannelSpecifics = DarwinNotificationDetails();
     const notificationDetails = NotificationDetails(

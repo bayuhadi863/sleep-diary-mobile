@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/widgets/timepicker_theme.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -189,7 +190,7 @@ class _MainPageState extends State<MainPage> {
                 const SizedBox(width: 20),
                 IconButton(
                   icon: Icon(
-                    CupertinoIcons.chart_bar_square_fill,
+                    Icons.poll,
                     color: selectedIndex == 1
                         ? const Color(0xFF5C6AC0)
                         : Colors.white,
@@ -219,38 +220,46 @@ class _MainPageState extends State<MainPage> {
             ),
             Row(
               children: [
-                IconButton(
-                  icon: Icon(
-                    CupertinoIcons.question_square_fill,
-                    color: selectedIndex == 3
-                        ? const Color(0xFF5C6AC0)
-                        : Colors.white,
+                Tooltip(
+                  message: 'Halaman FAQ',
+                  textStyle: GoogleFonts.poppins(color: Colors.white),
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(38, 38, 66, 1),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  onPressed: () {
-                    if (selectedIndex == 2) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => confirmDialog(
-                          context,
-                          () {
-                            setState(() {
-                              selectedIndex = 3;
-                            });
-                          },
-                        ),
-                      );
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.help_center,
+                      color: selectedIndex == 3
+                          ? const Color(0xFF5C6AC0)
+                          : Colors.white,
+                    ),
+                    onPressed: () {
+                      if (selectedIndex == 2) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => confirmDialog(
+                            context,
+                            () {
+                              setState(() {
+                                selectedIndex = 3;
+                              });
+                            },
+                          ),
+                        );
 
-                      return;
-                    }
-                    setState(() {
-                      selectedIndex = 3;
-                    });
-                  },
+                        return;
+                      }
+                      setState(() {
+                        selectedIndex = 3;
+                      });
+                    },
+                  ),
                 ),
                 const SizedBox(width: 20),
                 IconButton(
                   icon: Icon(
-                    CupertinoIcons.person_fill,
+                    Icons.person,
                     color: selectedIndex == 4
                         ? const Color(0xFF5C6AC0)
                         : Colors.white,
