@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary_detail_controller.dart';
 
 class DetailCard extends StatefulWidget {
@@ -42,7 +43,7 @@ class _DetailCardState extends State<DetailCard> {
         ),
         title: Text(
           widget.date,
-          style: const TextStyle(
+          style: GoogleFonts.poppins(
             color: Colors.white,
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -93,7 +94,7 @@ class _DetailCardState extends State<DetailCard> {
                                       const SizedBox(width: 5),
                                       Text(
                                         '${getSleepDiaryDetail.sleepDiary.value.sleepTime} - ${getSleepDiaryDetail.sleepDiary.value.wakeupTime}',
-                                        style: const TextStyle(
+                                        style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
@@ -121,7 +122,7 @@ class _DetailCardState extends State<DetailCard> {
                                           getSleepDiaryDetail
                                               .sleepDiary.value.sleepTime),
                                     ),
-                                    style: const TextStyle(
+                                    style: GoogleFonts.poppins(
                                       color: Colors.white,
                                       fontSize: 12,
                                     ),
@@ -148,9 +149,9 @@ class _DetailCardState extends State<DetailCard> {
                         () => Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               "Kualitas Tidur",
-                              style: TextStyle(
+                              style: GoogleFonts.poppins(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -165,7 +166,7 @@ class _DetailCardState extends State<DetailCard> {
                               child: Text(
                                 getSleepScaleText(
                                     getSleepDiaryDetail.sleepDiary.value.scale),
-                                style: const TextStyle(
+                                style: GoogleFonts.poppins(
                                   fontSize: 14,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -192,12 +193,12 @@ class _DetailCardState extends State<DetailCard> {
                       () => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.only(
+                          Padding(
+                            padding: const EdgeInsets.only(
                                 top: 8.0, left: 8.0, right: 8.0),
                             child: Text(
                               "Faktor yang memengaruhi",
-                              style: TextStyle(
+                              style: GoogleFonts.poppins(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -211,7 +212,7 @@ class _DetailCardState extends State<DetailCard> {
                                   getSleepDiaryDetail.sleepDiary.value.factors)
                               : Text(
                                   'Tidak ada faktor yang memengaruhi',
-                                  style: TextStyle(
+                                  style: GoogleFonts.poppins(
                                     color: Colors.grey[500],
                                     fontSize: 12,
                                     fontStyle: FontStyle
@@ -234,9 +235,9 @@ class _DetailCardState extends State<DetailCard> {
                     child: Column(
                       children: [
                         const SizedBox(height: 12),
-                        const Text(
+                        Text(
                           "Deskripsi Tidur",
-                          style: TextStyle(
+                          style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -248,7 +249,7 @@ class _DetailCardState extends State<DetailCard> {
                           child: Obx(
                             () => Text(
                               getSleepDiaryDetail.sleepDiary.value.description,
-                              style: const TextStyle(
+                              style: GoogleFonts.poppins(
                                 color: Colors.white,
                                 fontSize: 14,
                               ),
@@ -320,7 +321,7 @@ Widget durationBadge(TimeDifference duration) {
     ),
     child: Text(
       duration.hour > 0 ? '${duration.hour} Jam' : '${duration.minute} Menit',
-      style: const TextStyle(
+      style: GoogleFonts.poppins(
         fontSize: 16,
         color: Colors.white,
         fontWeight: FontWeight.w600,
@@ -412,7 +413,7 @@ Row factorIcons(List<String> factors) {
             ),
             Text(
               factor,
-              style: const TextStyle(color: Colors.white, fontSize: 11),
+              style: GoogleFonts.poppins(color: Colors.white, fontSize: 11),
               textAlign: TextAlign.center,
             ),
           ],

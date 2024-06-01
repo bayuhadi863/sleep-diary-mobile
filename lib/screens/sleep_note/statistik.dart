@@ -1,9 +1,8 @@
 import 'dart:ffi';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get_state_manager/src/simple/get_widget_cache.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/current_week_summary.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/last_week_summary.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/monthly_summary.dart';
@@ -214,23 +213,23 @@ class _StatistikPageState extends State<StatistikPage> {
             const SizedBox(
               height: 50,
             ),
-            const Text(
+            Text(
               "Pencapaian Tidur",
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: 28,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.start,
             ),
-            const Text(
+            Text(
               "Lihatlah grafik tidurmu",
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                   color: Colors.white54,
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -239,7 +238,7 @@ class _StatistikPageState extends State<StatistikPage> {
                     decoration: BoxDecoration(
                         color: const Color.fromRGBO(38, 38, 66, 1),
                         borderRadius: BorderRadius.circular(8)),
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: dropdown(context)),
                 Visibility(
                   visible: _selectedItem == 'Per Minggu',
@@ -248,7 +247,7 @@ class _StatistikPageState extends State<StatistikPage> {
                       decoration: BoxDecoration(
                           color: const Color.fromRGBO(38, 38, 66, 1),
                           borderRadius: BorderRadius.circular(8)),
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: weekDropdown(context)),
                 )
               ],
@@ -261,7 +260,7 @@ class _StatistikPageState extends State<StatistikPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 // margin: EdgeInsets.all(20),
                 decoration: BoxDecoration(border: Border.all()),
                 child: SizedBox(
@@ -294,13 +293,13 @@ class _StatistikPageState extends State<StatistikPage> {
   }
 
   Widget dropdownMonthly(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     );
   }
 
   Widget dropdownWeekly(BuildContext context) {
-    return Row();
+    return const Row();
   }
 
   Widget dropdowns(BuildContext context) {
@@ -325,17 +324,17 @@ class _StatistikPageState extends State<StatistikPage> {
           decoration: BoxDecoration(
               color: const Color.fromRGBO(38, 38, 66, 1),
               borderRadius: BorderRadius.circular(8)),
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: monthDropdown(context),
         ),
-        SizedBox(
+        const SizedBox(
           width: 15,
         ),
         Container(
           decoration: BoxDecoration(
               color: const Color.fromRGBO(38, 38, 66, 1),
               borderRadius: BorderRadius.circular(8)),
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           child: yearDropdown(context),
         ),
       ],
@@ -355,7 +354,7 @@ class _StatistikPageState extends State<StatistikPage> {
                 value: value,
                 child: Text(
                   value,
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 12),
                 ),
               );
             }).toList(),
@@ -384,7 +383,7 @@ class _StatistikPageState extends State<StatistikPage> {
                 value: value,
                 child: Text(
                   value,
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 12),
                 ),
               );
             }).toList(),
@@ -413,7 +412,7 @@ class _StatistikPageState extends State<StatistikPage> {
                 value: value,
                 child: Text(
                   value,
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 12),
                 ),
               );
             }).toList(),
@@ -442,7 +441,7 @@ class _StatistikPageState extends State<StatistikPage> {
                 value: value,
                 child: Text(
                   value.toString(),
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 12),
                 ),
               );
             }).toList(),
@@ -468,33 +467,33 @@ class _StatistikPageState extends State<StatistikPage> {
             borderRadius: BorderRadius.circular(8)),
         child: Visibility(
           visible: _selectedItem == 'Per Minggu',
-          replacement: const Row(
+          replacement: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "Kesimpulan Bulanan",
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
-              Icon(
+              const Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
               )
             ],
           ),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "Kesimpulan Mingguan",
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
-              Icon(
+              const Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
               )

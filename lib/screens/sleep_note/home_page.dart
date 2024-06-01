@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -144,9 +144,9 @@ class _HomePageState extends State<HomePage> {
             ),
 
             _header(),
-            const Text(
+            Text(
               'Catat Tidurmu!',
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 color: Colors.white,
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
@@ -168,14 +168,14 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 8,
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Text(
                     'Catatan Tidur',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                         color: Colors.white,
                         fontSize: 12,
                         fontWeight: FontWeight.bold),
@@ -246,8 +246,8 @@ class _HomePageState extends State<HomePage> {
             return Center(
               child: Text(
                 day.day.toString(),
-                style: const TextStyle(
-                  color: Color(0xFFFFD670),
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFFFFD670),
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   //     .bold,
@@ -281,25 +281,26 @@ class _HomePageState extends State<HomePage> {
         daysHaveCircularBorder: true,
         thisMonthDayBorderColor: Colors.transparent,
         headerMargin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-        daysTextStyle: const TextStyle(color: Colors.white),
-        weekdayTextStyle: const TextStyle(color: Colors.white),
+        daysTextStyle: GoogleFonts.poppins(color: Colors.white),
+
+        weekdayTextStyle: GoogleFonts.poppins(color: Colors.white),
         todayButtonColor: Colors.transparent,
-        todayTextStyle: const TextStyle(color: Colors.white),
+        todayTextStyle: GoogleFonts.poppins(color: Colors.white),
         todayBorderColor: const Color(0xFF5C6AC0),
-        nextDaysTextStyle: TextStyle(color: Colors.grey[600]),
-        prevDaysTextStyle: TextStyle(color: Colors.grey[600]),
-        weekendTextStyle: const TextStyle(color: Colors.white),
+        nextDaysTextStyle: GoogleFonts.poppins(color: Colors.grey[600]),
+        prevDaysTextStyle: GoogleFonts.poppins(color: Colors.grey[600]),
+        weekendTextStyle: GoogleFonts.poppins(color: Colors.white),
         selectedDayButtonColor: const Color(0xFF5C6AC0),
         selectedDayBorderColor: const Color(0xFF5C6AC0),
         headerTitleTouchable: true,
         onHeaderTitlePressed: () => _selectDate(),
-        headerTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+        headerTextStyle: GoogleFonts.poppins(color: Colors.white, fontSize: 20),
         // pageScrollPhysics: const NeverScrollableScrollPhysics(),
         iconColor: Colors.white,
         maxSelectedDate: DateTime.now(),
         minSelectedDate: DateTime(2023, 1, 1),
-        inactiveDaysTextStyle: TextStyle(color: Colors.grey[700]),
-        inactiveWeekendTextStyle: TextStyle(color: Colors.grey[700]),
+        inactiveDaysTextStyle: GoogleFonts.poppins(color: Colors.grey[700]),
+        inactiveWeekendTextStyle: GoogleFonts.poppins(color: Colors.grey[700]),
         // isScrollable: true,
         showOnlyCurrentMonthDate: true,
 
@@ -332,7 +333,7 @@ class _HomePageState extends State<HomePage> {
                     Obx(
                       () => Text(
                         "Halo, ${controller.user.value.name.split(' ')[0]}!",
-                        style: const TextStyle(
+                        style: GoogleFonts.poppins(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -342,10 +343,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Text(
+                    Text(
                       "Optimalkan Waktu Tidurmu",
-                      style: TextStyle(
-                        fontSize: 13,
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
                         color: Colors.white,
                       ),
                     ),
@@ -380,6 +381,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       cancelText: 'Batal',
       confirmText: 'Simpan',
+      helpText: 'Pilih Waktu Reminder',
       initialTime:
           TimeOfDay(hour: reminderTime.hour, minute: reminderTime.minute),
       builder: (BuildContext context, Widget? child) {
@@ -432,7 +434,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: Text(
                     '${reminderTime.hour.toString().padLeft(2, '0')} : ${reminderTime.minute.toString().padLeft(2, '0')}',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
                         color: active ? Colors.white : Colors.grey),
@@ -455,14 +457,14 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Text(
                       active ? 'Reminder' : 'Aktifkan',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         color: active ? Colors.white : Colors.grey,
                         fontSize: 10,
                       ),
                     ),
                     Text(
                       active ? 'Aktif' : 'Reminder',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         color: active ? Colors.white : Colors.grey,
                         fontSize: 10,
                       ),
@@ -495,14 +497,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _textReminder() {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
             'Reminder Waktu Tidur',
-            style: TextStyle(
+            style: GoogleFonts.poppins(
                 color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
           ),
         ),
@@ -529,7 +531,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text(
                   DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
-                  style: const TextStyle(
+                  style: GoogleFonts.poppins(
                     fontSize: 10,
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
@@ -600,9 +602,9 @@ class _HomePageState extends State<HomePage> {
                                           fit: BoxFit.cover,
                                         ),
                                         const SizedBox(height: 8),
-                                        const Text(
+                                        Text(
                                           "Apakah Anda yakin ingin menghapus data?",
-                                          style: TextStyle(
+                                          style: GoogleFonts.poppins(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white),
@@ -630,9 +632,9 @@ class _HomePageState extends State<HomePage> {
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },
-                                              child: const Text(
+                                              child: Text(
                                                 "Batal",
-                                                style: TextStyle(
+                                                style: GoogleFonts.poppins(
                                                     color: Colors.white),
                                               ),
                                             ),
@@ -653,9 +655,9 @@ class _HomePageState extends State<HomePage> {
                                                 SleepDiaryRepository
                                                     .deleteSleepDiary();
                                               },
-                                              child: const Text(
+                                              child: Text(
                                                 "Hapus",
-                                                style: TextStyle(
+                                                style: GoogleFonts.poppins(
                                                     color: Colors.white),
                                               ),
                                             ),
@@ -680,11 +682,12 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 5),
             HomePage.sleepDiaryController.sleepDiary.value.sleepDate == ''
-                ? const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 40, horizontal: 5),
+                ? Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 40, horizontal: 5),
                     child: Text(
                       'Tidak ada data tidur hari ini',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         fontSize: 12,
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
@@ -706,7 +709,7 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(width: 4),
                               Text(
                                 '${HomePage.sleepDiaryController.sleepDiary.value.sleepTime} - ${HomePage.sleepDiaryController.sleepDiary.value.wakeupTime}',
-                                style: const TextStyle(
+                                style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
@@ -743,7 +746,7 @@ class _HomePageState extends State<HomePage> {
                                       Flexible(
                                         child: Text(
                                           "${getSleepScaleText(HomePage.sleepDiaryController.sleepDiary.value.scale)}${getConjunction(calculateTimeDifference(HomePage.sleepDiaryController.sleepDiary.value.wakeupTime, HomePage.sleepDiaryController.sleepDiary.value.sleepTime), HomePage.sleepDiaryController.sleepDiary.value.scale)}",
-                                          style: const TextStyle(
+                                          style: GoogleFonts.poppins(
                                             fontSize: 12,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w600,
@@ -770,7 +773,7 @@ class _HomePageState extends State<HomePage> {
                                                     .value
                                                     .sleepTime),
                                           ),
-                                          style: const TextStyle(
+                                          style: GoogleFonts.poppins(
                                             fontSize: 12,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w600,
@@ -855,11 +858,11 @@ final _timePickerTheme = TimePickerThemeData(
   ),
   dialHandColor: const Color(0xFF5C6AC0),
   dialBackgroundColor: const Color.fromRGBO(38, 38, 66, 1),
-  hourMinuteTextStyle: const TextStyle(
+  hourMinuteTextStyle: GoogleFonts.poppins(
       fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-  dayPeriodTextStyle: const TextStyle(
+  dayPeriodTextStyle: GoogleFonts.poppins(
       fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
-  helpTextStyle: const TextStyle(
+  helpTextStyle: GoogleFonts.poppins(
       fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
   inputDecorationTheme: const InputDecorationTheme(
     border: OutlineInputBorder(
@@ -1028,7 +1031,7 @@ Widget durationBadge(TimeDifference duration) {
     ),
     child: Text(
       duration.hour > 0 ? '${duration.hour} Jam' : '${duration.minute} Menit',
-      style: const TextStyle(
+      style: GoogleFonts.poppins(
         fontSize: 11,
         color: Colors.white,
         fontWeight: FontWeight.w600,

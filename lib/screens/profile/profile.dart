@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/screens/profile/update_profile.dart';
@@ -30,7 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const CircleAvatar(
               radius: 80,
               backgroundColor: Colors.transparent,
-              backgroundImage: AssetImage('assets/images/profile.png'),
+              backgroundImage: AssetImage('assets/images/propil.png'),
             ),
             const SizedBox(
               height: 20,
@@ -38,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Obx(
               () => Text(
                 controller.user.value.name,
-                style: const TextStyle(
+                style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -52,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
             Obx(
               () => Text(
                 controller.user.value.email,
-                style: const TextStyle(
+                style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: 14,
                 ),
@@ -72,17 +73,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 height: 60,
                 decoration: BoxDecoration(
                   color: const Color.fromRGBO(38, 38, 66, 1),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(14),
                 ),
                 child: Center(
                   child: Text(
-                    "Edit Profile",
-                    style: TextStyle(color: Colors.white),
+                    "Edit Profil",
+                    style: GoogleFonts.poppins(color: Colors.white),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Obx(
@@ -109,9 +110,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                     fit: BoxFit.cover,
                                   ),
                                   const SizedBox(height: 8),
-                                  const Text(
+                                  Text(
                                     'Apakah Anda yakin ingin logout?',
-                                    style: TextStyle(
+                                    style: GoogleFonts.poppins(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
@@ -136,9 +137,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         onPressed: () {
                                           Navigator.of(context).pop(false);
                                         },
-                                        child: const Text(
+                                        child: Text(
                                           'Batal',
-                                          style: TextStyle(color: Colors.white),
+                                          style: GoogleFonts.poppins(
+                                              color: Colors.white),
                                         ),
                                       ),
                                     ),
@@ -155,9 +157,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         onPressed: () {
                                           Navigator.of(context).pop(true);
                                         },
-                                        child: const Text(
+                                        child: Text(
                                           'Logout',
-                                          style: TextStyle(color: Colors.white),
+                                          style: GoogleFonts.poppins(
+                                              color: Colors.white),
                                         ),
                                       ),
                                     ),
@@ -179,16 +182,16 @@ class _ProfilePageState extends State<ProfilePage> {
                         ? const Color.fromARGB(255, 167, 21, 21)
                             .withOpacity(0.6)
                         : const Color.fromARGB(255, 167, 21, 21),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                   child: Center(
                     child: AuthenticationRepository.instance.isLoading.isTrue
                         ? const CircularProgressIndicator(
                             color: Colors.white,
                           )
-                        : const Text(
+                        : Text(
                             "Logout",
-                            style: TextStyle(color: Colors.white),
+                            style: GoogleFonts.poppins(color: Colors.white),
                           ),
                   ),
                 ),

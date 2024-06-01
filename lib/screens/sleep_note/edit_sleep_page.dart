@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:sleep_diary_mobile/main.dart';
@@ -91,9 +92,9 @@ class _EditSleepPageState extends State<EditSleepPage> {
                       fit: BoxFit.cover,
                     ),
                     const SizedBox(height: 8),
-                    const Text(
+                    Text(
                       "Apakah Anda yakin ingin keluar dari halaman ini? Data yang belum tersimpan akan hilang",
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
@@ -116,9 +117,9 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Text(
+                          child: Text(
                             "Batal",
-                            style: TextStyle(color: Colors.white),
+                            style: GoogleFonts.poppins(color: Colors.white),
                           ),
                         ),
                       ),
@@ -134,9 +135,9 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           onPressed: () {
                             Get.offAll(() => const MainPage());
                           },
-                          child: const Text(
+                          child: Text(
                             "Keluar",
-                            style: TextStyle(color: Colors.white),
+                            style: GoogleFonts.poppins(color: Colors.white),
                           ),
                         ),
                       ),
@@ -156,7 +157,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
           backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
           title: Text(
             DateFormat.yMMMMEEEEd('id_ID').format(HomePage.today),
-            style: const TextStyle(
+            style: GoogleFonts.poppins(
                 fontSize: 25, fontWeight: FontWeight.w800, color: Colors.white),
           ),
           leading: Padding(
@@ -257,7 +258,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                         ? const Color.fromARGB(255, 255, 255, 255)
                             .withOpacity(0.8)
                         : const Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                   child: Center(
                     child: isLoading
@@ -266,7 +267,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           )
                         : Text(
                             "Update",
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                                 color: isChange ? Colors.black : Colors.grey),
                           ),
                   ),
@@ -289,9 +290,9 @@ class _EditSleepPageState extends State<EditSleepPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(children: [
-              const Text(
+              Text(
                 "SleepDiary",
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w300,
                     color: Colors.white),
@@ -306,18 +307,18 @@ class _EditSleepPageState extends State<EditSleepPage> {
       aspectRatio: 336 / 130,
       child: Column(
         children: [
-          const Text("Edit Data Tidurmu",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          Text("Edit Data Tidurmu",
+              style: GoogleFonts.poppins(
+                  color: Colors.white, fontWeight: FontWeight.bold)),
           const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
                 children: [
-                  const Text(
+                  Text(
                     'Tidur',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 14,
                       color: Colors.white,
                     ),
@@ -325,7 +326,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                   const SizedBox(height: 10),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(14),
                       color: Colors.white24,
                     ),
                     padding:
@@ -343,23 +344,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           time1.value = [pickedTime.hour, pickedTime.minute];
                           setState(() {
                             isChange = (pickedTime.hour !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[0]) ||
-                                pickedTime.minute !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[1]) ||
-                                time2.value[0] !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[0]) ||
-                                time2.value[1] !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[1]) ||
-                                scale.value != sleepDiary!.scale  ||
-                                !listEquals(factors, sleepDiary!.factors) ||
-                                (description.text != sleepDiary!.description &&
-                                    description.text.trim() != "")) &&
-                                    ((scale.value < 4 && factors.isNotEmpty) ||
-                                        scale.value >= 4);
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[0]) ||
+                                    pickedTime.minute !=
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[1]) ||
+                                    time2.value[0] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[0]) ||
+                                    time2.value[1] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[1]) ||
+                                    scale.value != sleepDiary!.scale ||
+                                    !listEquals(factors, sleepDiary!.factors) ||
+                                    (description.text != sleepDiary!.description &&
+                                        description.text.trim() != "")) &&
+                                ((scale.value < 4 && factors.isNotEmpty) ||
+                                    scale.value >= 4);
                           });
                         }
                       },
@@ -370,7 +371,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                             builder: (context, value, child) {
                               return Text(
                                 '${value[0].toString().padLeft(2, '0')}:${value[1].toString().padLeft(2, '0')}',
-                                style: const TextStyle(
+                                style: GoogleFonts.poppins(
                                   fontSize: 30,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white,
@@ -389,9 +390,9 @@ class _EditSleepPageState extends State<EditSleepPage> {
               ),
               Column(
                 children: [
-                  const Text(
+                  Text(
                     'Bangun',
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 14,
                       color: Colors.white,
                     ),
@@ -399,7 +400,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                   const SizedBox(height: 10),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(14),
                       color: Colors.white24,
                     ),
                     padding:
@@ -417,23 +418,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           time2.value = [pickedTime.hour, pickedTime.minute];
                           setState(() {
                             isChange = (time1.value[0] !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[0]) ||
-                                time1.value[1] !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[1]) ||
-                                pickedTime.hour !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[0]) ||
-                                pickedTime.minute !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[1]) ||
-                                scale.value != sleepDiary!.scale  ||
-                                !listEquals(factors, sleepDiary!.factors) ||
-                                (description.text != sleepDiary!.description &&
-                                    description.text.trim() != "")) &&
-                                    ((scale.value < 4 && factors.isNotEmpty) ||
-                                        scale.value >= 4);
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[0]) ||
+                                    time1.value[1] !=
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[1]) ||
+                                    pickedTime.hour !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[0]) ||
+                                    pickedTime.minute !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[1]) ||
+                                    scale.value != sleepDiary!.scale ||
+                                    !listEquals(factors, sleepDiary!.factors) ||
+                                    (description.text != sleepDiary!.description &&
+                                        description.text.trim() != "")) &&
+                                ((scale.value < 4 && factors.isNotEmpty) ||
+                                    scale.value >= 4);
                           });
                         }
                       },
@@ -444,7 +445,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                             builder: (context, value, child) {
                               return Text(
                                 '${value[0].toString().padLeft(2, '0')}:${value[1].toString().padLeft(2, '0')}',
-                                style: const TextStyle(
+                                style: GoogleFonts.poppins(
                                   fontSize: 30,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white,
@@ -473,17 +474,17 @@ class _EditSleepPageState extends State<EditSleepPage> {
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: Colors.white24),
+          borderRadius: BorderRadius.circular(14), color: Colors.white24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
                   "Bagaimana kualitas tidurmu?",
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
@@ -517,23 +518,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           print("${factors} : ${sleepDiary!.factors}");
                           setState(() {
                             isChange = (time1.value[0] !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[0]) ||
-                                time1.value[1] !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[1]) ||
-                                time2.value[0] !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[0]) ||
-                                time2.value[1] !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[1]) ||
-                                1 != sleepDiary!.scale  ||
-                                !listEquals(factors, sleepDiary!.factors) ||
-                                (description.text != sleepDiary!.description &&
-                                    description.text.trim() != "")) &&
-                                    ((1 < 4 && factors.isNotEmpty) ||
-                                        1 >= 4);
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[0]) ||
+                                    time1.value[1] !=
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[1]) ||
+                                    time2.value[0] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[0]) ||
+                                    time2.value[1] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[1]) ||
+                                    1 != sleepDiary!.scale ||
+                                    !listEquals(factors, sleepDiary!.factors) ||
+                                    (description.text !=
+                                            sleepDiary!.description &&
+                                        description.text.trim() != "")) &&
+                                ((1 < 4 && factors.isNotEmpty) || 1 >= 4);
                           });
                           print(scale);
                         },
@@ -571,23 +572,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           print("${factors} : ${sleepDiary!.factors}");
                           setState(() {
                             isChange = (time1.value[0] !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[0]) ||
-                                time1.value[1] !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[1]) ||
-                                time2.value[0] !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[0]) ||
-                                time2.value[1] !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[1]) ||
-                                2 != sleepDiary!.scale  ||
-                                !listEquals(factors, sleepDiary!.factors) ||
-                                (description.text != sleepDiary!.description &&
-                                    description.text.trim() != "")) &&
-                                    ((2 < 4 && factors.isNotEmpty) ||
-                                        2 >= 4);
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[0]) ||
+                                    time1.value[1] !=
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[1]) ||
+                                    time2.value[0] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[0]) ||
+                                    time2.value[1] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[1]) ||
+                                    2 != sleepDiary!.scale ||
+                                    !listEquals(factors, sleepDiary!.factors) ||
+                                    (description.text !=
+                                            sleepDiary!.description &&
+                                        description.text.trim() != "")) &&
+                                ((2 < 4 && factors.isNotEmpty) || 2 >= 4);
                           });
                           print(scale);
                         },
@@ -624,21 +625,24 @@ class _EditSleepPageState extends State<EditSleepPage> {
                               "Faktor: ${listEquals(factors, sleepDiary!.factors)}");
                           print("${factors} : ${sleepDiary!.factors}");
                           setState(() {
-                            isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
-                                          time1.value[1] !=
-                                              int.parse(sleepDiary!.sleepTime
-                                                  .split(":")[1]) ||
-                                          time2.value[0] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[0]) ||
-                                          time2.value[1] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[1]) ||
-                                          scale.value != sleepDiary!.scale ||
-                                          !listEquals(factors, sleepDiary!.factors) ||
-                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
-                                    ((3 < 4 && factors.isNotEmpty) ||
-                                        3 >= 4);
+                            isChange = (time1.value[0] !=
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[0]) ||
+                                    time1.value[1] !=
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[1]) ||
+                                    time2.value[0] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[0]) ||
+                                    time2.value[1] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[1]) ||
+                                    scale.value != sleepDiary!.scale ||
+                                    !listEquals(factors, sleepDiary!.factors) ||
+                                    (description.text !=
+                                            sleepDiary!.description &&
+                                        description.text.trim() != "")) &&
+                                ((3 < 4 && factors.isNotEmpty) || 3 >= 4);
                           });
                           print(scale);
                         },
@@ -686,23 +690,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
 
                           setState(() {
                             isChange = (time1.value[0] !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[0]) ||
-                                time1.value[1] !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[1]) ||
-                                time2.value[0] !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[0]) ||
-                                time2.value[1] !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[1]) ||
-                                4 != sleepDiary!.scale ||
-                                !listEquals(factors, sleepDiary!.factors) ||
-                                (description.text != sleepDiary!.description &&
-                                    description.text.trim() != "")) &&
-                                    ((4 < 4 && factors.isNotEmpty) ||
-                                        4 >= 4);
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[0]) ||
+                                    time1.value[1] !=
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[1]) ||
+                                    time2.value[0] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[0]) ||
+                                    time2.value[1] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[1]) ||
+                                    4 != sleepDiary!.scale ||
+                                    !listEquals(factors, sleepDiary!.factors) ||
+                                    (description.text !=
+                                            sleepDiary!.description &&
+                                        description.text.trim() != "")) &&
+                                ((4 < 4 && factors.isNotEmpty) || 4 >= 4);
                           });
                         },
                         child: Ink.image(
@@ -749,23 +753,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
 
                           setState(() {
                             isChange = (time1.value[0] !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[0]) ||
-                                time1.value[1] !=
-                                    int.parse(
-                                        sleepDiary!.sleepTime.split(":")[1]) ||
-                                time2.value[0] !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[0]) ||
-                                time2.value[1] !=
-                                    int.parse(
-                                        sleepDiary!.wakeupTime.split(":")[1]) ||
-                                5 != sleepDiary!.scale ||
-                                !listEquals(factors, sleepDiary!.factors) ||
-                                (description.text != sleepDiary!.description &&
-                                    description.text.trim() != "")) &&
-                                    ((5 < 4 && factors.isNotEmpty) ||
-                                        5 >= 4);
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[0]) ||
+                                    time1.value[1] !=
+                                        int.parse(sleepDiary!.sleepTime
+                                            .split(":")[1]) ||
+                                    time2.value[0] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[0]) ||
+                                    time2.value[1] !=
+                                        int.parse(sleepDiary!.wakeupTime
+                                            .split(":")[1]) ||
+                                    5 != sleepDiary!.scale ||
+                                    !listEquals(factors, sleepDiary!.factors) ||
+                                    (description.text !=
+                                            sleepDiary!.description &&
+                                        description.text.trim() != "")) &&
+                                ((5 < 4 && factors.isNotEmpty) || 5 >= 4);
                           });
                         },
                         child: Ink.image(
@@ -810,15 +814,15 @@ class _EditSleepPageState extends State<EditSleepPage> {
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(14),
                     color: Colors.white24),
                 child: Column(children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         "Faktor",
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                             color: Colors.white),
@@ -850,21 +854,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     selectedFactors.notifyListeners();
 
                                     setState(() {
-                                      isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
-                                          time1.value[1] !=
-                                              int.parse(sleepDiary!.sleepTime
-                                                  .split(":")[1]) ||
-                                          time2.value[0] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[0]) ||
-                                          time2.value[1] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[1]) ||
-                                          scale.value != sleepDiary!.scale ||
-                                          !listEquals(factors, sleepDiary!.factors) ||
-                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
-                                    ((scale.value < 4 && factors.isNotEmpty) ||
-                                        scale.value >= 4);
+                                      isChange = (time1.value[0] !=
+                                                  int.parse(sleepDiary!.sleepTime
+                                                      .split(":")[0]) ||
+                                              time1.value[1] !=
+                                                  int.parse(sleepDiary!.sleepTime
+                                                      .split(":")[1]) ||
+                                              time2.value[0] !=
+                                                  int.parse(sleepDiary!
+                                                      .wakeupTime
+                                                      .split(":")[0]) ||
+                                              time2.value[1] !=
+                                                  int.parse(
+                                                      sleepDiary!.wakeupTime.split(":")[1]) ||
+                                              scale.value != sleepDiary!.scale ||
+                                              !listEquals(factors, sleepDiary!.factors) ||
+                                              (description.text != sleepDiary!.description && description.text.trim() != "")) &&
+                                          ((scale.value < 4 && factors.isNotEmpty) || scale.value >= 4);
                                     });
                                   },
                                   child: Container(
@@ -883,9 +889,9 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                                   Colors.transparent,
                                                   BlendMode.color)),
                                       const SizedBox(height: 5),
-                                      const Text(
+                                      Text(
                                         "Lingkungan",
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
@@ -912,21 +918,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     selectedFactors.notifyListeners();
 
                                     setState(() {
-                                      isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
-                                          time1.value[1] !=
-                                              int.parse(sleepDiary!.sleepTime
-                                                  .split(":")[1]) ||
-                                          time2.value[0] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[0]) ||
-                                          time2.value[1] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[1]) ||
-                                          scale.value != sleepDiary!.scale ||
-                                          !listEquals(factors, sleepDiary!.factors) ||
-                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
-                                    ((scale.value < 4 && factors.isNotEmpty) ||
-                                        scale.value >= 4);
+                                      isChange = (time1.value[0] !=
+                                                  int.parse(sleepDiary!.sleepTime
+                                                      .split(":")[0]) ||
+                                              time1.value[1] !=
+                                                  int.parse(sleepDiary!.sleepTime
+                                                      .split(":")[1]) ||
+                                              time2.value[0] !=
+                                                  int.parse(sleepDiary!
+                                                      .wakeupTime
+                                                      .split(":")[0]) ||
+                                              time2.value[1] !=
+                                                  int.parse(
+                                                      sleepDiary!.wakeupTime.split(":")[1]) ||
+                                              scale.value != sleepDiary!.scale ||
+                                              !listEquals(factors, sleepDiary!.factors) ||
+                                              (description.text != sleepDiary!.description && description.text.trim() != "")) &&
+                                          ((scale.value < 4 && factors.isNotEmpty) || scale.value >= 4);
                                     });
                                   },
                                   child: Container(
@@ -945,9 +953,9 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                                   Colors.transparent,
                                                   BlendMode.color)),
                                       const SizedBox(height: 5),
-                                      const Text(
+                                      Text(
                                         "Stress",
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
@@ -974,21 +982,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     selectedFactors.notifyListeners();
 
                                     setState(() {
-                                      isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
-                                          time1.value[1] !=
-                                              int.parse(sleepDiary!.sleepTime
-                                                  .split(":")[1]) ||
-                                          time2.value[0] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[0]) ||
-                                          time2.value[1] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[1]) ||
-                                          scale.value != sleepDiary!.scale ||
-                                          !listEquals(factors, sleepDiary!.factors) ||
-                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
-                                    ((scale.value < 4 && factors.isNotEmpty) ||
-                                        scale.value >= 4);
+                                      isChange = (time1.value[0] !=
+                                                  int.parse(sleepDiary!.sleepTime
+                                                      .split(":")[0]) ||
+                                              time1.value[1] !=
+                                                  int.parse(sleepDiary!.sleepTime
+                                                      .split(":")[1]) ||
+                                              time2.value[0] !=
+                                                  int.parse(sleepDiary!
+                                                      .wakeupTime
+                                                      .split(":")[0]) ||
+                                              time2.value[1] !=
+                                                  int.parse(
+                                                      sleepDiary!.wakeupTime.split(":")[1]) ||
+                                              scale.value != sleepDiary!.scale ||
+                                              !listEquals(factors, sleepDiary!.factors) ||
+                                              (description.text != sleepDiary!.description && description.text.trim() != "")) &&
+                                          ((scale.value < 4 && factors.isNotEmpty) || scale.value >= 4);
                                     });
                                   },
                                   child: Container(
@@ -1007,9 +1017,9 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                                   Colors.transparent,
                                                   BlendMode.color)),
                                       const SizedBox(height: 5),
-                                      const Text(
+                                      Text(
                                         "Sakit",
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                             color: Colors.white, fontSize: 12),
                                       ),
                                     ],
@@ -1034,21 +1044,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     selectedFactors.notifyListeners();
 
                                     setState(() {
-                                     isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
-                                          time1.value[1] !=
-                                              int.parse(sleepDiary!.sleepTime
-                                                  .split(":")[1]) ||
-                                          time2.value[0] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[0]) ||
-                                          time2.value[1] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[1]) ||
-                                          scale.value != sleepDiary!.scale ||
-                                          !listEquals(factors, sleepDiary!.factors) ||
-                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
-                                    ((scale.value < 4 && factors.isNotEmpty) ||
-                                        scale.value >= 4);
+                                      isChange = (time1.value[0] !=
+                                                  int.parse(sleepDiary!.sleepTime
+                                                      .split(":")[0]) ||
+                                              time1.value[1] !=
+                                                  int.parse(sleepDiary!.sleepTime
+                                                      .split(":")[1]) ||
+                                              time2.value[0] !=
+                                                  int.parse(sleepDiary!
+                                                      .wakeupTime
+                                                      .split(":")[0]) ||
+                                              time2.value[1] !=
+                                                  int.parse(
+                                                      sleepDiary!.wakeupTime.split(":")[1]) ||
+                                              scale.value != sleepDiary!.scale ||
+                                              !listEquals(factors, sleepDiary!.factors) ||
+                                              (description.text != sleepDiary!.description && description.text.trim() != "")) &&
+                                          ((scale.value < 4 && factors.isNotEmpty) || scale.value >= 4);
                                     });
                                   },
                                   child: Container(
@@ -1067,9 +1079,9 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                                   Colors.transparent,
                                                   BlendMode.color)),
                                       const SizedBox(height: 5),
-                                      const Text(
+                                      Text(
                                         "Gelisah",
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
@@ -1096,21 +1108,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     selectedFactors.notifyListeners();
 
                                     setState(() {
-                                      isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
-                                          time1.value[1] !=
-                                              int.parse(sleepDiary!.sleepTime
-                                                  .split(":")[1]) ||
-                                          time2.value[0] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[0]) ||
-                                          time2.value[1] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[1]) ||
-                                          scale.value != sleepDiary!.scale ||
-                                          !listEquals(factors, sleepDiary!.factors) ||
-                                          (description.text != sleepDiary!.description && description.text.trim() != "")) &&
-                                    ((scale.value < 4 && factors.isNotEmpty) ||
-                                        scale.value >= 4);
+                                      isChange = (time1.value[0] !=
+                                                  int.parse(sleepDiary!.sleepTime
+                                                      .split(":")[0]) ||
+                                              time1.value[1] !=
+                                                  int.parse(sleepDiary!.sleepTime
+                                                      .split(":")[1]) ||
+                                              time2.value[0] !=
+                                                  int.parse(sleepDiary!
+                                                      .wakeupTime
+                                                      .split(":")[0]) ||
+                                              time2.value[1] !=
+                                                  int.parse(
+                                                      sleepDiary!.wakeupTime.split(":")[1]) ||
+                                              scale.value != sleepDiary!.scale ||
+                                              !listEquals(factors, sleepDiary!.factors) ||
+                                              (description.text != sleepDiary!.description && description.text.trim() != "")) &&
+                                          ((scale.value < 4 && factors.isNotEmpty) || scale.value >= 4);
                                     });
                                   },
                                   child: Container(
@@ -1130,9 +1144,9 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                                 BlendMode.color),
                                       ),
                                       const SizedBox(height: 5),
-                                      const Text(
+                                      Text(
                                         "Terbangun",
-                                        style: TextStyle(
+                                        style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           fontSize: 12,
                                         ),
@@ -1157,22 +1171,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
                   color: Colors.white24,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Good Job!',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                           fontSize: 24,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       'Tingkatkan',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: GoogleFonts.poppins(
+                          fontSize: 20, color: Colors.white),
                     ),
                   ],
                 ),
@@ -1191,22 +1206,23 @@ class _EditSleepPageState extends State<EditSleepPage> {
                   color: Colors.white24,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Perfect!',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                           fontSize: 24,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       'Pertahankan',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: GoogleFonts.poppins(
+                          fontSize: 20, color: Colors.white),
                     ),
                   ],
                 ),
@@ -1222,16 +1238,16 @@ class _EditSleepPageState extends State<EditSleepPage> {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(14),
           color: Colors.white24,
         ),
         padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Ceritakan tidurmu",
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
@@ -1242,25 +1258,28 @@ class _EditSleepPageState extends State<EditSleepPage> {
               child: TextField(
                 onChanged: (value) {
                   setState(() {
-                    isChange = (time1.value[0] != int.parse(sleepDiary!.sleepTime.split(":")[0]) ||
-                                          time1.value[1] !=
-                                              int.parse(sleepDiary!.sleepTime
-                                                  .split(":")[1]) ||
-                                          time2.value[0] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[0]) ||
-                                          time2.value[1] !=
-                                              int.parse(sleepDiary!.wakeupTime
-                                                  .split(":")[1]) ||
-                                          scale.value != sleepDiary!.scale ||
-                                          !listEquals(factors, sleepDiary!.factors) ||
-                                          (value != sleepDiary!.description && value.trim() != "")) &&
-                                    ((scale.value < 4 && factors.isNotEmpty) ||
-                                        scale.value >= 4);
+                    isChange = (time1.value[0] !=
+                                int.parse(
+                                    sleepDiary!.sleepTime.split(":")[0]) ||
+                            time1.value[1] !=
+                                int.parse(
+                                    sleepDiary!.sleepTime.split(":")[1]) ||
+                            time2.value[0] !=
+                                int.parse(
+                                    sleepDiary!.wakeupTime.split(":")[0]) ||
+                            time2.value[1] !=
+                                int.parse(
+                                    sleepDiary!.wakeupTime.split(":")[1]) ||
+                            scale.value != sleepDiary!.scale ||
+                            !listEquals(factors, sleepDiary!.factors) ||
+                            (value != sleepDiary!.description &&
+                                value.trim() != "")) &&
+                        ((scale.value < 4 && factors.isNotEmpty) ||
+                            scale.value >= 4);
                   });
                 },
                 controller: description,
-                style: const TextStyle(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.white),
                 decoration: const InputDecoration(
                   filled: true,
                   fillColor: Colors.transparent,
@@ -1301,16 +1320,17 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text(
+                              child: Text(
                                 "Sangat Buruk",
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Tidur sangat buruk dan tidak memuaskan. Merasa sangat lelah dan tidak segar saat bangun pagi.',
                               textAlign: TextAlign.justify,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.poppins(fontSize: 12),
                             ),
                           ],
                         ),
@@ -1335,16 +1355,17 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text(
+                              child: Text(
                                 "Buruk",
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Tidur kurang baik, tetapi tidak seburuk skala 1. Merasa lelah atau kurang segar saat bangun pagi.',
                               textAlign: TextAlign.justify,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.poppins(fontSize: 12),
                             ),
                           ],
                         ),
@@ -1369,16 +1390,17 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text(
+                              child: Text(
                                 "Cukup",
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Tidur relatif stabil tanpa terlalu banyak gangguan. Bangun pagi dengan segar, tetapi masih ada kelelahan.',
                               textAlign: TextAlign.justify,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.poppins(fontSize: 12),
                             ),
                           ],
                         ),
@@ -1403,16 +1425,17 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text(
+                              child: Text(
                                 "Baik",
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Tidur sangat baik dan nyenyak sepanjang malam. Bangun pagi dengan perasaan segar dan bertenaga.',
                               textAlign: TextAlign.justify,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.poppins(fontSize: 12),
                             ),
                           ],
                         ),
@@ -1437,16 +1460,17 @@ class _EditSleepPageState extends State<EditSleepPage> {
                           children: <Widget>[
                             Title(
                               color: Colors.black,
-                              child: const Text(
+                              child: Text(
                                 "Sangat Baik",
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
-                            const Text(
+                            Text(
                               'Tidur sangat luar biasa, sangat nyenyak dan puas. Bangun pagi dengan perasaan segar bersemangat dan penuh energi.',
                               textAlign: TextAlign.justify,
-                              style: TextStyle(fontSize: 12),
+                              style: GoogleFonts.poppins(fontSize: 12),
                             ),
                           ],
                         ),
@@ -1470,9 +1494,9 @@ class _EditSleepPageState extends State<EditSleepPage> {
                     minimumSize: MaterialStateProperty.all(
                         const Size(double.infinity, 50)),
                   ),
-                  child: const Text(
+                  child: Text(
                     "Mengerti",
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       color: Colors.white,
                     ),
                   ),
