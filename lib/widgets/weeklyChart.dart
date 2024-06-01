@@ -122,7 +122,12 @@ class _WeeklyChartState extends State<WeeklyChart> {
           Widget imageWidget = SizedBox();
           switch (value.toInt()) {
             case 1:
-              imageWidget = Image.asset('assets/images/skalabulan1.png');
+              imageWidget = Container(
+                margin: const EdgeInsets.only(right: 0.0),
+                child: Image.asset('assets/images/skalabulan2.png'),
+              );
+              
+
               break;
             case 2:
               imageWidget = Image.asset('assets/images/skalabulan2.png');
