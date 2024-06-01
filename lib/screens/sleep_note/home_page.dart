@@ -282,6 +282,7 @@ class _HomePageState extends State<HomePage> {
         thisMonthDayBorderColor: Colors.transparent,
         headerMargin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
         daysTextStyle: GoogleFonts.poppins(color: Colors.white),
+
         weekdayTextStyle: GoogleFonts.poppins(color: Colors.white),
         todayButtonColor: Colors.transparent,
         todayTextStyle: GoogleFonts.poppins(color: Colors.white),
@@ -380,6 +381,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       cancelText: 'Batal',
       confirmText: 'Simpan',
+      helpText: 'Pilih Waktu Reminder',
       initialTime:
           TimeOfDay(hour: reminderTime.hour, minute: reminderTime.minute),
       builder: (BuildContext context, Widget? child) {
@@ -856,11 +858,11 @@ final _timePickerTheme = TimePickerThemeData(
   ),
   dialHandColor: const Color(0xFF5C6AC0),
   dialBackgroundColor: const Color.fromRGBO(38, 38, 66, 1),
-  hourMinuteTextStyle: const TextStyle(
+  hourMinuteTextStyle: GoogleFonts.poppins(
       fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-  dayPeriodTextStyle: const TextStyle(
+  dayPeriodTextStyle: GoogleFonts.poppins(
       fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
-  helpTextStyle: const TextStyle(
+  helpTextStyle: GoogleFonts.poppins(
       fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
   inputDecorationTheme: const InputDecorationTheme(
     border: OutlineInputBorder(
@@ -1029,7 +1031,7 @@ Widget durationBadge(TimeDifference duration) {
     ),
     child: Text(
       duration.hour > 0 ? '${duration.hour} Jam' : '${duration.minute} Menit',
-      style: const TextStyle(
+      style: GoogleFonts.poppins(
         fontSize: 11,
         color: Colors.white,
         fontWeight: FontWeight.w600,

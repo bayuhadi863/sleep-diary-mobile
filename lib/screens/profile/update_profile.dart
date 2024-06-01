@@ -36,7 +36,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
           },
         ),
         title: Text(
-          'Update Profile',
+          'Edit Profil',
           style: GoogleFonts.poppins(
             color: Colors.white,
             fontSize: 22,
@@ -54,7 +54,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               const CircleAvatar(
                 radius: 80,
                 backgroundColor: Colors.transparent,
-                backgroundImage: AssetImage('assets/images/profile.png'),
+                backgroundImage: AssetImage('assets/images/propil.png'),
               ),
               const SizedBox(height: 40),
               Padding(

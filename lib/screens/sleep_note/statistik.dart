@@ -441,7 +441,7 @@ class _StatistikPageState extends State<StatistikPage> {
                 value: value,
                 child: Text(
                   value.toString(),
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 12),
                 ),
               );
             }).toList(),

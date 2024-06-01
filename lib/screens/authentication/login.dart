@@ -3,6 +3,7 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/authentication/login_controller.dart';
 import 'package:sleep_diary_mobile/screens/authentication/signup.dart';
 import 'package:sleep_diary_mobile/utils/validators/validation.dart';
@@ -16,8 +17,6 @@ class LoginScreen extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () {
-        
-
         return Future.value(false);
       },
       child: Scaffold(
@@ -42,9 +41,9 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(
                         width: 15,
                       ),
-                      const Text(
+                      Text(
                         'SleepDiary',
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
                         ),
@@ -52,12 +51,12 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
-                  const Text(
-                    'Masuk untuk melanjutkan',
+                  Text(
+                    'Masuk Untuk Melanjutkan',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                     ),
@@ -72,19 +71,20 @@ class LoginScreen extends StatelessWidget {
                         TextFormField(
                           controller: controller.email,
                           validator: (value) => TValidator.validateEmail(value),
-                          style: const TextStyle(color: Color(0xFF080A23)),
+                          style: GoogleFonts.poppins(
+                              color: const Color(0xFF080A23)),
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFF6F7F9),
                             labelText: 'Email',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF080A23)),
+                            labelStyle: GoogleFonts.poppins(
+                                color: const Color(0xFF080A23)),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(11),
+                              borderRadius: BorderRadius.circular(14),
                               borderSide: BorderSide.none,
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(11),
+                              borderRadius: BorderRadius.circular(14),
                               borderSide:
                                   const BorderSide(color: Color(0xFF080A23)),
                             ),
@@ -101,12 +101,13 @@ class LoginScreen extends StatelessWidget {
                             validator: (value) =>
                                 TValidator.validateEmptyText('Password', value),
                             obscureText: controller.hidePassword.value,
-                            style: const TextStyle(color: Color(0xFF080A23)),
+                            style: GoogleFonts.poppins(
+                                color: const Color(0xFF080A23)),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color(0xFFF6F7F9),
-                              labelStyle:
-                                  const TextStyle(color: Color(0xFF080A23)),
+                              labelStyle: GoogleFonts.poppins(
+                                  color: const Color(0xFF080A23)),
                               labelText: 'Password',
                               suffixIcon: IconButton(
                                 onPressed: () => controller.hidePassword.value =
@@ -119,11 +120,11 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               ),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(11),
+                                borderRadius: BorderRadius.circular(14),
                                 borderSide: BorderSide.none,
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(11),
+                                borderRadius: BorderRadius.circular(14),
                                 borderSide:
                                     const BorderSide(color: Color(0xFF080A23)),
                               ),
@@ -164,7 +165,7 @@ class LoginScreen extends StatelessWidget {
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
-                                      30,
+                                      14,
                                     ),
                                   ),
                                 ),
@@ -172,9 +173,11 @@ class LoginScreen extends StatelessWidget {
                               child: controller.isLoading.isTrue
                                   ? const CircularProgressIndicator(
                                       color: Colors.white)
-                                  : const Text(
-                                      'Sign In',
-                                      style: TextStyle(color: Colors.white),
+                                  : Text(
+                                      'Login',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
                                     ),
                             ),
                           ),
@@ -185,7 +188,10 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text("Belum memiliki akun?"),
+                            Text(
+                              "Belum memiliki akun?",
+                              style: GoogleFonts.poppins(),
+                            ),
                             Transform.translate(
                               offset: const Offset(-5.0, 0.0),
                               child: TextButton(
@@ -198,9 +204,11 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: const Text(
+                                child: Text(
                                   'Daftar',
-                                  style: TextStyle(color: Color(0xFF6465F0)),
+                                  style: GoogleFonts.poppins(
+                                      color: const Color(0xFF6465F0),
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),

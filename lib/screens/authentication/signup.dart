@@ -3,6 +3,7 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/authentication/signup_controller.dart';
 import 'package:sleep_diary_mobile/utils/validators/validation.dart';
 
@@ -39,9 +40,9 @@ class SignupScreen extends StatelessWidget {
                       const SizedBox(
                         width: 15,
                       ),
-                      const Text(
+                      Text(
                         'SleepDiary',
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
                         ),
@@ -49,12 +50,12 @@ class SignupScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
-                  const Text(
-                    'Buat akun baru',
+                  Text(
+                    'Buat Akun Baru',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                     ),
@@ -69,19 +70,20 @@ class SignupScreen extends StatelessWidget {
                         TextFormField(
                           controller: controller.name,
                           validator: (value) => TValidator.validateName(value),
-                          style: const TextStyle(color: Color(0xFF080A23)),
+                          style: GoogleFonts.poppins(
+                              color: const Color(0xFF080A23)),
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFF6F7F9),
                             labelText: 'Nama Lengkap',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF080A23)),
+                            labelStyle: GoogleFonts.poppins(
+                                color: const Color(0xFF080A23)),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(11),
+                              borderRadius: BorderRadius.circular(14),
                               borderSide: BorderSide.none,
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(11),
+                              borderRadius: BorderRadius.circular(14),
                               borderSide:
                                   const BorderSide(color: Color(0xFF080A23)),
                             ),
@@ -95,19 +97,20 @@ class SignupScreen extends StatelessWidget {
                         TextFormField(
                           controller: controller.email,
                           validator: (value) => TValidator.validateEmail(value),
-                          style: const TextStyle(color: Color(0xFF080A23)),
+                          style: GoogleFonts.poppins(
+                              color: const Color(0xFF080A23)),
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFF6F7F9),
                             labelText: 'Email',
-                            labelStyle:
-                                const TextStyle(color: Color(0xFF080A23)),
+                            labelStyle: GoogleFonts.poppins(
+                                color: const Color(0xFF080A23)),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(11),
+                              borderRadius: BorderRadius.circular(14),
                               borderSide: BorderSide.none,
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(11),
+                              borderRadius: BorderRadius.circular(14),
                               borderSide:
                                   const BorderSide(color: Color(0xFF080A23)),
                             ),
@@ -124,12 +127,12 @@ class SignupScreen extends StatelessWidget {
                             validator: (value) =>
                                 TValidator.validatePassword(value),
                             obscureText: controller.hidePassword.value,
-                            style: const TextStyle(color: Colors.black),
+                            style: GoogleFonts.poppins(color: Colors.black),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color(0xFFF6F7F9),
                               labelStyle:
-                                  const TextStyle(color: Color(0xFF080A23)),
+                                  GoogleFonts.poppins(color: Color(0xFF080A23)),
                               labelText: 'Password',
                               suffixIcon: IconButton(
                                 onPressed: () => controller.hidePassword.value =
@@ -142,11 +145,11 @@ class SignupScreen extends StatelessWidget {
                                 ),
                               ),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(11),
+                                borderRadius: BorderRadius.circular(14),
                                 borderSide: BorderSide.none,
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(11),
+                                borderRadius: BorderRadius.circular(14),
                                 borderSide:
                                     const BorderSide(color: Color(0xFF080A23)),
                               ),
@@ -189,7 +192,7 @@ class SignupScreen extends StatelessWidget {
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
-                                      30,
+                                      14,
                                     ),
                                   ),
                                 ),
@@ -197,9 +200,11 @@ class SignupScreen extends StatelessWidget {
                               child: controller.isLoading.isTrue
                                   ? const CircularProgressIndicator(
                                       color: Colors.white)
-                                  : const Text(
+                                  : Text(
                                       'Buat Akun',
-                                      style: TextStyle(color: Colors.white),
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
                                     ),
                             ),
                           ),
@@ -215,9 +220,11 @@ class SignupScreen extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              child: const Text(
+                              child: Text(
                                 'Masuk',
-                                style: TextStyle(color: Color(0xFF6465F0)),
+                                style: GoogleFonts.poppins(
+                                    color: const Color(0xFF6465F0),
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ],

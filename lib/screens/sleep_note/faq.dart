@@ -22,7 +22,7 @@ class _FaqPageState extends State<FaqPage> {
                   margin: const EdgeInsets.only(
                       top: 70, bottom: 50, left: 20, right: 20),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(14),
                     color: const Color.fromRGBO(38, 38, 66, 1),
                   ),
                   child: Row(
@@ -57,15 +57,16 @@ class _FaqPageState extends State<FaqPage> {
             const CustomExpansionTile(
               title: "Apa itu SleepDiary?",
               content:
-                  "Aplikasi SleepDiary adalah teman tidur Anda yang setia, dirancang untuk membantu Anda memantau dan mencatat kualitas tidur Anda dari waktu ke waktu. aplikasi ini memungkinkan pengguna untuk meningkatkan kualitas tidur mereka.",
+                  "Aplikasi SleepDiary adalah teman tidur Anda yang setia, dirancang untuk membantu Anda memantau dan mencatat kualitas tidur Anda dari waktu ke waktu. Aplikasi ini memungkinkan pengguna untuk meningkatkan kualitas tidur mereka.",
             ),
             const SizedBox(height: 20),
             const CustomExpansionTile(
               title: "Apa fitur utama Aplikasi SleepDiary?",
-              content: "Fitur-fitur utama dalam Aplikasi SleepDiary mencakup:\n"
-                  "1. Grafik analisis pola tidur: Menampilkan pola tidur pengguna dalam bentuk grafik untuk mempermudah pemantauan dan pemahaman.\n"
-                  "2. Reminder tidur: Memberikan pengingat kepada pengguna untuk tidur sesuai jadwal yang diinginkan.\n"
-                  "3. Pemantauan kualitas tidur: Memungkinkan pengguna untuk mencatat dan melacak kualitas tidur mereka dari waktu ke waktu.",
+              content:
+                  "Fitur-fitur utama dalam Aplikasi SleepDiary mencakup:\n\n"
+                  "1. Grafik analisis pola tidur:\n Menampilkan pola tidur pengguna dalam bentuk grafik untuk mempermudah pemantauan dan pemahaman.\n\n"
+                  "2. Reminder tidur:\n Memberikan pengingat kepada pengguna untuk tidur sesuai jadwal yang diinginkan.\n\n"
+                  "3. Pemantauan kualitas tidur:\n Memungkinkan pengguna untuk mencatat dan melacak kualitas tidur mereka dari waktu ke waktu.",
             ),
             const SizedBox(height: 20),
             const CustomExpansionTile(
@@ -73,7 +74,7 @@ class _FaqPageState extends State<FaqPage> {
               content:
                   "Waktu tidur yang disarankan untuk orang dewasa adalah antara 7-9 jam per hari.",
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 200),
           ],
         ),
       ),
@@ -103,7 +104,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(14),
         color: const Color(0xFF262642),
         border: Border.all(
           width: 1.0,
@@ -116,37 +117,40 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
           highlightColor: Colors.transparent,
         ),
         child: ExpansionTile(
-          iconColor: Colors.white,
-          collapsedIconColor: Colors.white,
-          backgroundColor: const Color(0xFF262642),
-          collapsedBackgroundColor: const Color(0xFF262642),
-          shape: const Border(),
+          iconColor: const Color.fromARGB(255, 65, 159, 237),
+          collapsedIconColor: const Color.fromARGB(255, 65, 159, 237),
+          backgroundColor: Colors.transparent,
+          collapsedBackgroundColor: Colors.transparent,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(14)),
+          ),
           title: Row(
             children: [
               Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  color: isExpanded ? Colors.white : Colors.transparent,
+                ),
                 width: 5,
                 height: 50,
-                color: isExpanded ? Colors.white : Colors.transparent,
               ),
               const SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.title,
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  widget.title,
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
               ),
             ],
           ),
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 26, left: 20, right: 12),
+              padding: const EdgeInsets.only(bottom: 26, left: 45, right: 45),
               child: Text(
                 widget.content,
                 style: GoogleFonts.poppins(

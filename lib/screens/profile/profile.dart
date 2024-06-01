@@ -31,7 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const CircleAvatar(
               radius: 80,
               backgroundColor: Colors.transparent,
-              backgroundImage: AssetImage('assets/images/profile.png'),
+              backgroundImage: AssetImage('assets/images/propil.png'),
             ),
             const SizedBox(
               height: 20,
@@ -73,17 +73,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 height: 60,
                 decoration: BoxDecoration(
                   color: const Color.fromRGBO(38, 38, 66, 1),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(14),
                 ),
                 child: Center(
                   child: Text(
-                    "Edit Profile",
+                    "Edit Profil",
                     style: GoogleFonts.poppins(color: Colors.white),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Obx(
@@ -182,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ? const Color.fromARGB(255, 167, 21, 21)
                             .withOpacity(0.6)
                         : const Color.fromARGB(255, 167, 21, 21),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                   child: Center(
                     child: AuthenticationRepository.instance.isLoading.isTrue
