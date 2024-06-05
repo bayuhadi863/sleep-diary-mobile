@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/monthly_summary.dart';
+import 'package:sleep_diary_mobile/repositories/advice/advice_repository.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class MonthlySummaryPage extends StatefulWidget {
@@ -30,6 +31,7 @@ class _MonthlySummaryState extends State<MonthlySummaryPage> {
     "gelisah": 0,
     "terbangun": 0
   };
+  String advice = '';
   bool isLoading = false;
 
   @override
@@ -82,6 +84,16 @@ class _MonthlySummaryState extends State<MonthlySummaryPage> {
     }
   }
 
+  Future<void> getAdvice() async {
+    final String advice = await AdviceRepository.monthlyAdvice(widget.month, widget.year);
+
+    if (mounted) {
+      setState(() {
+        this.advice = advice;
+      });
+    }
+  }
+
   void getSummary() async {
     if (mounted) {
       setState(() {
@@ -91,6 +103,7 @@ class _MonthlySummaryState extends State<MonthlySummaryPage> {
     await getSleepTimeAverage();
     await getScaleAverage();
     await getFactors();
+    await getAdvice();
 
     if (mounted) {
       setState(() {
@@ -343,7 +356,7 @@ class _MonthlySummaryState extends State<MonthlySummaryPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: Text(
-                                    "Bergaul Bang",
+                                    advice,
                                     style: GoogleFonts.poppins(
                                       color: Colors.white,
                                       fontSize: 14,

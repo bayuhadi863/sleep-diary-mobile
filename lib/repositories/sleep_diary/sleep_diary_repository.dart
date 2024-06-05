@@ -135,6 +135,56 @@ class SleepDiaryRepository {
     );
     
     try {
+
+      if (editedSleepDiary.sleepDate == "") {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Tanggal tidak boleh kosong");
+
+        return;
+      }
+
+      if (editedSleepDiary.sleepTime == "") {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Waktu tidur tidak boleh kosong");
+
+        return;
+      }
+
+      if (editedSleepDiary.wakeupTime == "") {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Waktu bangun tidak boleh kosong");
+
+        return;
+      }
+
+      if (calculateTimeDifference(wakeupTime, sleepTime) < 15) {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Durasi tidur minimal 15 menit");
+
+        return;
+      }
+
+      if (editedSleepDiary.scale == 0) {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Skala kualitas tidak boleh kosong");
+
+        return;
+      }
+
+      if (editedSleepDiary.scale < 4 && editedSleepDiary.factors.isEmpty) {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Faktor tidur tidak boleh kosong");
+
+        return;
+      }
+
+      if (editedSleepDiary.description == "") {
+        TLoaders.errorSnackBar(
+            title: 'Gagal!', message: "Deskripsi tidur tidak boleh kosong");
+
+        return;
+      }
+
       final sleepDiary = await FirebaseFirestore.instance
         .collection('sleepDiaries')
         .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
