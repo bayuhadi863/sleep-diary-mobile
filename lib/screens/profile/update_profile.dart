@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,10 +63,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 child: TextFormField(
                   controller: editProfileController.name,
                   style: GoogleFonts.poppins(color: Colors.white),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9\s]')),
+                  ],
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: const Color.fromRGBO(38, 38, 66, 1),
-                    labelText: 'Name',
+                    labelText: 'Nama',
                     labelStyle: GoogleFonts.poppins(color: Colors.white),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(11),
@@ -105,7 +109,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       color: loading
                           // 1 == 1
                           ? Colors.grey[400]!
-                          : Color.fromARGB(255, 100, 163, 214),
+                          : Colors.white,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Center(
@@ -114,10 +118,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           ? const CircularProgressIndicator(
                               color: Colors.white,
                             )
-                          : Text(
-                              "Simpan",
-                              style: GoogleFonts.poppins(color: Colors.white),
-                            ),
+                          : Text("Simpan",
+                              style: GoogleFonts.poppins(
+                                color: Colors.black,
+                              )),
                     ),
                   ),
                 );
