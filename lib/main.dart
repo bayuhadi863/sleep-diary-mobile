@@ -66,8 +66,64 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    var _timePickerTheme;
-    return GetMaterialApp(
+final _timePickerTheme = TimePickerThemeData(
+  //tombol cancel
+  cancelButtonStyle: ButtonStyle(
+    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+  ),
+  //tombol simpan
+  confirmButtonStyle: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(
+      const Color(0xFF5C6AC0),
+    ),
+    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+    shape: MaterialStateProperty.all<OutlinedBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+  ),
+  backgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+  hourMinuteShape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ),
+  dayPeriodBorderSide: const BorderSide(color: Colors.orange, width: 4),
+  dayPeriodColor: Colors.blueGrey.shade600,
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ),
+  dayPeriodTextColor: Colors.grey[100],
+  dayPeriodShape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+  ),
+  hourMinuteColor: MaterialStateColor.resolveWith((states) =>
+      states.contains(MaterialState.selected)
+          ? const Color.fromRGBO(38, 38, 66, 1)
+          : const Color.fromRGBO(38, 38, 66, 1)),
+  hourMinuteTextColor: MaterialStateColor.resolveWith(
+    (states) => states.contains(MaterialState.selected)
+        ? Colors.grey.shade200
+        : Colors.grey.shade200,
+  ),
+  dialHandColor: const Color(0xFF5C6AC0),
+  dialBackgroundColor: const Color.fromRGBO(38, 38, 66, 1),
+  hourMinuteTextStyle: GoogleFonts.poppins(
+      fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+  dayPeriodTextStyle: GoogleFonts.poppins(
+      fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
+  helpTextStyle: GoogleFonts.poppins(
+      fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+  inputDecorationTheme: const InputDecorationTheme(
+    border: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.white),
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+    ),
+    contentPadding: EdgeInsets.all(0),
+  ),
+  dialTextColor: MaterialStateColor.resolveWith((states) =>
+      states.contains(MaterialState.selected) ? Colors.white : Colors.white),
+  entryModeIconColor: const Color(0xFF5C6AC0),
+);    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         timePickerTheme: _timePickerTheme,
@@ -149,41 +205,49 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
         extendBody: true,
         floatingActionButton: Visibility(
           visible: MediaQuery.of(context).viewInsets.bottom == 0,
-          child: FloatingActionButton(
-            onPressed: () async {
-              if (disabled) {
-                return;
-              }
-              if (HomePage.sleepDiaryController.sleepDiary.value.sleepDate !=
-                  '') {
-                setState(() {
-                  disabled = true;
-                });
-
-                TLoaders.errorSnackBar(
-                    title: 'Gagal',
-                    message: 'Anda sudah mencatat tidur hari ini.');
-
-                await Future.delayed(const Duration(seconds: 3));
-
-                setState(() {
-                  disabled = false;
-                });
-
-                return;
-              }
-
-              setState(() {
-                selectedIndex = 2;
-              });
-            },
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(50),
-              ),
+          child: Tooltip(
+            message: 'Halaman Add',
+            textStyle: GoogleFonts.poppins(color: Colors.white),
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(38, 38, 66, 1),
+              borderRadius: BorderRadius.circular(8),
             ),
-            backgroundColor: const Color(0xFF5C6AC0),
-            child: const Icon(Icons.add, color: Colors.white),
+            child: FloatingActionButton(
+              onPressed: () async {
+                if (disabled) {
+                  return;
+                }
+                if (HomePage.sleepDiaryController.sleepDiary.value.sleepDate !=
+                    '') {
+                  setState(() {
+                    disabled = true;
+                  });
+
+                  TLoaders.errorSnackBar(
+                      title: 'Gagal',
+                      message: 'Anda sudah mencatat tidur hari ini.');
+
+                  await Future.delayed(const Duration(seconds: 3));
+
+                  setState(() {
+                    disabled = false;
+                  });
+
+                  return;
+                }
+
+                setState(() {
+                  selectedIndex = 2;
+                });
+              },
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(50),
+                ),
+              ),
+              backgroundColor: const Color(0xFF5C6AC0),
+              child: const Icon(Icons.add, color: Colors.white),
+            ),
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -199,62 +263,78 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
             children: <Widget>[
               Row(
                 children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.home_filled,
-                      color: selectedIndex == 0
-                          ? const Color(0xFF5C6AC0)
-                          : Colors.white,
+                  Tooltip(
+                    message: 'Halaman Beranda',
+                    textStyle: GoogleFonts.poppins(color: Colors.white),
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(38, 38, 66, 1),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    onPressed: () {
-                      if (selectedIndex == 2) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => confirmDialog(
-                            context,
-                            () {
-                              setState(() {
-                                selectedIndex = 0;
-                              });
-                            },
-                          ),
-                        );
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.home_filled,
+                        color: selectedIndex == 0
+                            ? const Color(0xFF5C6AC0)
+                            : Colors.white,
+                      ),
+                      onPressed: () {
+                        if (selectedIndex == 2) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => confirmDialog(
+                              context,
+                              () {
+                                setState(() {
+                                  selectedIndex = 0;
+                                });
+                              },
+                            ),
+                          );
 
-                        return;
-                      }
-                      setState(() {
-                        selectedIndex = 0;
-                      });
-                    },
+                          return;
+                        }
+                        setState(() {
+                          selectedIndex = 0;
+                        });
+                      },
+                    ),
                   ),
                   const SizedBox(width: 20),
-                  IconButton(
-                    icon: Icon(
-                      Icons.poll,
-                      color: selectedIndex == 1
-                          ? const Color(0xFF5C6AC0)
-                          : Colors.white,
+                  Tooltip(
+                    message: 'Halaman Statistik',
+                    textStyle: GoogleFonts.poppins(color: Colors.white),
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(38, 38, 66, 1),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    onPressed: () {
-                      if (selectedIndex == 2) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => confirmDialog(
-                            context,
-                            () {
-                              setState(() {
-                                selectedIndex = 1;
-                              });
-                            },
-                          ),
-                        );
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.poll,
+                        color: selectedIndex == 1
+                            ? const Color(0xFF5C6AC0)
+                            : Colors.white,
+                      ),
+                      onPressed: () {
+                        if (selectedIndex == 2) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => confirmDialog(
+                              context,
+                              () {
+                                setState(() {
+                                  selectedIndex = 1;
+                                });
+                              },
+                            ),
+                          );
 
-                        return;
-                      }
-                      setState(() {
-                        selectedIndex = 1;
-                      });
-                    },
+                          return;
+                        }
+                        setState(() {
+                          selectedIndex = 1;
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -297,33 +377,41 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                     ),
                   ),
                   const SizedBox(width: 20),
-                  IconButton(
-                    icon: Icon(
-                      Icons.person,
-                      color: selectedIndex == 4
-                          ? const Color(0xFF5C6AC0)
-                          : Colors.white,
+                  Tooltip(
+                    message: 'Halaman Profil',
+                    textStyle: GoogleFonts.poppins(color: Colors.white),
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(38, 38, 66, 1),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    onPressed: () {
-                      if (selectedIndex == 2) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => confirmDialog(
-                            context,
-                            () {
-                              setState(() {
-                                selectedIndex = 4;
-                              });
-                            },
-                          ),
-                        );
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.person,
+                        color: selectedIndex == 4
+                            ? const Color(0xFF5C6AC0)
+                            : Colors.white,
+                      ),
+                      onPressed: () {
+                        if (selectedIndex == 2) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => confirmDialog(
+                              context,
+                              () {
+                                setState(() {
+                                  selectedIndex = 4;
+                                });
+                              },
+                            ),
+                          );
 
-                        return;
-                      }
-                      setState(() {
-                        selectedIndex = 4;
-                      });
-                    },
+                          return;
+                        }
+                        setState(() {
+                          selectedIndex = 4;
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),

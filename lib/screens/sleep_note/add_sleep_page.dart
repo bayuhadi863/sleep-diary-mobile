@@ -280,6 +280,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       onTap: () async {
                         final TimeOfDay? pickedTime = await showTimePicker(
                           context: context,
+                          cancelText: 'Batal',
+                          confirmText: 'Simpan',
+                          helpText: 'Pilih Waktu Tidur',
                           initialTime: TimeOfDay(
                             hour: time1.value[0],
                             minute: time1.value[1],
@@ -334,6 +337,9 @@ class _AddSleepPageState extends State<AddSleepPage> {
                       onTap: () async {
                         final TimeOfDay? pickedTime = await showTimePicker(
                           context: context,
+                          cancelText: 'Batal',
+                          confirmText: 'Simpan',
+                          helpText: 'Pilih Waktu Bangun',
                           initialTime: TimeOfDay(
                             hour: time2.value[0],
                             minute: time2.value[1],

@@ -478,18 +478,18 @@ class _HomePageState extends State<HomePage> {
                 Switch(
                   value: active,
                   onChanged: ((bool value) async {
-                    if(value) {
-                      await (TrackerService()).track("enable-reminder", withDeviceInfo: true);
-                    }
-                    else{
-                      await (TrackerService()).track("disable-reminder", withDeviceInfo: true);
+                    if (value) {
+                      await (TrackerService())
+                          .track("enable-reminder", withDeviceInfo: true);
+                    } else {
+                      await (TrackerService())
+                          .track("disable-reminder", withDeviceInfo: true);
                     }
                     setState(() {
                       active = value;
                       reminderRepository.updateReminderIsActive(value);
                       if (value) {
                         reminderRepository.onReminderNotification(reminderTime);
-                        
                       } else {
                         reminderRepository.offReminderNotification();
                       }
@@ -562,10 +562,19 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               );
                             },
-                            child: const Icon(
-                              Icons.remove_red_eye_sharp,
-                              size: 22,
-                              color: Colors.white,
+                            child: Tooltip(
+                              message: 'Tekan untuk lihat detail',
+                              textStyle:
+                                  GoogleFonts.poppins(color: Colors.white),
+                              decoration: BoxDecoration(
+                                color: const Color.fromRGBO(38, 38, 66, 1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(
+                                Icons.remove_red_eye_sharp,
+                                size: 22,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -580,10 +589,19 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               );
                             },
-                            child: const Icon(
-                              Icons.edit,
-                              size: 22,
-                              color: Colors.white,
+                            child: Tooltip(
+                              message: ' Tekan untuk edit data',
+                              textStyle:
+                                  GoogleFonts.poppins(color: Colors.white),
+                              decoration: BoxDecoration(
+                                color: const Color.fromRGBO(38, 38, 66, 1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(
+                                Icons.edit,
+                                size: 22,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -677,10 +695,19 @@ class _HomePageState extends State<HomePage> {
                                 },
                               );
                             },
-                            child: const Icon(
-                              Icons.delete,
-                              size: 22,
-                              color: Colors.white,
+                            child: Tooltip(
+                              message: ' Tekan untuk hapus data',
+                              textStyle:
+                                  GoogleFonts.poppins(color: Colors.white),
+                              decoration: BoxDecoration(
+                                color: const Color.fromRGBO(38, 38, 66, 1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: const Icon(
+                                Icons.delete,
+                                size: 22,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ],
