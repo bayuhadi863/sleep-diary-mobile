@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/current_week_summary.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/last_week_summary.dart';
+import 'package:sleep_diary_mobile/repositories/advice/advice_repository.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SummaryPage extends StatefulWidget {
@@ -25,6 +26,7 @@ class _SummaryPageState extends State<SummaryPage> {
     "gelisah": 0,
     "terbangun": 0
   };
+  String advice = '';
   bool isLoading = false;
 
   @override
@@ -76,6 +78,18 @@ class _SummaryPageState extends State<SummaryPage> {
     // print(this.factors);
   }
 
+  Future<void> getAdvice() async {
+    final String advice = widget.selectedWeek == 'Minggu ini'
+        ? await AdviceRepository.currentWeekAdvice()
+        : await AdviceRepository.lastWeekAdvice();
+
+    if (mounted) {
+      setState(() {
+        this.advice = advice;
+      });
+    }
+  }
+
   void getSummary() async {
     if (mounted) {
       setState(() {
@@ -85,6 +99,7 @@ class _SummaryPageState extends State<SummaryPage> {
     await getSleepTimeAverage();
     await getScaleAverage();
     await getFactors();
+    await getAdvice();
 
     if (mounted) {
       setState(() {
@@ -339,7 +354,7 @@ class _SummaryPageState extends State<SummaryPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: Text(
-                                    "Bergaul Bang",
+                                    advice,
                                     style: GoogleFonts.poppins(
                                       color: Colors.white,
                                       fontSize: 14,

@@ -22,20 +22,32 @@ import 'package:sleep_diary_mobile/widgets/loaders.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'tracker_service.dart';
 
 Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+  
   final WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized();
+
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
+
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then(
     (FirebaseApp value) => Get.put(AuthenticationRepository()),
   );
 
+  await (TrackerService()).track("on-open-app", withDeviceInfo: true);
+  
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  await (TrackerService()).track("on-load-app", withDeviceInfo: true);
 
   await GetStorage.init();
 

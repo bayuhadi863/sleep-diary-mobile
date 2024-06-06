@@ -32,6 +32,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
 
   bool isLoading = false;
   bool isChange = false;
+  bool disabled = false;
 
   @override
   void initState() {
@@ -215,9 +216,14 @@ class _EditSleepPageState extends State<EditSleepPage> {
               GestureDetector(
                 onTap: !isChange
                     ? null
-                    : isLoading
+                    : isLoading || disabled
                         ? null
                         : () async {
+                            
+                            setState(() {
+                              disabled = true;
+                            });
+
                             // Start Loading
                             setState(() {
                               isLoading = true;
@@ -248,6 +254,14 @@ class _EditSleepPageState extends State<EditSleepPage> {
                             setState(() {
                               isLoading = false;
                             });
+
+                            await Future.delayed(const Duration(seconds: 3));
+
+                            if (mounted) {
+                              setState(() {
+                                disabled = false;
+                              });
+                            }
                           },
                 child: Container(
                   height: 50,
@@ -357,10 +371,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                             .split(":")[1]) ||
                                     scale.value != sleepDiary!.scale ||
                                     !listEquals(factors, sleepDiary!.factors) ||
-                                    (description.text != sleepDiary!.description &&
-                                        description.text.trim() != "")) &&
-                                ((scale.value < 4 && factors.isNotEmpty) ||
-                                    scale.value >= 4);
+                                    (description.text != sleepDiary!.description));
                           });
                         }
                       },
@@ -431,10 +442,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                             .split(":")[1]) ||
                                     scale.value != sleepDiary!.scale ||
                                     !listEquals(factors, sleepDiary!.factors) ||
-                                    (description.text != sleepDiary!.description &&
-                                        description.text.trim() != "")) &&
-                                ((scale.value < 4 && factors.isNotEmpty) ||
-                                    scale.value >= 4);
+                                    (description.text != sleepDiary!.description));
                           });
                         }
                       },
@@ -531,10 +539,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                             .split(":")[1]) ||
                                     1 != sleepDiary!.scale ||
                                     !listEquals(factors, sleepDiary!.factors) ||
-                                    (description.text !=
-                                            sleepDiary!.description &&
-                                        description.text.trim() != "")) &&
-                                ((1 < 4 && factors.isNotEmpty) || 1 >= 4);
+                                    (description.text != sleepDiary!.description));
                           });
                           print(scale);
                         },
@@ -586,9 +591,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     2 != sleepDiary!.scale ||
                                     !listEquals(factors, sleepDiary!.factors) ||
                                     (description.text !=
-                                            sleepDiary!.description &&
-                                        description.text.trim() != "")) &&
-                                ((2 < 4 && factors.isNotEmpty) || 2 >= 4);
+                                            sleepDiary!.description));
                           });
                           print(scale);
                         },
@@ -639,10 +642,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                             .split(":")[1]) ||
                                     scale.value != sleepDiary!.scale ||
                                     !listEquals(factors, sleepDiary!.factors) ||
-                                    (description.text !=
-                                            sleepDiary!.description &&
-                                        description.text.trim() != "")) &&
-                                ((3 < 4 && factors.isNotEmpty) || 3 >= 4);
+                                    (description.text != sleepDiary!.description ));
                           });
                           print(scale);
                         },
@@ -703,10 +703,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                             .split(":")[1]) ||
                                     4 != sleepDiary!.scale ||
                                     !listEquals(factors, sleepDiary!.factors) ||
-                                    (description.text !=
-                                            sleepDiary!.description &&
-                                        description.text.trim() != "")) &&
-                                ((4 < 4 && factors.isNotEmpty) || 4 >= 4);
+                                    (description.text != sleepDiary!.description));
                           });
                         },
                         child: Ink.image(
@@ -766,10 +763,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                             .split(":")[1]) ||
                                     5 != sleepDiary!.scale ||
                                     !listEquals(factors, sleepDiary!.factors) ||
-                                    (description.text !=
-                                            sleepDiary!.description &&
-                                        description.text.trim() != "")) &&
-                                ((5 < 4 && factors.isNotEmpty) || 5 >= 4);
+                                    (description.text != sleepDiary!.description));
                           });
                         },
                         child: Ink.image(
@@ -869,8 +863,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                                       sleepDiary!.wakeupTime.split(":")[1]) ||
                                               scale.value != sleepDiary!.scale ||
                                               !listEquals(factors, sleepDiary!.factors) ||
-                                              (description.text != sleepDiary!.description && description.text.trim() != "")) &&
-                                          ((scale.value < 4 && factors.isNotEmpty) || scale.value >= 4);
+                                              (description.text != sleepDiary!.description));
                                     });
                                   },
                                   child: Container(
@@ -933,8 +926,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                                       sleepDiary!.wakeupTime.split(":")[1]) ||
                                               scale.value != sleepDiary!.scale ||
                                               !listEquals(factors, sleepDiary!.factors) ||
-                                              (description.text != sleepDiary!.description && description.text.trim() != "")) &&
-                                          ((scale.value < 4 && factors.isNotEmpty) || scale.value >= 4);
+                                              (description.text != sleepDiary!.description));
                                     });
                                   },
                                   child: Container(
@@ -997,8 +989,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                                       sleepDiary!.wakeupTime.split(":")[1]) ||
                                               scale.value != sleepDiary!.scale ||
                                               !listEquals(factors, sleepDiary!.factors) ||
-                                              (description.text != sleepDiary!.description && description.text.trim() != "")) &&
-                                          ((scale.value < 4 && factors.isNotEmpty) || scale.value >= 4);
+                                              (description.text != sleepDiary!.description));
                                     });
                                   },
                                   child: Container(
@@ -1059,8 +1050,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                                       sleepDiary!.wakeupTime.split(":")[1]) ||
                                               scale.value != sleepDiary!.scale ||
                                               !listEquals(factors, sleepDiary!.factors) ||
-                                              (description.text != sleepDiary!.description && description.text.trim() != "")) &&
-                                          ((scale.value < 4 && factors.isNotEmpty) || scale.value >= 4);
+                                              (description.text != sleepDiary!.description));
                                     });
                                   },
                                   child: Container(
@@ -1123,8 +1113,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                                       sleepDiary!.wakeupTime.split(":")[1]) ||
                                               scale.value != sleepDiary!.scale ||
                                               !listEquals(factors, sleepDiary!.factors) ||
-                                              (description.text != sleepDiary!.description && description.text.trim() != "")) &&
-                                          ((scale.value < 4 && factors.isNotEmpty) || scale.value >= 4);
+                                              (description.text != sleepDiary!.description));
                                     });
                                   },
                                   child: Container(
@@ -1272,10 +1261,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                                     sleepDiary!.wakeupTime.split(":")[1]) ||
                             scale.value != sleepDiary!.scale ||
                             !listEquals(factors, sleepDiary!.factors) ||
-                            (value != sleepDiary!.description &&
-                                value.trim() != "")) &&
-                        ((scale.value < 4 && factors.isNotEmpty) ||
-                            scale.value >= 4);
+                            (value != sleepDiary!.description));
                   });
                 },
                 controller: description,
