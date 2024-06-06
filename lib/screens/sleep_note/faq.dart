@@ -45,7 +45,7 @@ class _FaqPageState extends State<FaqPage> {
                 ),
                 Positioned(
                   left: MediaQuery.of(context).size.width * 0.56,
-                  top: 10,
+                  top: 6,
                   child: Image.asset(
                     'assets/images/Group2291.png',
                     width: 160,
@@ -137,13 +137,16 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
               ),
               const SizedBox(width: 8),
               Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  widget.title,
-                  style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+                padding: const EdgeInsets.only(left: 8.0, right: 5.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.60,
+                  child: Text(
+                    widget.title,
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

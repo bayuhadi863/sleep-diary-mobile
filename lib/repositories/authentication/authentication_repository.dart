@@ -8,6 +8,7 @@ import 'package:sleep_diary_mobile/screens/authentication/login.dart';
 import 'package:sleep_diary_mobile/screens/authentication/onboarding.dart';
 import 'package:sleep_diary_mobile/screens/authentication/verify_email.dart';
 import 'package:sleep_diary_mobile/tracker_service.dart';
+import 'package:sleep_diary_mobile/widgets/loaders.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -112,6 +113,7 @@ class AuthenticationRepository extends GetxController {
       Get.offAll(() => const LoginScreen());
 
       isLoading.value = false;
+
     } on FirebaseAuthException catch (e) {
       isLoading.value = false;
       throw e.code;

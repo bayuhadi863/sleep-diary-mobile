@@ -7,6 +7,7 @@ import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/screens/profile/update_profile.dart';
 import 'package:sleep_diary_mobile/tracker_service.dart';
+import 'package:sleep_diary_mobile/widgets/loaders.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -172,8 +173,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           },
                         );
                         if (confirmLogout == true) {
-                          await AuthenticationRepository.instance.logout();
-
+                          try {
+                            await AuthenticationRepository.instance.logout();
+                            TLoaders.successSnackBar(
+                                title: 'Logout Berhasil!',
+                                message: 'Sampai jumpa lagi!');
+                          } catch (e) {
+                            TLoaders.errorSnackBar(
+                                title: 'Logout Gagal!', message: e);
+                          }
                         }
                       },
                 child: Container(
