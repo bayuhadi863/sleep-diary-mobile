@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/models/sleep_diary_mode.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -98,10 +99,26 @@ class SleepDiaryRepository {
         return;
       }
 
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: LoadingAnimationWidget.flickr(
+              leftDotColor: const Color.fromRGBO(58, 58, 93, 1),
+              rightDotColor: const Color(0xFFFFD670),
+              size: 80,
+            ),
+          );
+        },
+        barrierDismissible: false,
+      );
+
       // Insert SleepDiary ke Firebase
       await FirebaseFirestore.instance
           .collection("sleepDiaries")
           .add(newSleepDiary.toJson());
+
+      Navigator.of(context).pop();
 
       // Show Success Message
       TLoaders.successSnackBar(
@@ -184,6 +201,20 @@ class SleepDiaryRepository {
         return;
       }
 
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: LoadingAnimationWidget.flickr(
+              leftDotColor: const Color.fromRGBO(58, 58, 93, 1),
+              rightDotColor: const Color(0xFFFFD670),
+              size: 80,
+            ),
+          );
+        },
+        barrierDismissible: false,
+      );
+
       final sleepDiary = await FirebaseFirestore.instance
           .collection('sleepDiaries')
           .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
@@ -192,6 +223,8 @@ class SleepDiaryRepository {
 
       await sleepDiary.docs.first.reference.update(editedSleepDiary.toJson());
       await (TrackerService()).track("update-sleepdiary", withDeviceInfo: true);
+
+      Navigator.of(context).pop();
 
       TLoaders.successSnackBar(
           title: 'Selamat!',

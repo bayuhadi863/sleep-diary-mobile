@@ -151,22 +151,9 @@ class LoginScreen extends StatelessWidget {
                           height: 60,
                           child: ElevatedButton(
                             onPressed: () async {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return Center(
-                                    child: LoadingAnimationWidget.flickr(
-                                      leftDotColor:
-                                          const Color.fromRGBO(58, 58, 93, 1),
-                                      rightDotColor: const Color(0xFFFFD670),
-                                      size: 80,
-                                    ),
-                                  );
-                                },
-                                barrierDismissible: false,
-                              );
+                             
 
-                              await controller.emailAndPasswordSignIn();
+                              await controller.emailAndPasswordSignIn(context);
 
                               // Navigator.of(context).pop();
                             },

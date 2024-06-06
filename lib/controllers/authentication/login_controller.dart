@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/tracker_service.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
@@ -18,7 +19,7 @@ class LoginController extends GetxController {
   final disabled = false.obs;
 
   /// Email and password sign in
-  Future<void> emailAndPasswordSignIn() async {
+  Future<void> emailAndPasswordSignIn(BuildContext context) async {
     try {
       // Start Loading
       isLoading.value = true;
@@ -30,6 +31,20 @@ class LoginController extends GetxController {
 
         return;
       }
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: LoadingAnimationWidget.flickr(
+              leftDotColor: const Color.fromRGBO(58, 58, 93, 1),
+              rightDotColor: const Color(0xFFFFD670),
+              size: 80,
+            ),
+          );
+        },
+        barrierDismissible: false,
+      );
 
       // wait 5 seconds
       // await Future.delayed(const Duration(seconds: 5));
@@ -49,6 +64,7 @@ class LoginController extends GetxController {
       TLoaders.successSnackBar(
           title: "Berhasil login!", message: 'Catat tidurmu sekarang juga!');
     } catch (e) {
+      Navigator.of(context).pop();
       TLoaders.errorSnackBar(
         title: 'Login gagal!',
         message: getErrorMessage(e.toString()),

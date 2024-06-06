@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/repositories/user/user_repository.dart';
 import 'package:sleep_diary_mobile/models/user_model.dart';
@@ -21,7 +22,7 @@ class SignupController extends GetxController {
   final disabled = false.obs;
 
   /// Signup
-  signup() async {
+  signup(BuildContext context) async {
     try {
       // start Loading
       isLoading.value = true;
@@ -33,6 +34,20 @@ class SignupController extends GetxController {
         isLoading.value = false;
         return;
       }
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: LoadingAnimationWidget.flickr(
+              leftDotColor: const Color.fromRGBO(58, 58, 93, 1),
+              rightDotColor: const Color(0xFFFFD670),
+              size: 80,
+            ),
+          );
+        },
+        barrierDismissible: false,
+      );
 
       // wait 5 seconds
       // await Future.delayed(const Duration(seconds: 5));
@@ -72,6 +87,8 @@ class SignupController extends GetxController {
     } catch (e) {
       // Show some Generic error to the user
       // Clear Text Fields
+      Navigator.of(context).pop();
+
       name.clear();
       email.clear();
       password.clear();

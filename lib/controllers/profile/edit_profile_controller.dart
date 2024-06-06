@@ -36,9 +36,11 @@ class EditProfileController extends GetxController {
     }
   }
 
-  Future<void> editProfile(String name) async {
+  Future<void> editProfile(String name, BuildContext context) async {
     try {
       isLoading(true);
+
+     
 
       final UserRepository userRepository = Get.put(UserRepository());
       await userRepository.editUserName(name);
@@ -52,6 +54,7 @@ class EditProfileController extends GetxController {
       //clear
       // this.name.clear();
     } catch (e) {
+      Navigator.of(context).pop();
       isLoading(false);
       TLoaders.errorSnackBar(title: "Gagal edit nama!", message: e.toString());
     }

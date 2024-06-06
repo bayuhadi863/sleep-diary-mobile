@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sleep_diary_mobile/controllers/profile/edit_profile_controller.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
+import 'package:sleep_diary_mobile/widgets/loaders.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({super.key});
@@ -121,6 +122,21 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         return;
                       }
 
+                      if (editProfileController.name.text.isEmpty) {
+                        TLoaders.errorSnackBar(
+                            title: "Gagal Mengedit Nama",
+                            message: "Nama tidak boleh kosong!");
+
+                        setState(() {
+                          editProfileController.name.text ==
+                              editProfileController.oldName.value;
+                        });
+
+                        // Navigator.of(context).pop();
+
+                        return;
+                      }
+
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -134,8 +150,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         },
                         barrierDismissible: false,
                       );
-                      await editProfileController
-                          .editProfile(editProfileController.name.text);
+                      await editProfileController.editProfile(
+                          editProfileController.name.text, context);
 
                       userController.fetchUserRecord();
                       Navigator.pop(context);

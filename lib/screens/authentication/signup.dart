@@ -180,21 +180,8 @@ class SignupScreen extends StatelessWidget {
                           height: 60,
                           child: ElevatedButton(
                             onPressed: () async {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return Center(
-                                    child: LoadingAnimationWidget.flickr(
-                                      leftDotColor:
-                                          const Color.fromRGBO(58, 58, 93, 1),
-                                      rightDotColor: const Color(0xFFFFD670),
-                                      size: 80,
-                                    ),
-                                  );
-                                },
-                                barrierDismissible: false,
-                              );
-                              await controller.signup();
+                              
+                              await controller.signup(context);
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
