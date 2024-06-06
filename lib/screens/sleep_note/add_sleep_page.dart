@@ -45,7 +45,7 @@ class _AddSleepPageState extends State<AddSleepPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset(
-                    'assets/images/popupad.png',
+                    'assets/images/hapusdata22.png',
                     width: 150,
                     height: 150,
                     fit: BoxFit.cover,

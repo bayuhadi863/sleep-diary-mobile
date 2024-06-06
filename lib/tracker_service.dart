@@ -53,7 +53,10 @@ class TrackerService {
 
   Future<Map> getUser() async {
     
-    UserModel? user = await UserRepository().fetchUserDetails();
+    var user = UserModel.empty();
+    if (FirebaseAuth.instance.currentUser != null) {
+      user = await UserRepository().fetchUserDetails();
+    }
 
     return {
       'id': FirebaseAuth.instance.currentUser?.uid ?? "belum-login",

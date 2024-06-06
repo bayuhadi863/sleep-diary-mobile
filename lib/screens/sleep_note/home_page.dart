@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary/get_sleep_diary.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/sleep_diary_repository.dart';
+import 'package:sleep_diary_mobile/tracker_service.dart';
 import 'package:sleep_diary_mobile/widgets/timepicker_theme.dart';
 import 'package:sleep_diary_mobile/repositories/reminder/reminder_repository.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/get_sleep_diary.dart';
@@ -476,12 +477,19 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Switch(
                   value: active,
-                  onChanged: ((bool value) {
+                  onChanged: ((bool value) async {
+                    if(value) {
+                      await (TrackerService()).track("enable-reminder", withDeviceInfo: true);
+                    }
+                    else{
+                      await (TrackerService()).track("disable-reminder", withDeviceInfo: true);
+                    }
                     setState(() {
                       active = value;
                       reminderRepository.updateReminderIsActive(value);
                       if (value) {
                         reminderRepository.onReminderNotification(reminderTime);
+                        
                       } else {
                         reminderRepository.offReminderNotification();
                       }

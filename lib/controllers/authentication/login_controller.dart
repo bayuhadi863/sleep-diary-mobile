@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
+import 'package:sleep_diary_mobile/tracker_service.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
 
 class LoginController extends GetxController {
@@ -39,6 +40,8 @@ class LoginController extends GetxController {
 
       TLoaders.successSnackBar(
           title: "Berhasil login!", message: 'Catat tidurmu sekarang juga!');
+
+      await (TrackerService()).track("click-login", withDeviceInfo: true);
 
       // redirect
       AuthenticationRepository.instance.screenRedirect();

@@ -2,6 +2,7 @@
 
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/authentication/signup_controller.dart';
@@ -70,6 +71,10 @@ class SignupScreen extends StatelessWidget {
                         TextFormField(
                           controller: controller.name,
                           validator: (value) => TValidator.validateName(value),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'[a-zA-Z0-9\s]')),
+                          ],
                           style: GoogleFonts.poppins(
                               color: const Color(0xFF080A23)),
                           decoration: InputDecoration(
@@ -99,6 +104,11 @@ class SignupScreen extends StatelessWidget {
                           validator: (value) => TValidator.validateEmail(value),
                           style: GoogleFonts.poppins(
                               color: const Color(0xFF080A23)),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r'[a-zA-Z0-9@._-]'),
+                            ),
+                          ],
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFF6F7F9),

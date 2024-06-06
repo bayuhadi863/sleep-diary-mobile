@@ -36,6 +36,8 @@ dependencies:
   flutter_dotenv: ^5.0.2
   device_info_plus: ^8.1.0
   package_info_plus: ^8.0.0
+  loading_animation_widget: ^1.2.1
+
 
 dev_dependencies:
   flutter_test:

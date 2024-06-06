@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/monthly_summary.dart';
 import 'package:sleep_diary_mobile/repositories/advice/advice_repository.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -85,7 +86,8 @@ class _MonthlySummaryState extends State<MonthlySummaryPage> {
   }
 
   Future<void> getAdvice() async {
-    final String advice = await AdviceRepository.monthlyAdvice(widget.month, widget.year);
+    final String advice =
+        await AdviceRepository.monthlyAdvice(widget.month, widget.year);
 
     if (mounted) {
       setState(() {
@@ -140,7 +142,13 @@ class _MonthlySummaryState extends State<MonthlySummaryPage> {
       ),
       backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
       body: isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: LoadingAnimationWidget.flickr(
+                leftDotColor: const Color.fromRGBO(58, 58, 93, 1),
+                rightDotColor: const Color(0xFFFFD670),
+                size: 80,
+              ),
+            )
           : scaleAverage.round() == 0
               ? Center(
                   child: Column(children: [
@@ -153,7 +161,7 @@ class _MonthlySummaryState extends State<MonthlySummaryPage> {
                       height: 80,
                     ),
                     Text(
-                      "Hayo, Ketahuan belum isi bulan ini ...",
+                      "Ooopss, Data bulan ini masih kosong ...",
                       style: GoogleFonts.poppins(
                           color: Colors.white, fontSize: 14),
                     )

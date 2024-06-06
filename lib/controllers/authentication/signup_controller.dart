@@ -4,6 +4,7 @@ import 'package:sleep_diary_mobile/repositories/authentication/authentication_re
 import 'package:sleep_diary_mobile/repositories/user/user_repository.dart';
 import 'package:sleep_diary_mobile/models/user_model.dart';
 import 'package:sleep_diary_mobile/screens/authentication/verify_email.dart';
+import 'package:sleep_diary_mobile/tracker_service.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
 
 class SignupController extends GetxController {
@@ -58,11 +59,16 @@ class SignupController extends GetxController {
 
       // Move to Verify Email Screen
       // Get.to(() => VerifyEmailScreen(email: email.text.trim()));
+      await (TrackerService()).track("click-register", withDeviceInfo: true);
 
       AuthenticationRepository.instance.screenRedirect();
 
       // Stop Loading
       isLoading.value = false;
+      // Clear Text Fields
+      name.clear();
+      email.clear();
+      password.clear();
     } catch (e) {
       // Show some Generic error to the user
       TLoaders.errorSnackBar(

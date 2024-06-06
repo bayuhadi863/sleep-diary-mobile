@@ -9,7 +9,7 @@ class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final currentUser = FirebaseAuth.instance.currentUser!;
+  final currentUser = FirebaseAuth.instance.currentUser;
 
   /// Function to save user data to Firestore
   Future<void> saveUserRecord(UserModel user) async {
@@ -51,7 +51,7 @@ class UserRepository extends GetxController {
   // edit user name by id
   Future<void> editUserName(String name) async {
     try {
-      await _db.collection("users").doc(currentUser.uid).update({'name': name});
+      await _db.collection("users").doc(currentUser!.uid).update({'name': name});
     } on FirebaseException catch (e) {
       throw e.code;
     } on FormatException catch (_) {

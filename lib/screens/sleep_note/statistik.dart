@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_widget_cache.dart';
@@ -268,13 +269,25 @@ class _StatistikPageState extends State<StatistikPage> {
                   child: Visibility(
                     visible: _selectedItem == 'Per Minggu',
                     replacement: isFetchLoading
-                        ? const Center(child: CircularProgressIndicator())
+                        ? Center(
+                            child: LoadingAnimationWidget.flickr(
+                              leftDotColor: const Color.fromRGBO(58, 58, 93, 1),
+                              rightDotColor: const Color(0xFFFFD670),
+                              size: 80,
+                            ),
+                          )
                         : MonthlyChart(
                             monthlyScales: monthlyScales,
                             chartData: chartData,
                           ),
                     child: isFetchLoading
-                        ? const Center(child: CircularProgressIndicator())
+                        ? Center(
+                            child: LoadingAnimationWidget.flickr(
+                              leftDotColor: const Color.fromRGBO(58, 58, 93, 1),
+                              rightDotColor: const Color(0xFFFFD670),
+                              size: 80,
+                            ),
+                          )
                         : WeeklyChart(
                             statisticChartData: chartData,
                           ),

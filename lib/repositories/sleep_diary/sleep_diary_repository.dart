@@ -6,6 +6,7 @@ import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/models/sleep_diary_mode.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sleep_diary_mobile/screens/sleep_note/home_page.dart';
+import 'package:sleep_diary_mobile/tracker_service.dart';
 import 'package:sleep_diary_mobile/widgets/loaders.dart';
 
 class SleepDiaryRepository {
@@ -105,6 +106,7 @@ class SleepDiaryRepository {
       // Show Success Message
       TLoaders.successSnackBar(
           title: 'Selamat!', message: 'Anda berhasil mencatat tidur Anda.');
+      await (TrackerService()).track("create-sleepdiary", withDeviceInfo: true);
 
       // Fetch data SleepDiary
       HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
@@ -120,22 +122,19 @@ class SleepDiaryRepository {
   }
 
   Future<void> updateSleepDiary(BuildContext context) async {
-
     String sleepTime = "$hour1:$minute1";
     String wakeupTime = "$hour2:$minute2";
 
     final editedSleepDiary = SleepDiaryModel(
-      userId: FirebaseAuth.instance.currentUser!.uid,
-      sleepDate: sleepDate,
-      sleepTime: sleepTime,
-      wakeupTime: wakeupTime,
-      scale: scale,
-      factors: factors,
-      description: description
-    );
-    
-    try {
+        userId: FirebaseAuth.instance.currentUser!.uid,
+        sleepDate: sleepDate,
+        sleepTime: sleepTime,
+        wakeupTime: wakeupTime,
+        scale: scale,
+        factors: factors,
+        description: description);
 
+    try {
       if (editedSleepDiary.sleepDate == "") {
         TLoaders.errorSnackBar(
             title: 'Gagal!', message: "Tanggal tidak boleh kosong");
@@ -186,43 +185,48 @@ class SleepDiaryRepository {
       }
 
       final sleepDiary = await FirebaseFirestore.instance
-        .collection('sleepDiaries')
-        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .where('sleepDate', isEqualTo: sleepDate)
-        .get();
+          .collection('sleepDiaries')
+          .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('sleepDate', isEqualTo: sleepDate)
+          .get();
 
       await sleepDiary.docs.first.reference.update(editedSleepDiary.toJson());
+      await (TrackerService()).track("update-sleepdiary", withDeviceInfo: true);
 
-      TLoaders.successSnackBar(title: 'Selamat!', message: 'Anda berhasil memperbarui catatan tidur Anda.');
+      TLoaders.successSnackBar(
+          title: 'Selamat!',
+          message: 'Anda berhasil memperbarui catatan tidur Anda.');
 
       HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
 
       Get.offAll(() => const MainPage());
-    } 
-    catch (error) {
+    } catch (error) {
       throw 'Error $error';
     }
   }
 
   static Future<void> deleteSleepDiary() async {
     try {
-      final sleepDiary = await FirebaseFirestore.instance.collection('sleepDiaries')
-        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .where('sleepDate', isEqualTo: DateFormat.yMMMMEEEEd('en_US').format(HomePage.today))
-        .get();
+      final sleepDiary = await FirebaseFirestore.instance
+          .collection('sleepDiaries')
+          .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .where('sleepDate',
+              isEqualTo: DateFormat.yMMMMEEEEd('en_US').format(HomePage.today))
+          .get();
 
       for (var doc in sleepDiary.docs) {
         await doc.reference.delete();
       }
-      
-      TLoaders.successSnackBar(title: 'Selamat!', message: 'Anda berhasil menghapus catatan tidur Anda.');
+
+      TLoaders.successSnackBar(
+          title: 'Selamat!',
+          message: 'Anda berhasil menghapus catatan tidur Anda.');
+      await (TrackerService()).track("delete-sleepdiary", withDeviceInfo: true);
 
       HomePage.sleepDiaryController.fetchSleepDiaryData(HomePage.today);
 
       Get.offAll(() => const MainPage());
-
-    } 
-    catch (e) {
+    } catch (e) {
       throw 'Error: $e';
     }
   }

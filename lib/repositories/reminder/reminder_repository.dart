@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sleep_diary_mobile/models/reminder_model.dart';
+import 'package:sleep_diary_mobile/tracker_service.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 class ReminderRepository {
@@ -89,12 +90,12 @@ class ReminderRepository {
     await offReminderNotification();
 
     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'SleepDiary2', 'Jangan Lupa Tidur',
+        'SleepDiary3', 'Jangan Lupa Tidur',
         importance: Importance.max,
         priority: Priority.max,
         icon: '@mipmap/launcher_icon',
         playSound: true,
-        sound: RawResourceAndroidNotificationSound("sleep_diary_sound"));
+        sound: RawResourceAndroidNotificationSound("sleepdiary_sound"));
 
     const iOSPlatformChannelSpecifics = DarwinNotificationDetails();
     const notificationDetails = NotificationDetails(

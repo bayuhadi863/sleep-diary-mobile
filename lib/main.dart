@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,15 +30,13 @@ import 'tracker_service.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
-  
+
   final WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized();
-
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then(
@@ -44,7 +44,7 @@ Future<void> main() async {
   );
 
   await (TrackerService()).track("on-open-app", withDeviceInfo: true);
-  
+
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await (TrackerService()).track("on-load-app", withDeviceInfo: true);
@@ -96,7 +96,7 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   // int index = 0;
   static const pages = [
     HomePage(),
@@ -109,6 +109,29 @@ class _MainPageState extends State<MainPage> {
   int selectedIndex = 0;
 
   bool disabled = false;
+  @override
+  initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.detached ||
+        state == AppLifecycleState.paused) {
+      print('clear');
+      await (TrackerService()).track("on-background-app", withDeviceInfo: true);
+    }
+    ;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,133 +139,70 @@ class _MainPageState extends State<MainPage> {
 
     controller = PersistentTabController(initialIndex: 0);
 
-    return Scaffold(
-      body: pages[selectedIndex],
-      extendBody: true,
-      floatingActionButton: Visibility(
-        visible: MediaQuery.of(context).viewInsets.bottom == 0,
-        child: FloatingActionButton(
-          onPressed: () async {
-            if (disabled) {
-              return;
-            }
-            if (HomePage.sleepDiaryController.sleepDiary.value.sleepDate !=
-                '') {
+    return WillPopScope(
+      onWillPop: () async {
+        await (TrackerService()).track("on-quit-app", withDeviceInfo: true);
+        return true;
+      },
+      child: Scaffold(
+        body: pages[selectedIndex],
+        extendBody: true,
+        floatingActionButton: Visibility(
+          visible: MediaQuery.of(context).viewInsets.bottom == 0,
+          child: FloatingActionButton(
+            onPressed: () async {
+              if (disabled) {
+                return;
+              }
+              if (HomePage.sleepDiaryController.sleepDiary.value.sleepDate !=
+                  '') {
+                setState(() {
+                  disabled = true;
+                });
+
+                TLoaders.errorSnackBar(
+                    title: 'Gagal',
+                    message: 'Anda sudah mencatat tidur hari ini.');
+
+                await Future.delayed(const Duration(seconds: 3));
+
+                setState(() {
+                  disabled = false;
+                });
+
+                return;
+              }
+
               setState(() {
-                disabled = true;
+                selectedIndex = 2;
               });
-
-              TLoaders.errorSnackBar(
-                  title: 'Gagal',
-                  message: 'Anda sudah mencatat tidur hari ini.');
-
-              await Future.delayed(const Duration(seconds: 3));
-
-              setState(() {
-                disabled = false;
-              });
-
-              return;
-            }
-
-            setState(() {
-              selectedIndex = 2;
-            });
-          },
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(50),
+            },
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(50),
+              ),
             ),
+            backgroundColor: const Color(0xFF5C6AC0),
+            child: const Icon(Icons.add, color: Colors.white),
           ),
-          backgroundColor: const Color(0xFF5C6AC0),
-          child: const Icon(Icons.add, color: Colors.white),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        height: 60,
-        color: const Color.fromRGBO(38, 38, 66, 1),
-        // shape: const CircularNotchedRectangle(),
-        notchMargin: 5,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Row(
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.home_filled,
-                    color: selectedIndex == 0
-                        ? const Color(0xFF5C6AC0)
-                        : Colors.white,
-                  ),
-                  onPressed: () {
-                    if (selectedIndex == 2) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => confirmDialog(
-                          context,
-                          () {
-                            setState(() {
-                              selectedIndex = 0;
-                            });
-                          },
-                        ),
-                      );
-
-                      return;
-                    }
-                    setState(() {
-                      selectedIndex = 0;
-                    });
-                  },
-                ),
-                const SizedBox(width: 20),
-                IconButton(
-                  icon: Icon(
-                    Icons.poll,
-                    color: selectedIndex == 1
-                        ? const Color(0xFF5C6AC0)
-                        : Colors.white,
-                  ),
-                  onPressed: () {
-                    if (selectedIndex == 2) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => confirmDialog(
-                          context,
-                          () {
-                            setState(() {
-                              selectedIndex = 1;
-                            });
-                          },
-                        ),
-                      );
-
-                      return;
-                    }
-                    setState(() {
-                      selectedIndex = 1;
-                    });
-                  },
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Tooltip(
-                  message: 'Halaman FAQ',
-                  textStyle: GoogleFonts.poppins(color: Colors.white),
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(38, 38, 66, 1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: IconButton(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          height: 60,
+          color: const Color.fromRGBO(38, 38, 66, 1),
+          // shape: const CircularNotchedRectangle(),
+          notchMargin: 5,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                children: [
+                  IconButton(
                     icon: Icon(
-                      Icons.help_center,
-                      color: selectedIndex == 3
+                      Icons.home_filled,
+                      color: selectedIndex == 0
                           ? const Color(0xFF5C6AC0)
                           : Colors.white,
                     ),
@@ -254,7 +214,7 @@ class _MainPageState extends State<MainPage> {
                             context,
                             () {
                               setState(() {
-                                selectedIndex = 3;
+                                selectedIndex = 0;
                               });
                             },
                           ),
@@ -263,43 +223,112 @@ class _MainPageState extends State<MainPage> {
                         return;
                       }
                       setState(() {
-                        selectedIndex = 3;
+                        selectedIndex = 0;
                       });
                     },
                   ),
-                ),
-                const SizedBox(width: 20),
-                IconButton(
-                  icon: Icon(
-                    Icons.person,
-                    color: selectedIndex == 4
-                        ? const Color(0xFF5C6AC0)
-                        : Colors.white,
-                  ),
-                  onPressed: () {
-                    if (selectedIndex == 2) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => confirmDialog(
-                          context,
-                          () {
-                            setState(() {
-                              selectedIndex = 4;
-                            });
-                          },
-                        ),
-                      );
+                  const SizedBox(width: 20),
+                  IconButton(
+                    icon: Icon(
+                      Icons.poll,
+                      color: selectedIndex == 1
+                          ? const Color(0xFF5C6AC0)
+                          : Colors.white,
+                    ),
+                    onPressed: () {
+                      if (selectedIndex == 2) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => confirmDialog(
+                            context,
+                            () {
+                              setState(() {
+                                selectedIndex = 1;
+                              });
+                            },
+                          ),
+                        );
 
-                      return;
-                    }
-                    setState(() {
-                      selectedIndex = 4;
-                    });
-                  },
-                ),
-              ],
-            ),
-          ],
+                        return;
+                      }
+                      setState(() {
+                        selectedIndex = 1;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Tooltip(
+                    message: 'Halaman FAQ',
+                    textStyle: GoogleFonts.poppins(color: Colors.white),
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(38, 38, 66, 1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.help_center,
+                        color: selectedIndex == 3
+                            ? const Color(0xFF5C6AC0)
+                            : Colors.white,
+                      ),
+                      onPressed: () {
+                        if (selectedIndex == 2) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => confirmDialog(
+                              context,
+                              () {
+                                setState(() {
+                                  selectedIndex = 3;
+                                });
+                              },
+                            ),
+                          );
+
+                          return;
+                        }
+                        setState(() {
+                          selectedIndex = 3;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  IconButton(
+                    icon: Icon(
+                      Icons.person,
+                      color: selectedIndex == 4
+                          ? const Color(0xFF5C6AC0)
+                          : Colors.white,
+                    ),
+                    onPressed: () {
+                      if (selectedIndex == 2) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => confirmDialog(
+                            context,
+                            () {
+                              setState(() {
+                                selectedIndex = 4;
+                              });
+                            },
+                          ),
+                        );
+
+                        return;
+                      }
+                      setState(() {
+                        selectedIndex = 4;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -376,15 +405,15 @@ Widget confirmDialog(BuildContext context, VoidCallback onConfirm) {
       mainAxisSize: MainAxisSize.min,
       children: [
         Image.asset(
-          'assets/images/popupad.png',
+          'assets/images/hapusdata22.png',
           width: 150,
           height: 150,
           fit: BoxFit.cover,
         ),
         const SizedBox(height: 8),
-        const Text(
+        Text(
           "Apakah Anda yakin ingin keluar dari halaman ini? Data yang belum tersimpan akan hilang",
-          style: TextStyle(
+          style: GoogleFonts.poppins(
               fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -405,9 +434,9 @@ Widget confirmDialog(BuildContext context, VoidCallback onConfirm) {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text(
+              child: Text(
                 "Batal",
-                style: TextStyle(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.white),
               ),
             ),
           ),
@@ -426,9 +455,9 @@ Widget confirmDialog(BuildContext context, VoidCallback onConfirm) {
                 // Tutup dialog setelah pemanggilan fungsi onConfirm
                 Navigator.of(context).pop();
               },
-              child: const Text(
+              child: Text(
                 "Keluar",
-                style: TextStyle(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.white),
               ),
             ),
           ),

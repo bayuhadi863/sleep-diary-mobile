@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/profile/user_controller.dart';
 import 'package:sleep_diary_mobile/repositories/authentication/authentication_repository.dart';
 import 'package:sleep_diary_mobile/screens/profile/update_profile.dart';
+import 'package:sleep_diary_mobile/tracker_service.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -104,16 +105,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Image.asset(
-                                    'assets/images/logoutpopup.png',
-                                    width: 150,
-                                    height: 150,
+                                    'assets/images/logout22.png',
+                                    width: 120,
+                                    height: 120,
                                     fit: BoxFit.cover,
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
                                     'Apakah Anda yakin ingin logout?',
                                     style: GoogleFonts.poppins(
-                                        fontSize: 18,
+                                        fontSize: 17,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                     textAlign: TextAlign.center,
@@ -172,6 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         );
                         if (confirmLogout == true) {
                           await AuthenticationRepository.instance.logout();
+
                         }
                       },
                 child: Container(

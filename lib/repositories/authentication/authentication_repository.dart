@@ -7,6 +7,7 @@ import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/screens/authentication/login.dart';
 import 'package:sleep_diary_mobile/screens/authentication/onboarding.dart';
 import 'package:sleep_diary_mobile/screens/authentication/verify_email.dart';
+import 'package:sleep_diary_mobile/tracker_service.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -105,7 +106,9 @@ class AuthenticationRepository extends GetxController {
     isLoading.value = true;
 
     try {
+      await (TrackerService()).track("click-logout", withDeviceInfo: true);
       await FirebaseAuth.instance.signOut();
+
       Get.offAll(() => const LoginScreen());
 
       isLoading.value = false;

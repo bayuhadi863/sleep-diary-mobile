@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/current_week_summary.dart';
 import 'package:sleep_diary_mobile/controllers/sleep_diary_summary/last_week_summary.dart';
 import 'package:sleep_diary_mobile/repositories/advice/advice_repository.dart';
@@ -136,8 +137,12 @@ class _SummaryPageState extends State<SummaryPage> {
       ),
       backgroundColor: const Color.fromRGBO(8, 10, 35, 1),
       body: isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
+          ? Center(
+              child: LoadingAnimationWidget.flickr(
+                leftDotColor: const Color.fromRGBO(58, 58, 93, 1),
+                rightDotColor: const Color(0xFFFFD670),
+                size: 80,
+              ),
             )
           : scaleAverage.round() == 0
               ? Center(
@@ -151,7 +156,7 @@ class _SummaryPageState extends State<SummaryPage> {
                       height: 80,
                     ),
                     Text(
-                      "Hayo, Ketahuan belum isi minggu ini ...",
+                      "Ooopss, Data minggu ini masih kosong ...",
                       style: GoogleFonts.poppins(
                           color: Colors.white, fontSize: 14),
                     )
