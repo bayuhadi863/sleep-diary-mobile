@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_diary_mobile/controllers/authentication/onboarding_controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -81,8 +80,7 @@ class OnBoardingScreen extends StatelessWidget {
                         width: 157,
                         height: 49,
                         child: ElevatedButton(
-                          onPressed: () =>
-                              OnBoardingController.instance.skipPage(),
+                          onPressed: () => controller.skipPage(),
                           style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.black,
                             shape: RoundedRectangleBorder(
@@ -103,8 +101,15 @@ class OnBoardingScreen extends StatelessWidget {
                         width: 157,
                         height: 49,
                         child: ElevatedButton(
-                          onPressed: () =>
-                              OnBoardingController.instance.nextPage(),
+                          onPressed: () {
+                            if (controller.pageController.page == 3) {
+                              controller.skipPage();
+                            } else {
+                              controller.pageController.nextPage(
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.ease);
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
@@ -143,8 +148,6 @@ class OnBoardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Stack(
       children: [
         Column(
@@ -175,7 +178,7 @@ class OnBoardingPage extends StatelessWidget {
                     style: GoogleFonts.poppins(
                       fontSize: 15.0,
                       fontWeight: FontWeight.w400,
-                      color: Color.fromRGBO(8, 10, 35, 1),
+                      color: const Color.fromRGBO(8, 10, 35, 1),
                     ),
                   ),
                 ],
