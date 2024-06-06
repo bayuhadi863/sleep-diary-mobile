@@ -29,22 +29,27 @@ class OnBoardingScreen extends StatelessWidget {
             children: const [
               OnBoardingPage(
                 title: 'Selamat Datang',
-              
                 subtitle:
                     'SleepDiary adalah aplikasi pelacak tidur yang intuitif dan mudah digunakan',
                 imagePath: 'assets/images/1.png',
               ),
               OnBoardingPage(
-                title: 'Manfaat',
+                title: 'Pencatat',
                 subtitle:
-                    'Teman Setia dalam perjalanan menuju tidur yang lebih baik',
-                imagePath: 'assets/images/2.png',
+                    'SleepDiary menawarkan fitur pencatatan tidur, di mana Anda dapat merekam detail tidur setiap malam. Pantau pola tidur Anda melalui grafik interaktif untuk pemahaman yang lebih baik dan perbaikan kualitas tidur secara keseluruhan.',
+                imagePath: 'assets/images/pencatat.png',
               ),
               OnBoardingPage(
-                title: 'Tujuan',
+                title: 'Reminder',
                 subtitle:
-                    'Bertujuan untuk membantu Anda memahami dan meningkatkan kualitas tidur Anda',
-                imagePath: 'assets/images/3.png',
+                    'SleepDiary menawarkan fitur pengingat, sehingga Anda tidak akan melewatkan jadwal tidur yang optimal. Tetap teratur dengan pengingat yang disesuaikan untuk membantu Anda memprioritaskan kesehatan tidur setiap hari.',
+                imagePath: 'assets/images/reminder.png',
+              ),
+              OnBoardingPage(
+                title: 'Statistik',
+                subtitle:
+                    'SleepDiary menawarkan grafik dan ringkasan pola tidur mingguan dan bulanan, memungkinkan Anda dengan mudah melacak pola tidur dari waktu ke waktu. Dapatkan wawasan berharga tentang bagaimana pola Anda sepanjang minggu dan bulan.',
+                imagePath: 'assets/images/statistik.png',
               ),
             ],
           ),
@@ -58,7 +63,7 @@ class OnBoardingScreen extends StatelessWidget {
                 children: [
                   SmoothPageIndicator(
                     controller: controller.pageController,
-                    count: 3,
+                    count: 4,
                     effect: WormEffect(
                       dotHeight: 8.0,
                       dotWidth: 24.0,
@@ -87,7 +92,10 @@ class OnBoardingScreen extends StatelessWidget {
                             backgroundColor: Colors.white,
                             shadowColor: Colors.transparent,
                           ),
-                          child: Text('Lewati', style: GoogleFonts.poppins(),),
+                          child: Text(
+                            'Lewati',
+                            style: GoogleFonts.poppins(),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -105,7 +113,10 @@ class OnBoardingScreen extends StatelessWidget {
                             backgroundColor: const Color(0xFF080A23),
                             shadowColor: Colors.transparent,
                           ),
-                          child: Text('Selanjutnya', style: GoogleFonts.poppins(),),
+                          child: Text(
+                            'Selanjutnya',
+                            style: GoogleFonts.poppins(),
+                          ),
                         ),
                       ),
                     ],
