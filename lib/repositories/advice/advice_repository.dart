@@ -164,7 +164,7 @@ class AdviceRepository {
       advice += '${mostMonthlyFactors[0]}.';
     }
 
-    advice += '\n\n${user.name.split(" ")[0]}, coba cek ceberapa tips ini deh!\n\n';
+    advice += '\n\n${user.name.split(" ")[0]}, coba cek beberapa tips ini deh!\n\n';
 
     for (var i = 0; i < mostMonthlyFactors.length; i++) {
       advice += '${factorsAdvices[mostMonthlyFactors[i]]}\n\n';
