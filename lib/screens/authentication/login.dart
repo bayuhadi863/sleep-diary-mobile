@@ -3,8 +3,10 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sleep_diary_mobile/controllers/authentication/login_controller.dart';
 import 'package:sleep_diary_mobile/screens/authentication/signup.dart';
 import 'package:sleep_diary_mobile/utils/validators/validation.dart';
@@ -147,44 +149,43 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           height: 60,
-                          child: Obx(
-                            () => ElevatedButton(
-                              onPressed: controller.disabled.value
-                                  ? null
-                                  : controller.isLoading.isTrue
-                                      ? null // Menonaktifkan button saat isLoading bernilai true
-                                      : () async {
-                                          controller.disabled.value = true;
-                                          controller.emailAndPasswordSignIn();
-                                          // wait 1 second
-                                          await Future.delayed(
-                                              const Duration(seconds: 4));
-                                          controller.disabled.value = false;
-                                        },
-                              style: ButtonStyle(
-                                backgroundColor: controller.isLoading.isTrue
-                                    ? MaterialStateProperty.all(
-                                        const Color(0xFF080A23).withOpacity(
-                                            0.6)) // Atur opasitas warna latar belakang
-                                    : MaterialStateProperty.all(
-                                        const Color(0xFF080A23)),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      14,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Center(
+                                    child: LoadingAnimationWidget.flickr(
+                                      leftDotColor:
+                                          const Color.fromRGBO(58, 58, 93, 1),
+                                      rightDotColor: const Color(0xFFFFD670),
+                                      size: 80,
                                     ),
+                                  );
+                                },
+                                barrierDismissible: false,
+                              );
+
+                              await controller.emailAndPasswordSignIn();
+
+                              // Navigator.of(context).pop();
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  const Color(0xFF080A23)),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    14,
                                   ),
                                 ),
                               ),
-                              child: controller.isLoading.isTrue
-                                  ? const CircularProgressIndicator(
-                                      color: Colors.white)
-                                  : Text(
-                                      'Login',
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                            ),
+                            child: Text(
+                              'Login',
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),

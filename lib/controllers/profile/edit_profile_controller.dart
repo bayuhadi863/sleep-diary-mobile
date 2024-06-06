@@ -11,6 +11,8 @@ class EditProfileController extends GetxController {
   final RxBool fetchLoading = false.obs;
 
   final name = TextEditingController();
+  final RxString oldName = "".obs;
+  final RxBool disabled = false.obs;
 
   @override
   void onInit() {
@@ -25,6 +27,7 @@ class EditProfileController extends GetxController {
       final UserRepository userRepository = Get.put(UserRepository());
       final user = await userRepository.fetchUserDetails();
       name.text = user.name;
+      oldName.value = user.name;
 
       fetchLoading(false);
     } catch (e) {
@@ -43,6 +46,11 @@ class EditProfileController extends GetxController {
       isLoading(false);
       TLoaders.successSnackBar(
           title: "Berhasil!", message: "Nama berhasil diubah!");
+
+      getUserProfile();
+
+      //clear
+      // this.name.clear();
     } catch (e) {
       isLoading(false);
       TLoaders.errorSnackBar(title: "Gagal edit nama!", message: e.toString());

@@ -38,9 +38,6 @@ class LoginController extends GetxController {
       final userCredential = await AuthenticationRepository.instance
           .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-      TLoaders.successSnackBar(
-          title: "Berhasil login!", message: 'Catat tidurmu sekarang juga!');
-
       await (TrackerService()).track("click-login", withDeviceInfo: true);
 
       // redirect
@@ -48,6 +45,9 @@ class LoginController extends GetxController {
 
       // Stop Loading
       isLoading.value = false;
+
+      TLoaders.successSnackBar(
+          title: "Berhasil login!", message: 'Catat tidurmu sekarang juga!');
     } catch (e) {
       TLoaders.errorSnackBar(
         title: 'Login gagal!',

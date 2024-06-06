@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/sleep_diary_repository.dart';
@@ -216,52 +217,43 @@ class _EditSleepPageState extends State<EditSleepPage> {
               GestureDetector(
                 onTap: !isChange
                     ? null
-                    : isLoading || disabled
-                        ? null
-                        : () async {
-                            setState(() {
-                              disabled = true;
-                            });
-
-                            // Start Loading
-                            setState(() {
-                              isLoading = true;
-                            });
-
-                            final repository = SleepDiaryRepository(
-                                sleepDate: DateFormat.yMMMMEEEEd('en_US')
-                                    .format(HomePage.today),
-                                hour1: (time1.value[0] < 10)
-                                    ? "0${time1.value[0]}"
-                                    : time1.value[0].toString(),
-                                minute1: (time1.value[1] < 10)
-                                    ? "0${time1.value[1]}"
-                                    : time1.value[1].toString(),
-                                hour2: (time2.value[0] < 10)
-                                    ? "0${time2.value[0]}"
-                                    : time2.value[0].toString(),
-                                minute2: (time2.value[1] < 10)
-                                    ? "0${time2.value[1]}"
-                                    : time2.value[1].toString(),
-                                scale: scale.value,
-                                factors: factors,
-                                description: description.text);
-
-                            await repository.updateSleepDiary(context);
-
-                            // Stop Loading
-                            setState(() {
-                              isLoading = false;
-                            });
-
-                            await Future.delayed(const Duration(seconds: 3));
-
-                            if (mounted) {
-                              setState(() {
-                                disabled = false;
-                              });
-                            }
+                    : () async {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Center(
+                              child: LoadingAnimationWidget.flickr(
+                                leftDotColor:
+                                    const Color.fromRGBO(58, 58, 93, 1),
+                                rightDotColor: const Color(0xFFFFD670),
+                                size: 80,
+                              ),
+                            );
                           },
+                          barrierDismissible: false,
+                        );
+
+                        final repository = SleepDiaryRepository(
+                            sleepDate: DateFormat.yMMMMEEEEd('en_US')
+                                .format(HomePage.today),
+                            hour1: (time1.value[0] < 10)
+                                ? "0${time1.value[0]}"
+                                : time1.value[0].toString(),
+                            minute1: (time1.value[1] < 10)
+                                ? "0${time1.value[1]}"
+                                : time1.value[1].toString(),
+                            hour2: (time2.value[0] < 10)
+                                ? "0${time2.value[0]}"
+                                : time2.value[0].toString(),
+                            minute2: (time2.value[1] < 10)
+                                ? "0${time2.value[1]}"
+                                : time2.value[1].toString(),
+                            scale: scale.value,
+                            factors: factors,
+                            description: description.text);
+
+                        await repository.updateSleepDiary(context);
+                      },
                 child: Container(
                   height: 50,
                   width: 370,
@@ -422,7 +414,7 @@ class _EditSleepPageState extends State<EditSleepPage> {
                       onTap: () async {
                         final TimeOfDay? pickedTime = await showTimePicker(
                           context: context,
-                              cancelText: 'Batal',
+                          cancelText: 'Batal',
                           confirmText: 'Simpan',
                           helpText: 'Edit Waktu Bangun',
                           initialTime: TimeOfDay(

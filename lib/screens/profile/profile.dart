@@ -66,9 +66,10 @@ class _ProfilePageState extends State<ProfilePage> {
             GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const UpdateProfile()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const UpdateProfile()))
+                    .then((value) => controller.fetchUserRecord());
               },
               child: Container(
                 padding: const EdgeInsets.all(8.0),

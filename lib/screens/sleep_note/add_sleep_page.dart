@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:sleep_diary_mobile/main.dart';
 import 'package:sleep_diary_mobile/repositories/sleep_diary/sleep_diary_repository.dart';
@@ -137,55 +138,42 @@ class _AddSleepPageState extends State<AddSleepPage> {
                 height: 20,
               ),
               GestureDetector(
-                onTap: isLoading || disabled
-                    ? null
-                    : () async {
-                        // Disable Button
-                        setState(() {
-                          disabled = true;
-                        });
+                onTap: () async {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Center(
+                        child: LoadingAnimationWidget.flickr(
+                          leftDotColor: const Color.fromRGBO(58, 58, 93, 1),
+                          rightDotColor: const Color(0xFFFFD670),
+                          size: 80,
+                        ),
+                      );
+                    },
+                    barrierDismissible: false,
+                  );
 
-                        // Start Loading
-                        setState(() {
-                          isLoading = true;
-                        });
+                  final repository = SleepDiaryRepository(
+                      sleepDate:
+                          DateFormat.yMMMMEEEEd('en_US').format(HomePage.today),
+                      hour1: (time1.value[0] < 10)
+                          ? "0${time1.value[0]}"
+                          : time1.value[0].toString(),
+                      minute1: (time1.value[1] < 10)
+                          ? "0${time1.value[1]}"
+                          : time1.value[1].toString(),
+                      hour2: (time2.value[0] < 10)
+                          ? "0${time2.value[0]}"
+                          : time2.value[0].toString(),
+                      minute2: (time2.value[1] < 10)
+                          ? "0${time2.value[1]}"
+                          : time2.value[1].toString(),
+                      scale: scale.value,
+                      factors: factors,
+                      description: description.text);
 
-                        final repository = SleepDiaryRepository(
-                            sleepDate: DateFormat.yMMMMEEEEd('en_US')
-                                .format(HomePage.today),
-                            hour1: (time1.value[0] < 10)
-                                ? "0${time1.value[0]}"
-                                : time1.value[0].toString(),
-                            minute1: (time1.value[1] < 10)
-                                ? "0${time1.value[1]}"
-                                : time1.value[1].toString(),
-                            hour2: (time2.value[0] < 10)
-                                ? "0${time2.value[0]}"
-                                : time2.value[0].toString(),
-                            minute2: (time2.value[1] < 10)
-                                ? "0${time2.value[1]}"
-                                : time2.value[1].toString(),
-                            scale: scale.value,
-                            factors: factors,
-                            description: description.text);
-
-                        await repository.createSleepDiary(context);
-
-                        // Stop Loading
-                        setState(() {
-                          isLoading = false;
-                        });
-
-                        // wait 3 seconds
-                        await Future.delayed(const Duration(seconds: 3));
-
-                        // Enable Button
-                        if (mounted) {
-                          setState(() {
-                            disabled = false;
-                          });
-                        }
-                      },
+                  await repository.createSleepDiary(context);
+                },
                 child: Container(
                   height: 50,
                   width: 370,

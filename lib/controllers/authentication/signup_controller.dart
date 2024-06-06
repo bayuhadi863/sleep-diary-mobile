@@ -52,11 +52,6 @@ class SignupController extends GetxController {
       final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
 
-      // Show Success Message
-      TLoaders.successSnackBar(
-          title: 'Akun berhasil dibuat!',
-          message: 'Catat tidurmu sekarang juga!');
-
       // Move to Verify Email Screen
       // Get.to(() => VerifyEmailScreen(email: email.text.trim()));
       await (TrackerService()).track("click-register", withDeviceInfo: true);
@@ -69,8 +64,17 @@ class SignupController extends GetxController {
       name.clear();
       email.clear();
       password.clear();
+
+      // Show Success Message
+      TLoaders.successSnackBar(
+          title: 'Akun berhasil dibuat!',
+          message: 'Catat tidurmu sekarang juga!');
     } catch (e) {
       // Show some Generic error to the user
+      // Clear Text Fields
+      name.clear();
+      email.clear();
+      password.clear();
       TLoaders.errorSnackBar(
           title: 'Registrasi gagal!', message: getErrorMessage(e.toString()));
 

@@ -6,6 +6,8 @@ class TLoaders {
     Get.snackbar(
       title,
       message,
+      overlayBlur: 0.5,
+      overlayColor: Colors.black.withOpacity(0.5),
       isDismissible: true,
       shouldIconPulse: true,
       colorText: Colors.white,
@@ -24,6 +26,8 @@ class TLoaders {
       title,
       message,
       isDismissible: true,
+      overlayBlur: 0.5,
+      overlayColor: Colors.black.withOpacity(0.5),
       shouldIconPulse: true,
       colorText: Colors.white,
       backgroundColor: Colors.red,
